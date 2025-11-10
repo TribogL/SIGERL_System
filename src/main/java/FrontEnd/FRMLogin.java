@@ -37,11 +37,11 @@ public class FRMLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        Txt_login_pass = new javax.swing.JPasswordField();
+        Btn_login_login = new javax.swing.JButton();
+        Btn_login_cA = new javax.swing.JButton();
+        Btn_login_sIn = new javax.swing.JButton();
+        Txt_login_email = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -68,56 +68,56 @@ public class FRMLogin extends javax.swing.JFrame {
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPasswordField1.setBackground(new java.awt.Color(255, 255, 255));
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        Txt_login_pass.setBackground(new java.awt.Color(255, 255, 255));
+        Txt_login_pass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                Txt_login_passActionPerformed(evt);
             }
         });
-        jPanel3.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 360, -1));
+        jPanel3.add(Txt_login_pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 360, -1));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setForeground(new java.awt.Color(0, 0, 102));
-        jButton1.setText("Login");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Btn_login_login.setBackground(new java.awt.Color(255, 255, 255));
+        Btn_login_login.setForeground(new java.awt.Color(0, 0, 102));
+        Btn_login_login.setText("Login");
+        Btn_login_login.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Btn_login_login.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        Btn_login_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                Btn_login_loginActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 190, -1));
+        jPanel3.add(Btn_login_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 190, -1));
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setForeground(new java.awt.Color(0, 51, 102));
-        jButton2.setText("Create Account");
-        jButton2.setToolTipText("");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        Btn_login_cA.setBackground(new java.awt.Color(255, 255, 255));
+        Btn_login_cA.setForeground(new java.awt.Color(0, 51, 102));
+        Btn_login_cA.setText("Create Account");
+        Btn_login_cA.setToolTipText("");
+        Btn_login_cA.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Btn_login_cA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                Btn_login_cAActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 180, -1));
+        jPanel3.add(Btn_login_cA, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 180, -1));
 
-        jButton3.setBackground(new java.awt.Color(0, 153, 255));
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Sign In");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        Btn_login_sIn.setBackground(new java.awt.Color(0, 153, 255));
+        Btn_login_sIn.setForeground(new java.awt.Color(255, 255, 255));
+        Btn_login_sIn.setText("Sign In");
+        Btn_login_sIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                Btn_login_sInActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 350, -1));
+        jPanel3.add(Btn_login_sIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 360, -1));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setForeground(new java.awt.Color(30, 30, 30));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        Txt_login_email.setBackground(new java.awt.Color(255, 255, 255));
+        Txt_login_email.setForeground(new java.awt.Color(30, 30, 30));
+        Txt_login_email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                Txt_login_emailActionPerformed(evt);
             }
         });
-        jPanel3.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 360, -1));
+        jPanel3.add(Txt_login_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 360, -1));
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -144,25 +144,25 @@ public class FRMLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void Txt_login_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_login_emailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_Txt_login_emailActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void Btn_login_sInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_login_sInActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_Btn_login_sInActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void Btn_login_cAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_login_cAActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_Btn_login_cAActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void Btn_login_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_login_loginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_Btn_login_loginActionPerformed
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void Txt_login_passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_login_passActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_Txt_login_passActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,9 +190,11 @@ public class FRMLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton Btn_login_cA;
+    private javax.swing.JButton Btn_login_login;
+    private javax.swing.JButton Btn_login_sIn;
+    private javax.swing.JTextField Txt_login_email;
+    private javax.swing.JPasswordField Txt_login_pass;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -202,8 +204,6 @@ public class FRMLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
 }
