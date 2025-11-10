@@ -44,6 +44,7 @@ public class FRMLogin extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -130,6 +131,10 @@ public class FRMLogin extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 390, 220));
 
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("© 2025 SIGERL System. All rights reserved.  Developed by Julian Felipe, Sara Álvarez & Carlos Vásquez");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, -1, 20));
+
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 540));
 
@@ -193,6 +198,7 @@ public class FRMLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

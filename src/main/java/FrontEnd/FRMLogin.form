@@ -215,6 +215,19 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="jLabel6">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="&#xa9; 2025 SIGERL System. All rights reserved.  Developed by Julian Felipe, Sara &#xc1;lvarez &amp; Carlos V&#xe1;squez"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="140" y="460" width="-1" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
     <Container class="javax.swing.JPanel" name="jPanel2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
