@@ -15,6 +15,13 @@ public class FRMCreateAccount extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(17, 29, 74, 102)); // 102 = 0.4 * 255
         jPanel3.setOpaque(true);
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(127, 222, 255, 51), 1));
+        jComboProject1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{
+            "Biomedical Analysis", "Chemical Research", "Genetics Division", "Clinical Testing", "Environmental Monitoring"
+        }));
+
+        jComboArea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{
+            "Microbiology", "Toxicology", "Molecular Biology", "Data Science", "Administration", "Quality Control"
+        }));
     }
 
     /**
@@ -39,7 +46,6 @@ public class FRMCreateAccount extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         Txt_CA_LastN = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        Txt_CA_Area = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         Btn_CA_CreateA = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
@@ -47,17 +53,19 @@ public class FRMCreateAccount extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel12 = new javax.swing.JLabel();
         Txt_CA_Name1 = new javax.swing.JTextField();
-        Txt_CA_Project = new javax.swing.JTextField();
+        jComboArea = new javax.swing.JComboBox<>();
+        jComboProject1 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(810, 540));
-        setPreferredSize(new java.awt.Dimension(1000, 666));
+        setMinimumSize(new java.awt.Dimension(1000, 666));
+        setPreferredSize(new java.awt.Dimension(1000, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 700));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -142,15 +150,6 @@ public class FRMCreateAccount extends javax.swing.JFrame {
         jLabel7.setText("LastName:");
         jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 230, -1));
 
-        Txt_CA_Area.setBackground(new java.awt.Color(255, 255, 255));
-        Txt_CA_Area.setForeground(new java.awt.Color(30, 30, 30));
-        Txt_CA_Area.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Txt_CA_AreaActionPerformed(evt);
-            }
-        });
-        jPanel3.add(Txt_CA_Area, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 360, -1));
-
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Name:");
@@ -198,14 +197,15 @@ public class FRMCreateAccount extends javax.swing.JFrame {
         });
         jPanel3.add(Txt_CA_Name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 360, -1));
 
-        Txt_CA_Project.setBackground(new java.awt.Color(255, 255, 255));
-        Txt_CA_Project.setForeground(new java.awt.Color(30, 30, 30));
-        Txt_CA_Project.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Txt_CA_ProjectActionPerformed(evt);
-            }
-        });
-        jPanel3.add(Txt_CA_Project, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 360, -1));
+        jComboArea.setBackground(new java.awt.Color(255, 255, 255));
+        jComboArea.setForeground(new java.awt.Color(0, 0, 0));
+        jComboArea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel3.add(jComboArea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 360, -1));
+
+        jComboProject1.setBackground(new java.awt.Color(255, 255, 255));
+        jComboProject1.setForeground(new java.awt.Color(0, 0, 0));
+        jComboProject1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel3.add(jComboProject1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 360, -1));
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 390, 490));
 
@@ -213,13 +213,13 @@ public class FRMCreateAccount extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Laboratory Information Management");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 360, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 360, -1));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("SIGERL SYSTEM ");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, -1, 50));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, -1, 50));
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("© 2025 SIGERL System. All rights reserved.  Developed by Julian Felipe, Sara Álvarez & Carlos Vásquez");
@@ -252,16 +252,17 @@ public class FRMCreateAccount extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_CA_CAActionPerformed
 
     private void Btn_CA_CreateAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_CA_CreateAActionPerformed
-        String name = Txt_CA_Area.getText().trim();
+        String name = Txt_CA_Name1.getText().trim();
         String lastName = Txt_CA_LastN.getText().trim();
         String email = Txt_CA_email.getText().trim();
         String password = new String(Txt_CA_pass.getPassword()).trim();
         String confirmPassword = new String(Txt_CA_ConPass.getPassword()).trim();
-        String project = Txt_CA_Project.getText().trim();
-        String Area = Txt_CA_Area.getText().trim();
+        String project = (String) jComboProject1.getSelectedItem();
+        String area = (String) jComboArea.getSelectedItem();
         boolean permitions = jCheckBox1.isSelected();
 
-        if (name.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || project.isEmpty()) {
+        // Validaciones
+        if (name.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "All fields are required.", "Validation Error", javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -271,21 +272,18 @@ public class FRMCreateAccount extends javax.swing.JFrame {
             return;
         }
 
-        
-        String phone = "";      // Aún no lo pides, se deja vacío
-        String area = "";       // Pendiente de implementar
-        int cantRequest = 0;    // Siempre 0 por defecto
+        int cantRequest = 0;
+        String phone = ""; // opcional por ahora
 
-        // 5️⃣ Verificar tipo de usuario según 'Permitions'
+        // Diferenciar según 'Permitions'
         if (permitions) {
-            // --- ADMINISTRADOR ---
+            // --- ADMIN ---
             DlgRange dlg = new DlgRange(this, true);
             dlg.setVisible(true);
 
-            // Rango fijo por ahora
+            // Rango fijo temporalmente
             String range = "1";
 
-            // Crear objeto Admin
             Objects.ClsAdmin admin = new Objects.ClsAdmin(
                     null, name, lastName, email, phone, password, project,
                     true, cantRequest, area, range
@@ -296,7 +294,7 @@ public class FRMCreateAccount extends javax.swing.JFrame {
                     "Success", javax.swing.JOptionPane.INFORMATION_MESSAGE);
 
         } else {
-            // --- USUARIO NORMAL ---
+            // --- USER ---
             DlgRole dlg = new DlgRole(this, true);
             dlg.setVisible(true);
             String selectedRole = dlg.getSelectedRole();
@@ -308,7 +306,6 @@ public class FRMCreateAccount extends javax.swing.JFrame {
                 return;
             }
 
-            // Crear objeto User
             Objects.ClsUser user = new Objects.ClsUser(
                     null, name, lastName, email, phone, password, project,
                     false, cantRequest, area, selectedRole
@@ -319,7 +316,7 @@ public class FRMCreateAccount extends javax.swing.JFrame {
                     "Success", javax.swing.JOptionPane.INFORMATION_MESSAGE);
         }
 
-        // 6️⃣ Regresar al login
+        // Redirigir al login
         FRMLogin frm = new FRMLogin();
         frm.setLocationRelativeTo(this);
         frm.setVisible(true);
@@ -338,10 +335,6 @@ public class FRMCreateAccount extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Txt_CA_LastNActionPerformed
 
-    private void Txt_CA_AreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_CA_AreaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Txt_CA_AreaActionPerformed
-
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ActionPerformed
@@ -349,10 +342,6 @@ public class FRMCreateAccount extends javax.swing.JFrame {
     private void Txt_CA_Name1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_CA_Name1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Txt_CA_Name1ActionPerformed
-
-    private void Txt_CA_ProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_CA_ProjectActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Txt_CA_ProjectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -383,14 +372,14 @@ public class FRMCreateAccount extends javax.swing.JFrame {
     private javax.swing.JButton Btn_CA_CA;
     private javax.swing.JButton Btn_CA_CreateA;
     private javax.swing.JButton Btn_CA_login;
-    private javax.swing.JTextField Txt_CA_Area;
     private javax.swing.JPasswordField Txt_CA_ConPass;
     private javax.swing.JTextField Txt_CA_LastN;
     private javax.swing.JTextField Txt_CA_Name1;
-    private javax.swing.JTextField Txt_CA_Project;
     private javax.swing.JTextField Txt_CA_email;
     private javax.swing.JPasswordField Txt_CA_pass;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JComboBox<String> jComboArea;
+    private javax.swing.JComboBox<String> jComboProject1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
