@@ -1,35 +1,33 @@
-
 package Objects;
 
 public abstract class ClsPeople {
 
-    private String IDDNI;
+    private String IDP;
     private String Name;
     private String LastName;
     private String Phone;
     private String Email;
-     private String Password;
+    private String Password;
     private String Project;
     private boolean Permitions;
     private int CantRequest;
     private String Area;
-    
 
     public ClsPeople() {
-        this.IDDNI = IDDNI;
-        this.Name = Name;
-        this.LastName = LastName;
-        this.Email = Email;
-        this.Phone = Phone;
-        this.Password = Password;
-        this.Project = Project;
+        this.IDP = "";
+        this.Name = "";
+        this.LastName = "";
+        this.Email = "";
+        this.Phone = "";
+        this.Password = "";
+        this.Project = "";
         this.Permitions = Permitions;
-        this.CantRequest = CantRequest;
-        this.Area = Area; 
+        this.CantRequest = 0;
+        this.Area = "";
     }
 
-    public ClsPeople(String IDDNI, String Name, String LastName, String Email, String Phone, String Password, String Project, boolean Permitions, int CantRequest, String Area) {
-        this.IDDNI = IDDNI;
+    public ClsPeople(String IDP, String Name, String LastName, String Email, String Phone, String Password, String Project, boolean Permitions, int CantRequest, String Area) {
+        this.IDP = IDP;
         this.Name = Name;
         this.LastName = LastName;
         this.Email = Email;
@@ -41,12 +39,12 @@ public abstract class ClsPeople {
         this.Area = Area;
     }
 
-    public String getIDDNI() {
-        return IDDNI;
+    public String getIDP() {
+        return IDP;
     }
 
-    public void setIDDNI(String IDDNI) {
-        this.IDDNI = IDDNI;
+    public void setIDP(String IDP) {
+        this.IDP = IDP;
     }
 
     public String getName() {
@@ -89,15 +87,15 @@ public abstract class ClsPeople {
         this.Password = Password;
     }
 
-    public String getArea() {
+    public String getProject() {
         return Project;
     }
 
-    public void setArea(String Area) {
-        this.Project = Area;
+    public void setProject(String Project) {
+        this.Project = Project;
     }
 
-    public boolean getPermitions() {
+    public boolean isPermitions() {
         return Permitions;
     }
 
@@ -112,6 +110,14 @@ public abstract class ClsPeople {
     public void setCantRequest(int CantRequest) {
         this.CantRequest = CantRequest;
     }
+
+    public String getArea() {
+        return Area;
+    }
+
+    public void setArea(String Area) {
+        this.Area = Area;
+    }
+
     
-   
 }

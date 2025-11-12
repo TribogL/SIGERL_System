@@ -1,10 +1,9 @@
 
 package BackEnd;
 
-/**
- *
- * @author MSI TIN
- */
+import Objects.ClsAdmin;
+
 public class ClsMetAdmin {
+    
     
 }

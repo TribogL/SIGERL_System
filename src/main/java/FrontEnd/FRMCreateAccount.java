@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package FrontEnd;
 
-/**
- *
- * @author Usuario
- */
 public class FRMCreateAccount extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FRMCreateAccount.class.getName());
 
     /**
@@ -17,9 +9,12 @@ public class FRMCreateAccount extends javax.swing.JFrame {
      */
     public FRMCreateAccount() {
         initComponents();
+        setLocationRelativeTo(null);
         jPanel2.setBackground(new java.awt.Color(0, 0, 0, 90));
         jPanel2.setOpaque(true);
-       
+        jPanel3.setBackground(new java.awt.Color(17, 29, 74, 102)); // 102 = 0.4 * 255
+        jPanel3.setOpaque(true);
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(127, 222, 255, 51), 1));
     }
 
     /**
@@ -33,45 +28,331 @@ public class FRMCreateAccount extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        Txt_CA_pass = new javax.swing.JPasswordField();
+        Btn_CA_login = new javax.swing.JButton();
+        Btn_CA_CA = new javax.swing.JButton();
+        Txt_CA_email = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        Txt_CA_ConPass = new javax.swing.JPasswordField();
+        jLabel6 = new javax.swing.JLabel();
+        Txt_CA_LastN = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        Txt_CA_Area = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        Btn_CA_CreateA = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel12 = new javax.swing.JLabel();
+        Txt_CA_Name1 = new javax.swing.JTextField();
+        Txt_CA_Project = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(810, 540));
-        setPreferredSize(new java.awt.Dimension(810, 540));
+        setPreferredSize(new java.awt.Dimension(1000, 666));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 810, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
-        );
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 540));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\MSI TIN\\Documents\\NetBeansProjects\\SIGERL_System\\src\\main\\Resources\\Images\\BackGround.jpg")); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 540));
+        Txt_CA_pass.setBackground(new java.awt.Color(255, 255, 255));
+        Txt_CA_pass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Txt_CA_passActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Txt_CA_pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 360, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        Btn_CA_login.setBackground(new java.awt.Color(255, 255, 255));
+        Btn_CA_login.setForeground(new java.awt.Color(0, 0, 102));
+        Btn_CA_login.setText("Login");
+        Btn_CA_login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_CA_login.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        Btn_CA_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_CA_loginActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Btn_CA_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 190, -1));
+
+        Btn_CA_CA.setBackground(new java.awt.Color(255, 255, 255));
+        Btn_CA_CA.setForeground(new java.awt.Color(0, 51, 102));
+        Btn_CA_CA.setText("Create Account");
+        Btn_CA_CA.setToolTipText("");
+        Btn_CA_CA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_CA_CA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_CA_CAActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Btn_CA_CA, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 180, -1));
+
+        Txt_CA_email.setBackground(new java.awt.Color(255, 255, 255));
+        Txt_CA_email.setForeground(new java.awt.Color(30, 30, 30));
+        Txt_CA_email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Txt_CA_emailActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Txt_CA_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 360, -1));
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Email");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 230, -1));
+
+        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Password:");
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 230, -1));
+
+        Txt_CA_ConPass.setBackground(new java.awt.Color(255, 255, 255));
+        Txt_CA_ConPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Txt_CA_ConPassActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Txt_CA_ConPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 360, -1));
+
+        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Validate password:");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 230, -1));
+
+        Txt_CA_LastN.setBackground(new java.awt.Color(255, 255, 255));
+        Txt_CA_LastN.setForeground(new java.awt.Color(30, 30, 30));
+        Txt_CA_LastN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Txt_CA_LastNActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Txt_CA_LastN, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 360, -1));
+
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("LastName:");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 230, -1));
+
+        Txt_CA_Area.setBackground(new java.awt.Color(255, 255, 255));
+        Txt_CA_Area.setForeground(new java.awt.Color(30, 30, 30));
+        Txt_CA_Area.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Txt_CA_AreaActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Txt_CA_Area, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 360, -1));
+
+        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Name:");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 230, 20));
+
+        Btn_CA_CreateA.setBackground(new java.awt.Color(0, 153, 255));
+        Btn_CA_CreateA.setForeground(new java.awt.Color(255, 255, 255));
+        Btn_CA_CreateA.setText("Create Account");
+        Btn_CA_CreateA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_CA_CreateA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_CA_CreateAActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Btn_CA_CreateA, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 360, -1));
+
+        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Project:");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 230, -1));
+
+        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Permitions:");
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 70, -1));
+
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, 20, -1));
+
+        jLabel12.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Area:");
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 230, -1));
+
+        Txt_CA_Name1.setBackground(new java.awt.Color(255, 255, 255));
+        Txt_CA_Name1.setForeground(new java.awt.Color(30, 30, 30));
+        Txt_CA_Name1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Txt_CA_Name1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Txt_CA_Name1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 360, -1));
+
+        Txt_CA_Project.setBackground(new java.awt.Color(255, 255, 255));
+        Txt_CA_Project.setForeground(new java.awt.Color(30, 30, 30));
+        Txt_CA_Project.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Txt_CA_ProjectActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Txt_CA_Project, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 360, -1));
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 390, 490));
+
+        jLabel3.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Laboratory Information Management");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 360, -1));
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("SIGERL SYSTEM ");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, -1, 50));
+
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("© 2025 SIGERL System. All rights reserved.  Developed by Julian Felipe, Sara Álvarez & Carlos Vásquez");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 610, -1, 40));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 670));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Background2.jpg"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 670));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 670));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Txt_CA_passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_CA_passActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Txt_CA_passActionPerformed
+
+    private void Btn_CA_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_CA_loginActionPerformed
+        FRMLogin frm = new FRMLogin();         // Crea la nueva ventana
+        frm.setLocationRelativeTo(this);       // La centra respecto a la actual
+        frm.setVisible(true);                  // La muestra
+        this.dispose();                        // Cierra la ventana actual
+    }//GEN-LAST:event_Btn_CA_loginActionPerformed
+
+    private void Btn_CA_CAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_CA_CAActionPerformed
+        this.dispose();
+        new FRMCreateAccount().setVisible(true);
+    }//GEN-LAST:event_Btn_CA_CAActionPerformed
+
+    private void Btn_CA_CreateAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_CA_CreateAActionPerformed
+        String name = Txt_CA_Area.getText().trim();
+        String lastName = Txt_CA_LastN.getText().trim();
+        String email = Txt_CA_email.getText().trim();
+        String password = new String(Txt_CA_pass.getPassword()).trim();
+        String confirmPassword = new String(Txt_CA_ConPass.getPassword()).trim();
+        String project = Txt_CA_Project.getText().trim();
+        String Area = Txt_CA_Area.getText().trim();
+        boolean permitions = jCheckBox1.isSelected();
+
+        if (name.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || project.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "All fields are required.", "Validation Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Passwords do not match.", "Validation Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        
+        String phone = "";      // Aún no lo pides, se deja vacío
+        String area = "";       // Pendiente de implementar
+        int cantRequest = 0;    // Siempre 0 por defecto
+
+        // 5️⃣ Verificar tipo de usuario según 'Permitions'
+        if (permitions) {
+            // --- ADMINISTRADOR ---
+            DlgRange dlg = new DlgRange(this, true);
+            dlg.setVisible(true);
+
+            // Rango fijo por ahora
+            String range = "1";
+
+            // Crear objeto Admin
+            Objects.ClsAdmin admin = new Objects.ClsAdmin(
+                    null, name, lastName, email, phone, password, project,
+                    true, cantRequest, area, range
+            );
+
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Administrator account created successfully!\nName: " + name + " " + lastName,
+                    "Success", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+        } else {
+            // --- USUARIO NORMAL ---
+            DlgRole dlg = new DlgRole(this, true);
+            dlg.setVisible(true);
+            String selectedRole = dlg.getSelectedRole();
+
+            if (selectedRole == null || selectedRole.isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "You must select a role before continuing.",
+                        "Missing Role", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Crear objeto User
+            Objects.ClsUser user = new Objects.ClsUser(
+                    null, name, lastName, email, phone, password, project,
+                    false, cantRequest, area, selectedRole
+            );
+
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "User account created successfully!\nRole: " + selectedRole,
+                    "Success", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        // 6️⃣ Regresar al login
+        FRMLogin frm = new FRMLogin();
+        frm.setLocationRelativeTo(this);
+        frm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_Btn_CA_CreateAActionPerformed
+
+    private void Txt_CA_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_CA_emailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Txt_CA_emailActionPerformed
+
+    private void Txt_CA_ConPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_CA_ConPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Txt_CA_ConPassActionPerformed
+
+    private void Txt_CA_LastNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_CA_LastNActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Txt_CA_LastNActionPerformed
+
+    private void Txt_CA_AreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_CA_AreaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Txt_CA_AreaActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void Txt_CA_Name1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_CA_Name1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Txt_CA_Name1ActionPerformed
+
+    private void Txt_CA_ProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_CA_ProjectActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Txt_CA_ProjectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -99,8 +380,31 @@ public class FRMCreateAccount extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Btn_CA_CA;
+    private javax.swing.JButton Btn_CA_CreateA;
+    private javax.swing.JButton Btn_CA_login;
+    private javax.swing.JTextField Txt_CA_Area;
+    private javax.swing.JPasswordField Txt_CA_ConPass;
+    private javax.swing.JTextField Txt_CA_LastN;
+    private javax.swing.JTextField Txt_CA_Name1;
+    private javax.swing.JTextField Txt_CA_Project;
+    private javax.swing.JTextField Txt_CA_email;
+    private javax.swing.JPasswordField Txt_CA_pass;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }

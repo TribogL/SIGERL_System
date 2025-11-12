@@ -1,13 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package FrontEnd;
 
-/**
- *
- * @author MSI TIN
- */
+import java.awt.Toolkit;
+import java.awt.Image;
+
+import Connection.ClsConnection;
+import javax.swing.JOptionPane;
+import java.sql.*;
+
 public class FRMLogin extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FRMLogin.class.getName());
@@ -17,6 +16,7 @@ public class FRMLogin extends javax.swing.JFrame {
      */
     public FRMLogin() {
         initComponents();
+        setLocationRelativeTo(null);
         jPanel2.setBackground(new java.awt.Color(0, 0, 0, 90));
         jPanel2.setOpaque(true);
         jPanel3.setBackground(new java.awt.Color(17, 29, 74, 102)); // 102 = 0.4 * 255
@@ -39,7 +39,7 @@ public class FRMLogin extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         Txt_login_pass = new javax.swing.JPasswordField();
         Btn_login_login = new javax.swing.JButton();
-        Btn_login_cA = new javax.swing.JButton();
+        Btn_login_CA = new javax.swing.JButton();
         Btn_login_sIn = new javax.swing.JButton();
         Txt_login_email = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -79,7 +79,7 @@ public class FRMLogin extends javax.swing.JFrame {
         Btn_login_login.setBackground(new java.awt.Color(255, 255, 255));
         Btn_login_login.setForeground(new java.awt.Color(0, 0, 102));
         Btn_login_login.setText("Login");
-        Btn_login_login.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Btn_login_login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Btn_login_login.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         Btn_login_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,21 +88,22 @@ public class FRMLogin extends javax.swing.JFrame {
         });
         jPanel3.add(Btn_login_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 190, -1));
 
-        Btn_login_cA.setBackground(new java.awt.Color(255, 255, 255));
-        Btn_login_cA.setForeground(new java.awt.Color(0, 51, 102));
-        Btn_login_cA.setText("Create Account");
-        Btn_login_cA.setToolTipText("");
-        Btn_login_cA.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        Btn_login_cA.addActionListener(new java.awt.event.ActionListener() {
+        Btn_login_CA.setBackground(new java.awt.Color(255, 255, 255));
+        Btn_login_CA.setForeground(new java.awt.Color(0, 51, 102));
+        Btn_login_CA.setText("Create Account");
+        Btn_login_CA.setToolTipText("");
+        Btn_login_CA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_login_CA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Btn_login_cAActionPerformed(evt);
+                Btn_login_CAActionPerformed(evt);
             }
         });
-        jPanel3.add(Btn_login_cA, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 180, -1));
+        jPanel3.add(Btn_login_CA, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 180, -1));
 
         Btn_login_sIn.setBackground(new java.awt.Color(0, 153, 255));
         Btn_login_sIn.setForeground(new java.awt.Color(255, 255, 255));
         Btn_login_sIn.setText("Sign In");
+        Btn_login_sIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Btn_login_sIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_login_sInActionPerformed(evt);
@@ -149,15 +150,67 @@ public class FRMLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_Txt_login_emailActionPerformed
 
     private void Btn_login_sInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_login_sInActionPerformed
-        // TODO add your handling code here:
+        String user, password;
+
+        user = Txt_login_email.getText().trim();
+        password = Txt_login_pass.getText().trim();
+
+        if (user.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter your email to sign in.", "Missing Information", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter your password to sign in.", "Missing Information", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // SQL query (⚠️ For now, this assumes your table and fields exist)
+        String sql = "SELECT * FROM tblAdmin WHERE UserAdmin=? AND PassAdmin=?";
+
+        try {
+            // Create connection
+            Connection conn = new ClsConnection(null).Connect();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, user);
+            ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                // ✅ Login successful
+                JOptionPane.showMessageDialog(this, "Login successful! Welcome back, " + user + ".", "Access Granted", JOptionPane.INFORMATION_MESSAGE);
+
+                // Open next window
+                FRMAdminDashboard home = new FRMAdminDashboard();
+                home.setLocationRelativeTo(this);
+                home.setVisible(true);
+                this.dispose();
+
+            } else {
+                // ❌ Invalid credentials
+                JOptionPane.showMessageDialog(this, "Invalid username or password.", "Access Denied", JOptionPane.ERROR_MESSAGE);
+            }
+
+            rs.close();
+            ps.close();
+            conn.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Database connection failed:\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_Btn_login_sInActionPerformed
 
-    private void Btn_login_cAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_login_cAActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Btn_login_cAActionPerformed
+    private void Btn_login_CAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_login_CAActionPerformed
+        FRMCreateAccount frm = new FRMCreateAccount();
+        frm.setLocationRelativeTo(this); // centra respecto a la anterior
+        frm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_Btn_login_CAActionPerformed
 
     private void Btn_login_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_login_loginActionPerformed
-        // TODO add your handling code here:
+        this.dispose();                     // Cierra la actual
+        new FRMLogin().setVisible(true);    // Vuelve a abrir una nueva
     }//GEN-LAST:event_Btn_login_loginActionPerformed
 
     private void Txt_login_passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_login_passActionPerformed
@@ -190,7 +243,7 @@ public class FRMLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Btn_login_cA;
+    private javax.swing.JButton Btn_login_CA;
     private javax.swing.JButton Btn_login_login;
     private javax.swing.JButton Btn_login_sIn;
     private javax.swing.JTextField Txt_login_email;
