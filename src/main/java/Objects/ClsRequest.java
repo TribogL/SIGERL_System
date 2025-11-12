@@ -7,4 +7,6 @@ package Objects;
  */
 public class ClsRequest {
     
+    private String Date;
+    private String Category;
 }

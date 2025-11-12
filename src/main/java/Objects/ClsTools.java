@@ -1,6 +1,7 @@
-
 package Objects;
 
-public class ClsTools extends ClsPeople{
-        
+public class ClsTools extends ClsPeople {
+
+    
+
 }
