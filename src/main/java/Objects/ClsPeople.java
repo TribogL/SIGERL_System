@@ -2,48 +2,47 @@ package Objects;
 
 public abstract class ClsPeople {
 
-    private String IDP;
+    private int IDP;
     private String Name;
     private String LastName;
     private String Phone;
     private String Email;
     private String Password;
     private String Project;
-    private boolean Permitions;
+    private boolean Permissions;
     private int CantRequest;
     private String Area;
 
     public ClsPeople() {
-        this.IDP = "";
+        this.IDP = 0;
         this.Name = "";
         this.LastName = "";
         this.Email = "";
         this.Phone = "";
         this.Password = "";
         this.Project = "";
-        this.Permitions = Permitions;
+        this.Permissions = Permissions;
         this.CantRequest = 0;
         this.Area = "";
     }
 
-    public ClsPeople(String IDP, String Name, String LastName, String Email, String Phone, String Password, String Project, boolean Permitions, int CantRequest, String Area) {
-        this.IDP = IDP;
+    public ClsPeople(int IDP, String Name, String LastName, String Email, String Phone, String Password, String Project, boolean Permissions, int CantRequest, String Area) {
         this.Name = Name;
         this.LastName = LastName;
         this.Email = Email;
         this.Phone = Phone;
         this.Password = Password;
         this.Project = Project;
-        this.Permitions = Permitions;
+        this.Permissions = Permissions;
         this.CantRequest = CantRequest;
         this.Area = Area;
     }
 
-    public String getIDP() {
+    public int getIDP() {
         return IDP;
     }
 
-    public void setIDP(String IDP) {
+    public void setIDP(int IDP) {
         this.IDP = IDP;
     }
 
@@ -95,12 +94,12 @@ public abstract class ClsPeople {
         this.Project = Project;
     }
 
-    public boolean isPermitions() {
-        return Permitions;
+    public boolean getPermissions() {
+        return Permissions;
     }
 
-    public void setPermitions(boolean Permitions) {
-        this.Permitions = Permitions;
+    public void setPermissions(boolean Permissions) {
+        this.Permissions = Permissions;
     }
 
     public int getCantRequest() {

@@ -9,8 +9,8 @@ public class ClsUser extends ClsPeople {
         this.Rol = "";
     }
 
-    public ClsUser(String IDDNI, String Name, String LastName, String Email, String Phone, String Password, String Project, boolean Permitions, int CantRequest, String Area, String Rol) {
-        super(IDDNI, Name, LastName, Email, Phone, Password, Project, Permitions, CantRequest, Area);
+    public ClsUser(int IDDNI, String Name, String LastName, String Email, String Phone, String Password, String Project, boolean Permissions, int CantRequest, String Area, String Rol) {
+        super(IDDNI, Name, LastName, Email, Phone, Password, Project, Permissions, CantRequest, Area);
         this.Rol = Rol;
 
     }
