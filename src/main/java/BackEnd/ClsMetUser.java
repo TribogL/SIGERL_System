@@ -10,10 +10,22 @@ public class ClsMetUser {
     private final ClsConnection conexion;
 
     public ClsMetUser() {
-        this.conexion = new ClsConnection(null);
+        this.conexion = new ClsConnection();
+
     }
 
-    public boolean insertUser(ClsUser user) {
+    public boolean emailExistsUser(String email) {
+        String sql = "SELECT EmailUser FROM tbluser WHERE EmailUser = ?";
+        try (Connection cn = conexion.Connect(); PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setString(1, email);
+            return ps.executeQuery().next(); // true si existe
+        } catch (Exception e) {
+            System.err.println("Error checking USER email: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean addUser(ClsUser user) {
 
         String sql = "INSERT INTO tbluser "
                 + "(NameUser, LastNameUser, PhoneUser, EmailUser, PasswordUser, "
@@ -26,10 +38,12 @@ public class ClsMetUser {
             ps.setString(2, user.getLastName());
             ps.setString(3, user.getPhone());
             ps.setString(4, user.getEmail());
-            ps.setBoolean(7, user.getPermissions());   // false para user normal
-            ps.setInt(8, user.getCantRequest());      // 0 por defecto
-            ps.setString(9, user.getArea());          // AreaUser
-            ps.setString(10, user.getRol());          // RolUser
+            ps.setString(5, user.getPassword());
+            ps.setString(6, user.getProject());
+            ps.setBoolean(7, user.getPermissions());
+            ps.setInt(8, user.getCantRequest());
+            ps.setString(9, user.getArea());
+            ps.setString(10, user.getRol());
 
             return ps.executeUpdate() > 0;
 

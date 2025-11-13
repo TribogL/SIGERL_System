@@ -31,7 +31,11 @@ public class DlgRole extends javax.swing.JDialog {
                     "--- Clinical / Environmental ---",
                     "Clinical Lab Technologist", "Pathology Assistant", "Environmental Analyst", "Hematology Technician",
                     "--- Specialized / Advanced ---",
-                    "Bioinformatics Specialist", "Process Development Engineer", "Forensic Analyst", "Genetic Sequencing Specialist"
+                    "Bioinformatics Specialist", "Process Development Engineer", "Forensic Analyst", "Genetic Sequencing Specialist",
+                     "--- Development---",
+                     "FrontEnd",
+                     "BackEnd",
+                     "DB"
                 }));
         // Renderer personalizado
         JcomboBoxRol.setRenderer(new javax.swing.plaf.basic.BasicComboBoxRenderer() {

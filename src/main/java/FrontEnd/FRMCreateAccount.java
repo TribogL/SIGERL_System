@@ -1,8 +1,18 @@
 package FrontEnd;
 
+import BackEnd.ClsMetAdmin;
+import BackEnd.ClsMetUser;
+import Objects.ClsAdmin;
+import Objects.ClsUser;
+import javax.swing.JOptionPane;
+
 public class FRMCreateAccount extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FRMCreateAccount.class.getName());
+
+    private boolean isValidEmail(String email) {
+        return email.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+    }
 
     /**
      * Creates new form FRMCreateAccount
@@ -54,7 +64,9 @@ public class FRMCreateAccount extends javax.swing.JFrame {
             "Data Analytics for Lab Operations",
             "Digital Record Modernization",
             "Field Sampling Operations",
-            "Waste Management Optimization"
+            "Waste Management Optimization",
+            "— DEVELOPMENT PROJECTS —",
+            "SIGERL System"
         }));
 
 // Aplicar renderer
@@ -103,7 +115,9 @@ public class FRMCreateAccount extends javax.swing.JFrame {
             "Data Science & Analytics",
             "Bioinformatics",
             "Administration",
-            "Logistics"
+            "Logistics",
+            "— Development Area—",
+            "Java Developer"
         }));
 
         jComboArea.setRenderer(new CategoryRenderer());
@@ -293,7 +307,7 @@ public class FRMCreateAccount extends javax.swing.JFrame {
                 Btn_CA_CreateAActionPerformed(evt);
             }
         });
-        jPanel3.add(Btn_CA_CreateA, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 360, -1));
+        jPanel3.add(Btn_CA_CreateA, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 360, 30));
 
         jLabel10.setBackground(new java.awt.Color(255, 255, 255));
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -381,6 +395,7 @@ public class FRMCreateAccount extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_CA_CAActionPerformed
 
     private void Btn_CA_CreateAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_CA_CreateAActionPerformed
+        // 1️⃣ Obtener valores
         String name = Txt_CA_Name1.getText().trim();
         String lastName = Txt_CA_LastN.getText().trim();
         String email = Txt_CA_email.getText().trim();
@@ -390,67 +405,129 @@ public class FRMCreateAccount extends javax.swing.JFrame {
         String area = (String) jComboArea.getSelectedItem();
         boolean Permissions = jCheckBox1.isSelected();
 
-        // Validaciones
-        if (name.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "All fields are required.", "Validation Error", javax.swing.JOptionPane.WARNING_MESSAGE);
+        // 2️⃣ Validación básica
+        if (name.isEmpty() || lastName.isEmpty() || email.isEmpty()
+                || password.isEmpty() || confirmPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "All fields are required.",
+                    "Validation Error",
+                    JOptionPane.WARNING_MESSAGE);
             return;
         }
 
+        // 3️⃣ Validación del correo
+        if (!isValidEmail(email)) {
+            JOptionPane.showMessageDialog(this,
+                    "Please enter a valid email (example: user@mail.com).",
+                    "Invalid Email",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 4️⃣ Validación contraseña
         if (!password.equals(confirmPassword)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Passwords do not match.", "Validation Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Passwords do not match.",
+                    "Validation Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         int cantRequest = 0;
-        String phone = ""; // opcional por ahora
+        String phone = ""; // Por ahora vacío
 
-        // Diferenciar según 'Permissions'
+        // ======================================================
+        // 5️⃣ ADMIN
+        // ======================================================
         if (Permissions) {
-            // --- ADMIN ---
+
+            ClsMetAdmin metA = new ClsMetAdmin();
+
+            // Verificar duplicado
+            if (metA.emailExistsAdmin(email)) {
+                JOptionPane.showMessageDialog(this,
+                        "This email is already registered as Administrator.",
+                        "Duplicate Email",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Abrir DlgRange
             DlgRange dlg = new DlgRange(this, true);
             dlg.setVisible(true);
 
-            // Rango fijo temporalmente
-            String range = "1";
+            String range = "1"; // Temporal
 
-            Objects.ClsAdmin admin = new Objects.ClsAdmin(
+            ClsAdmin admin = new ClsAdmin(
                     0, name, lastName, email, phone, password, project,
                     true, cantRequest, area, range
             );
 
+            boolean ok = metA.addAdmin(admin);
 
-            javax.swing.JOptionPane.showMessageDialog(this,
-                    "Administrator account created successfully!\nName: " + name + " " + lastName,
-                    "Success", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            if (ok) {
+                JOptionPane.showMessageDialog(this,
+                        "Administrator account created successfully!",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Error saving administrator.",
+                        "Database Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
 
         } else {
-            // --- USER ---
-            DlgRole dlg = new DlgRole(this, true);
-            dlg.setVisible(true);
-            String selectedRole = dlg.getSelectedRole();
 
-            if (selectedRole == null || selectedRole.isEmpty()) {
-                javax.swing.JOptionPane.showMessageDialog(this,
-                        "You must select a role before continuing.",
-                        "Missing Role", javax.swing.JOptionPane.WARNING_MESSAGE);
+            // ======================================================
+            // 6️⃣ USER
+            // ======================================================
+            ClsMetUser metU = new ClsMetUser();
+
+            if (metU.emailExistsUser(email)) {
+                JOptionPane.showMessageDialog(this,
+                        "This email is already registered.",
+                        "Duplicate Email",
+                        JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            Objects.ClsUser user = new Objects.ClsUser(
+            // Abrir DlgRole
+            DlgRole dlg = new DlgRole(this, true);
+            dlg.setVisible(true);
+
+            String selectedRole = dlg.getSelectedRole();
+
+            if (selectedRole == null || selectedRole.isEmpty()) {
+                JOptionPane.showMessageDialog(this,
+                        "You must select a role before continuing.",
+                        "Missing Role",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            ClsUser user = new ClsUser(
                     0, name, lastName, email, phone, password, project,
                     false, cantRequest, area, selectedRole
             );
 
+            boolean ok = metU.addUser(user);
 
-            javax.swing.JOptionPane.showMessageDialog(this,
-                    "User account created successfully!\nRole: " + selectedRole,
-                    "Success", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            if (ok) {
+                JOptionPane.showMessageDialog(this,
+                        "User account created successfully!",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Error saving user.",
+                        "Database Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
 
-        // Redirigir al login
-        FRMLogin frm = new FRMLogin();
-        frm.setLocationRelativeTo(this);
-        frm.setVisible(true);
+        // 7️⃣ Regresar al Login
+        new FRMLogin().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_Btn_CA_CreateAActionPerformed
 

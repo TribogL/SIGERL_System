@@ -4,16 +4,29 @@ import Connection.ClsConnection;
 import Objects.ClsAdmin;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
 
 public class ClsMetAdmin {
 
     private final ClsConnection conexion;
 
     public ClsMetAdmin() {
-        this.conexion = new ClsConnection(null);
+        this.conexion = new ClsConnection();
+
     }
 
-    public boolean insertAdmin(ClsAdmin admin) {
+    public boolean emailExistsAdmin(String email) {
+        String sql = "SELECT EmailAdmin FROM tbladmin WHERE EmailAdmin = ?";
+        try (Connection cn = conexion.Connect(); PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setString(1, email);
+            return ps.executeQuery().next(); // true si existe
+        } catch (Exception e) {
+            System.err.println("Error checking ADMIN email: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean addAdmin(ClsAdmin admin) {
 
         String sql = "INSERT INTO tbladmin "
                 + "(NameAdmin, LastNameAdmin, PhoneAdmin, EmailAdmin, PasswordAdmin, "
@@ -36,7 +49,8 @@ public class ClsMetAdmin {
             return ps.executeUpdate() > 0;
 
         } catch (Exception e) {
-            System.err.println("Error inserting ADMIN: " + e.getMessage());
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.toString(), "SQL Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }

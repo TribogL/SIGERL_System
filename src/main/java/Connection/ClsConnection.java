@@ -5,15 +5,13 @@ import javax.swing.JOptionPane;
 
 public class ClsConnection {
 
-    //Global Variable
     Connection CN;
 
-    public ClsConnection(Connection CN) {
-
+    // ✔️ Constructor SIN parámetros
+    public ClsConnection() {
     }
 
     public Connection Connect() {
-
         try {
             String URL, User, Password;
 
@@ -21,17 +19,17 @@ public class ClsConnection {
             User = "root";
             Password = "";
 
-            Class.forName("com.mysql.cj.jdbc.Driver"); // Esto es por algo dentro del JAR
+            Class.forName("com.mysql.cj.jdbc.Driver"); 
             CN = DriverManager.getConnection(URL, User, Password);
 
             if (CN != null) {
-                JOptionPane.showMessageDialog(null, "Connection Succesfully!");
+                System.out.println("Connection Successfully!"); 
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "The connection was not established." + e.getMessage());
+            JOptionPane.showMessageDialog(null,
+                    "The connection was not established: " + e.getMessage());
         }
         return CN;
     }
-
 }

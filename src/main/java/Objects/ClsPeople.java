@@ -118,5 +118,8 @@ public abstract class ClsPeople {
         this.Area = Area;
     }
 
-    
+    public boolean isPermissions() {
+        return Permissions;
+    }
+
 }

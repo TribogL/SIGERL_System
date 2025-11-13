@@ -170,7 +170,7 @@ public class FRMLogin extends javax.swing.JFrame {
 
         try {
             // Create connection
-            Connection conn = new ClsConnection(null).Connect();
+            Connection conn = new ClsConnection().Connect();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, user);
             ps.setString(2, password);
