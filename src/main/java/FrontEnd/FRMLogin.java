@@ -150,54 +150,37 @@ public class FRMLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_Txt_login_emailActionPerformed
 
     private void Btn_login_sInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_login_sInActionPerformed
-        String user, password;
+        String email = Txt_login_email.getText().trim();
+        String pass = new String(Txt_login_pass.getPassword()).trim();
 
-        user = Txt_login_email.getText().trim();
-        password = Txt_login_pass.getText().trim();
-
-        if (user.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter your email to sign in.", "Missing Information", JOptionPane.WARNING_MESSAGE);
+        if (email.isEmpty() || pass.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields.", "Missing Data", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        if (password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter your password to sign in.", "Missing Information", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        BackEnd.ClsMetAuth auth = new BackEnd.ClsMetAuth();
+        int result = auth.login(email, pass);
 
-        // SQL query (⚠️ For now, this assumes your table and fields exist)
-        String sql = "SELECT * FROM tblAdmin WHERE UserAdmin=? AND PassAdmin=?";
-
-        try {
-            // Create connection
-            Connection conn = new ClsConnection().Connect();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, user);
-            ps.setString(2, password);
-
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                // ✅ Login successful
-                JOptionPane.showMessageDialog(this, "Login successful! Welcome back, " + user + ".", "Access Granted", JOptionPane.INFORMATION_MESSAGE);
-
-                // Open next window
-                FRMAdminDashboard home = new FRMAdminDashboard();
-                home.setLocationRelativeTo(this);
-                home.setVisible(true);
+        switch (result) {
+            case 1:
+                JOptionPane.showMessageDialog(this, "Welcome Administrator!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                new FRMAdminDashboard().setVisible(true);
                 this.dispose();
+                break;
 
-            } else {
-                // ❌ Invalid credentials
-                JOptionPane.showMessageDialog(this, "Invalid username or password.", "Access Denied", JOptionPane.ERROR_MESSAGE);
-            }
+            case 0:
+                JOptionPane.showMessageDialog(this, "Welcome User!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                new FRMUserDashboard().setVisible(true);
+                this.dispose();
+                break;
 
-            rs.close();
-            ps.close();
-            conn.close();
+            case -1:
+                JOptionPane.showMessageDialog(this, "Invalid email or password.", "Access Denied", JOptionPane.ERROR_MESSAGE);
+                break;
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Database connection failed:\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            default:
+                JOptionPane.showMessageDialog(this, "Unexpected error during login.", "System Error", JOptionPane.ERROR_MESSAGE);
+                break;
         }
     }//GEN-LAST:event_Btn_login_sInActionPerformed
 

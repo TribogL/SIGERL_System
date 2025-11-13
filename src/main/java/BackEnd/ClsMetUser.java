@@ -4,6 +4,7 @@ import Connection.ClsConnection;
 import Objects.ClsUser;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class ClsMetUser {
 
@@ -15,13 +16,21 @@ public class ClsMetUser {
     }
 
     public boolean emailExistsUser(String email) {
-        String sql = "SELECT EmailUser FROM tbluser WHERE EmailUser = ?";
+        String sql = "SELECT EmailUser AS email FROM tblUser WHERE EmailUser=? "
+                + "UNION "
+                + "SELECT EmailAdmin AS email FROM tblAdmin WHERE EmailAdmin=?";
+
         try (Connection cn = conexion.Connect(); PreparedStatement ps = cn.prepareStatement(sql)) {
+
             ps.setString(1, email);
-            return ps.executeQuery().next(); // true si existe
+            ps.setString(2, email);
+
+            ResultSet rs = ps.executeQuery();
+            return rs.next(); // true si existe
+
         } catch (Exception e) {
-            System.err.println("Error checking USER email: " + e.getMessage());
-            return false;
+            System.err.println("Error checking email: " + e.getMessage());
+            return true; // Por seguridad
         }
     }
 

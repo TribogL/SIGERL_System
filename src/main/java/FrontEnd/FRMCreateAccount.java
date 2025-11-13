@@ -446,7 +446,7 @@ public class FRMCreateAccount extends javax.swing.JFrame {
             // Verificar duplicado
             if (metA.emailExistsAdmin(email)) {
                 JOptionPane.showMessageDialog(this,
-                        "This email is already registered as Administrator.",
+                        "This email is already registered.",
                         "Duplicate Email",
                         JOptionPane.WARNING_MESSAGE);
                 return;

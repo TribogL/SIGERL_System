@@ -17,6 +17,8 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
      */
     public FRMAdminDashboard() {
         initComponents();
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0, 90));
+        jPanel2.setOpaque(true);
     }
 
     /**
@@ -28,18 +30,25 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 508, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 382, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel2.setPreferredSize(new java.awt.Dimension(1000, 700));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 690));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Background2.jpg"))); // NOI18N
+        jLabel1.setMaximumSize(new java.awt.Dimension(1000, 700));
+        jLabel1.setMinimumSize(new java.awt.Dimension(1000, 700));
+        jLabel1.setPreferredSize(new java.awt.Dimension(1000, 700));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 1000, 730));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -70,5 +79,8 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
