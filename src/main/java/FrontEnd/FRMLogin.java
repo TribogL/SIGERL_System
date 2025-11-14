@@ -2,7 +2,6 @@ package FrontEnd;
 
 import java.awt.Toolkit;
 import java.awt.Image;
-
 import Connection.ClsConnection;
 import javax.swing.JOptionPane;
 import java.sql.*;

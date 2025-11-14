@@ -5,6 +5,9 @@ import BackEnd.ClsMetUser;
 import Objects.ClsAdmin;
 import Objects.ClsUser;
 import javax.swing.JOptionPane;
+import java.awt.Toolkit;
+import java.awt.Image;
+
 
 public class FRMCreateAccount extends javax.swing.JFrame {
 

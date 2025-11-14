@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
-package FrontEnd;
 
-/**
- *
- * @author MSI TIN
- */
+package FrontEnd;
+import java.awt.Toolkit;
+import java.awt.Image;
+
 public class DlgRange extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgRange.class.getName());

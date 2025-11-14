@@ -1,13 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package FrontEnd;
 
-/**
- *
- * @author MSI TIN
- */
+import java.awt.Toolkit;
+import java.awt.Image;
+
 public class FRMAdminDashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FRMAdminDashboard.class.getName());
@@ -30,8 +26,19 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jPanel14 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -42,12 +49,46 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
 
         jPanel2.setPreferredSize(new java.awt.Dimension(1000, 700));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel3.setBackground(new java.awt.Color(102, 255, 255));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 80));
+
+        jPanel4.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Quick Actions ");
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 130, -1));
+
+        jButton1.setText("jButton1");
+        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 230, -1));
+
+        jButton2.setText("jButton2");
+        jPanel4.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 230, -1));
+
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 240, 320));
+
+        jPanel14.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Recent Activity ");
+        jPanel14.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jPanel14.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 153, 650, 10));
+
+        jPanel2.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 170, 650, 320));
+
+        jButton3.setText("jButton3");
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 520, 200, 140));
+
+        jButton4.setText("jButton4");
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 520, 200, 140));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 690));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Background2.jpg"))); // NOI18N
-        jLabel1.setMaximumSize(new java.awt.Dimension(1000, 700));
-        jLabel1.setMinimumSize(new java.awt.Dimension(1000, 700));
-        jLabel1.setPreferredSize(new java.awt.Dimension(1000, 700));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 1000, 730));
 
         pack();
@@ -79,8 +120,19 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

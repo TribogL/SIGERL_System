@@ -1,5 +1,9 @@
 package FrontEnd;
 
+import java.awt.Toolkit;
+import java.awt.Image;
+
+
 public class DlgRole extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgRole.class.getName());
