@@ -8,6 +8,6 @@ package Objects;
  *
  * @author MSI TIN
  */
-public class CLsAdmin {
+public class ClsAdmin {
     
 }
