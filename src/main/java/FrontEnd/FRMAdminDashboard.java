@@ -1,11 +1,16 @@
-
 package FrontEnd;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.Image;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class FRMAdminDashboard extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FRMAdminDashboard.class.getName());
 
     /**
@@ -13,8 +18,68 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
      */
     public FRMAdminDashboard() {
         initComponents();
-        jPanel2.setBackground(new java.awt.Color(0, 0, 0, 90));
+
+        // === Fondo general semitransparente ===
+        jPanel2.setBackground(new Color(0, 0, 0, 90));
         jPanel2.setOpaque(true);
+
+        // === Navbar estilo ===
+        jPanelNavbar.setBackground(new Color(127, 222, 255, 90)); // azul clarito, semitransparente
+        jPanelNavbar.setOpaque(true);
+        jPanelNavbar.setBorder(
+                javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(255, 255, 255, 60))
+        );
+
+        // === Quick Actions Panel (Card Left) ===
+        jPanelQuickActions.setBackground(new Color(127, 222, 255, 140));
+        jPanelQuickActions.setOpaque(true);
+        jPanelQuickActions.setBorder(
+                javax.swing.BorderFactory.createLineBorder(new Color(255, 255, 255, 70), 1)
+        );
+
+        // === Recent Activity Panel (Card Right) ===
+        jPanelRecentActivity.setBackground(new Color(127, 222, 255, 140));
+        jPanelRecentActivity.setOpaque(true);
+        jPanelRecentActivity.setBorder(
+                javax.swing.BorderFactory.createLineBorder(new Color(255, 255, 255, 70), 1)
+        );
+
+        // === Recent Activity Panel (Card Right) ===
+        jPanelEquipmentReservation.setBackground(new Color(127, 222, 255, 140));
+        jPanelEquipmentReservation.setOpaque(true);
+        jPanelEquipmentReservation.setBorder(
+                javax.swing.BorderFactory.createLineBorder(new Color(255, 255, 255, 70), 1)
+        );
+
+        // === Inventory Management Panel (Card Rigth Down) ===
+        jPanelInventoryManagement.setBackground(new Color(127, 222, 255, 140));
+        jPanelInventoryManagement.setOpaque(true);
+        jPanelInventoryManagement.setBorder(
+                javax.swing.BorderFactory.createLineBorder(new Color(255, 255, 255, 70), 1)
+        );
+
+    }
+
+    private void styleOutlineButton(javax.swing.JButton btn) {
+        btn.setFocusPainted(false);
+        btn.setContentAreaFilled(true);
+        btn.setOpaque(true);
+
+        btn.setBackground(new Color(255, 255, 255, 0)); // transparente
+        btn.setForeground(new Color(60, 60, 60));      // texto gris oscuro
+        btn.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(200, 200, 200))); // borde gris claro
+
+        btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn.setBackground(new Color(245, 245, 245)); // gris claro al hover (#f5f5f5)
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn.setBackground(new Color(255, 255, 255, 0)); // transparente de nuevo
+            }
+        });
     }
 
     /**
@@ -26,19 +91,25 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
+        jPanelNavbar = new javax.swing.JPanel();
+        jPanelQuickActions = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jPanel14 = new javax.swing.JPanel();
+        jButtonRegisterNewSample = new javax.swing.JButton();
+        jButtonReserveEquipment = new javax.swing.JButton();
+        jPanelRecentActivity = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jPanelEquipmentReservation = new javax.swing.JPanel();
+        jButtonReservationSystem = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanelInventoryManagement = new javax.swing.JPanel();
+        jButtonInventoryManagement = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -50,41 +121,88 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(1000, 700));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel3.setBackground(new java.awt.Color(102, 255, 255));
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 80));
+        jPanelNavbar.setBackground(new java.awt.Color(102, 255, 255));
+        jPanel2.add(jPanelNavbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 80));
 
-        jPanel4.setBackground(new java.awt.Color(0, 153, 153));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelQuickActions.setBackground(new java.awt.Color(0, 153, 153));
+        jPanelQuickActions.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Quick Actions ");
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 130, -1));
+        jPanelQuickActions.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 130, -1));
 
-        jButton1.setText("jButton1");
-        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 230, -1));
+        jButtonRegisterNewSample.setBackground(new java.awt.Color(0, 102, 255));
+        jButtonRegisterNewSample.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonRegisterNewSample.setText("Register New Sample");
+        jPanelQuickActions.add(jButtonRegisterNewSample, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 230, -1));
 
-        jButton2.setText("jButton2");
-        jPanel4.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 230, -1));
+        jButtonReserveEquipment.setBackground(new java.awt.Color(0, 102, 255));
+        jButtonReserveEquipment.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonReserveEquipment.setText("Reserve Equipment");
+        jPanelQuickActions.add(jButtonReserveEquipment, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 230, -1));
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 240, 320));
+        jPanel2.add(jPanelQuickActions, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 240, 320));
 
-        jPanel14.setBackground(new java.awt.Color(0, 153, 153));
-        jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelRecentActivity.setBackground(new java.awt.Color(0, 153, 153));
+        jPanelRecentActivity.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Recent Activity ");
-        jPanel14.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-        jPanel14.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 153, 650, 10));
+        jPanelRecentActivity.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jPanel2.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 170, 650, 320));
+        jPanel2.add(jPanelRecentActivity, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 170, 650, 320));
 
-        jButton3.setText("jButton3");
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 520, 200, 140));
+        jPanelEquipmentReservation.setBackground(new java.awt.Color(0, 153, 153));
+        jPanelEquipmentReservation.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton4.setText("jButton4");
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 520, 200, 140));
+        jButtonReservationSystem.setForeground(new java.awt.Color(0, 0, 0));
+        jButtonReservationSystem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/clipboard-document-list.png"))); // NOI18N
+        jButtonReservationSystem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReservationSystemActionPerformed(evt);
+            }
+        });
+        jPanelEquipmentReservation.add(jButtonReservationSystem, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 50));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Reservations System");
+        jPanelEquipmentReservation.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 210, -1));
+
+        jLabel5.setText("Schedule and manage equipment");
+        jPanelEquipmentReservation.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 180, 20));
+
+        jLabel6.setText("usage");
+        jPanelEquipmentReservation.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 70, -1));
+
+        jPanel2.add(jPanelEquipmentReservation, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 500, 230, 150));
+
+        jPanelInventoryManagement.setBackground(new java.awt.Color(0, 153, 153));
+        jPanelInventoryManagement.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonInventoryManagement.setForeground(new java.awt.Color(0, 0, 0));
+        jButtonInventoryManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/box.png"))); // NOI18N
+        jButtonInventoryManagement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInventoryManagementActionPerformed(evt);
+            }
+        });
+        jPanelInventoryManagement.add(jButtonInventoryManagement, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 50));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Inventory Management");
+        jPanelInventoryManagement.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 210, -1));
+
+        jLabel8.setText("Track Reagents, Consumables and");
+        jPanelInventoryManagement.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 180, 20));
+
+        jLabel9.setText("supplies");
+        jPanelInventoryManagement.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 70, -1));
+
+        jPanel2.add(jPanelInventoryManagement, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 500, 230, 150));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 690));
 
@@ -93,6 +211,20 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonReservationSystemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReservationSystemActionPerformed
+        FRMReservations frm = new FRMReservations();
+        frm.setLocationRelativeTo(this); // centra respecto a la anterior
+        frm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonReservationSystemActionPerformed
+
+    private void jButtonInventoryManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInventoryManagementActionPerformed
+        FRMInventory frm = new FRMInventory();
+        frm.setLocationRelativeTo(this); // centra respecto a la anterior
+        frm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonInventoryManagementActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,19 +252,25 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonInventoryManagement;
+    private javax.swing.JButton jButtonRegisterNewSample;
+    private javax.swing.JButton jButtonReservationSystem;
+    private javax.swing.JButton jButtonReserveEquipment;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel jPanelEquipmentReservation;
+    private javax.swing.JPanel jPanelInventoryManagement;
+    private javax.swing.JPanel jPanelNavbar;
+    private javax.swing.JPanel jPanelQuickActions;
+    private javax.swing.JPanel jPanelRecentActivity;
     // End of variables declaration//GEN-END:variables
 }
