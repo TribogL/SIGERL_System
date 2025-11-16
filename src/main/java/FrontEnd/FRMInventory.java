@@ -1,11 +1,10 @@
-
 package FrontEnd;
 
 import java.awt.Toolkit;
 import java.awt.Image;
 
 public class FRMInventory extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FRMInventory.class.getName());
 
     /**
@@ -24,21 +23,208 @@ public class FRMInventory extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        btnNav = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnAdd = new javax.swing.JButton();
+        pnlStock = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        txtLowItems = new java.awt.TextField();
+        pnlTotalItems1 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        txtTotalItems1 = new java.awt.TextField();
+        pnlCritical = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        txtCritical = new java.awt.TextField();
+        pnlCategories = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        txtCategories = new java.awt.TextField();
+        pnlSearch = new javax.swing.JPanel();
+        txtSearch = new javax.swing.JTextField();
+        filterCategories = new javax.swing.JComboBox<>();
+        filterStatus = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblItems = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1440, 900));
+        jPanel1.setMinimumSize(new java.awt.Dimension(800, 600));
+        jPanel1.setPreferredSize(new java.awt.Dimension(800, 600));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(new java.awt.Color(51, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnNav.setText("nav");
+        btnNav.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnNav.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNavActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnNav, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Inventory management");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
+
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Track and manage laboratory supplies  ");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
+
+        btnAdd.setText("Add item");
+        btnAdd.setPreferredSize(new java.awt.Dimension(100, 25));
+        jPanel2.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 60));
+
+        pnlStock.setPreferredSize(new java.awt.Dimension(185, 75));
+        pnlStock.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setText("In low stock");
+        pnlStock.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        txtLowItems.setBackground(new java.awt.Color(60, 63, 65));
+        txtLowItems.setEditable(false);
+        txtLowItems.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLowItemsActionPerformed(evt);
+            }
+        });
+        pnlStock.add(txtLowItems, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
+
+        jPanel1.add(pnlStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 180, -1));
+
+        pnlTotalItems1.setPreferredSize(new java.awt.Dimension(185, 75));
+        pnlTotalItems1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setText("Total items");
+        pnlTotalItems1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        txtTotalItems1.setBackground(new java.awt.Color(60, 63, 65));
+        txtTotalItems1.setEditable(false);
+        txtTotalItems1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalItems1ActionPerformed(evt);
+            }
+        });
+        pnlTotalItems1.add(txtTotalItems1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
+
+        jPanel1.add(pnlTotalItems1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 180, -1));
+
+        pnlCritical.setPreferredSize(new java.awt.Dimension(185, 75));
+        pnlCritical.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setText("Critical stock");
+        pnlCritical.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        txtCritical.setBackground(new java.awt.Color(60, 63, 65));
+        txtCritical.setEditable(false);
+        txtCritical.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCriticalActionPerformed(evt);
+            }
+        });
+        pnlCritical.add(txtCritical, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
+
+        jPanel1.add(pnlCritical, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 180, -1));
+
+        pnlCategories.setPreferredSize(new java.awt.Dimension(185, 75));
+        pnlCategories.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setText("Categories");
+        pnlCategories.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        txtCategories.setBackground(new java.awt.Color(60, 63, 65));
+        txtCategories.setEditable(false);
+        txtCategories.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCategoriesActionPerformed(evt);
+            }
+        });
+        pnlCategories.add(txtCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
+
+        jPanel1.add(pnlCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, 180, -1));
+
+        pnlSearch.setPreferredSize(new java.awt.Dimension(750, 50));
+        pnlSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtSearch.setBackground(new java.awt.Color(255, 255, 255));
+        txtSearch.setForeground(new java.awt.Color(153, 153, 153));
+        txtSearch.setText("Search by name , ID or supplier");
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
+        pnlSearch.add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 14, 480, -1));
+
+        filterCategories.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All categories", "Item 2", "Item 3", "Item 4" }));
+        pnlSearch.add(filterCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, 30));
+
+        filterStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All status", "In stock", "Low stock", "Critical" }));
+        filterStatus.setPreferredSize(new java.awt.Dimension(105, 22));
+        pnlSearch.add(filterStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 10, -1, 30));
+
+        jPanel1.add(pnlSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 750, -1));
+
+        tblItems.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblItems);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 750, 350));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavActionPerformed
+        // TO DO: Menú de navegación izquierdo
+    }//GEN-LAST:event_btnNavActionPerformed
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        // TO DO: Barra de búsqueda, a definir qué equipos aparecen en la tabla
+    }//GEN-LAST:event_txtSearchActionPerformed
+
+    private void txtTotalItems1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalItems1ActionPerformed
+        // TO DO: Display de la variable del total de equipos 
+    }//GEN-LAST:event_txtTotalItems1ActionPerformed
+
+    private void txtLowItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLowItemsActionPerformed
+        // TO DO: Display de la variable de equipos en low stock
+    }//GEN-LAST:event_txtLowItemsActionPerformed
+
+    private void txtCriticalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCriticalActionPerformed
+        // TO DO: Display de equipos en stock crítico
+    }//GEN-LAST:event_txtCriticalActionPerformed
+
+    private void txtCategoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoriesActionPerformed
+        // TO DO: Display de cantidad de categrías (confirmar si hace falta o si puede ser reemplazado / borrado)
+    }//GEN-LAST:event_txtCategoriesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -66,5 +252,29 @@ public class FRMInventory extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnNav;
+    private javax.swing.JComboBox<String> filterCategories;
+    private javax.swing.JComboBox<String> filterStatus;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel pnlCategories;
+    private javax.swing.JPanel pnlCritical;
+    private javax.swing.JPanel pnlSearch;
+    private javax.swing.JPanel pnlStock;
+    private javax.swing.JPanel pnlTotalItems1;
+    private javax.swing.JTable tblItems;
+    private java.awt.TextField txtCategories;
+    private java.awt.TextField txtCritical;
+    private java.awt.TextField txtLowItems;
+    private javax.swing.JTextField txtSearch;
+    private java.awt.TextField txtTotalItems1;
     // End of variables declaration//GEN-END:variables
 }

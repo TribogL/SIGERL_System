@@ -91,7 +91,6 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanelNavbar = new javax.swing.JPanel();
         jPanelQuickActions = new javax.swing.JPanel();
@@ -115,9 +114,6 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
         jPanel2.setPreferredSize(new java.awt.Dimension(1000, 700));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -135,6 +131,11 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
         jButtonRegisterNewSample.setBackground(new java.awt.Color(0, 102, 255));
         jButtonRegisterNewSample.setForeground(new java.awt.Color(255, 255, 255));
         jButtonRegisterNewSample.setText("Register New Sample");
+        jButtonRegisterNewSample.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegisterNewSampleActionPerformed(evt);
+            }
+        });
         jPanelQuickActions.add(jButtonRegisterNewSample, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 230, -1));
 
         jButtonReserveEquipment.setBackground(new java.awt.Color(0, 102, 255));
@@ -226,6 +227,10 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonInventoryManagementActionPerformed
 
+    private void jButtonRegisterNewSampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterNewSampleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonRegisterNewSampleActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -265,7 +270,6 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelEquipmentReservation;
     private javax.swing.JPanel jPanelInventoryManagement;
