@@ -12,6 +12,8 @@ public class FRMInventory extends javax.swing.JFrame {
      */
     public FRMInventory() {
         initComponents();
+        setLocationRelativeTo(this);
+        pnlNavigation.setVisible(false);
     }
 
     /**
@@ -29,6 +31,13 @@ public class FRMInventory extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
+        pnlNavigation = new javax.swing.JPanel();
+        btnNav4 = new javax.swing.JButton();
+        btnNavDash = new javax.swing.JButton();
+        btnNav2 = new javax.swing.JButton();
+        btnNav3 = new javax.swing.JButton();
+        btnLogout = new javax.swing.JToggleButton();
         pnlStock = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         txtLowItems = new java.awt.TextField();
@@ -49,6 +58,7 @@ public class FRMInventory extends javax.swing.JFrame {
         tblItems = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setMaximumSize(new java.awt.Dimension(1440, 900));
@@ -68,7 +78,7 @@ public class FRMInventory extends javax.swing.JFrame {
         });
         jPanel2.add(btnNav, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Inventory management");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
@@ -79,9 +89,54 @@ public class FRMInventory extends javax.swing.JFrame {
 
         btnAdd.setText("Add item");
         btnAdd.setPreferredSize(new java.awt.Dimension(100, 25));
-        jPanel2.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
+        jPanel2.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, -1, -1));
+
+        btnCerrar.setBackground(new java.awt.Color(255, 51, 51));
+        btnCerrar.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
+        btnCerrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrar.setText("X");
+        btnCerrar.setMaximumSize(new java.awt.Dimension(30, 30));
+        btnCerrar.setMinimumSize(new java.awt.Dimension(30, 30));
+        btnCerrar.setPreferredSize(new java.awt.Dimension(50, 50));
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 10, 40, 40));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 60));
+
+        pnlNavigation.setBackground(new java.awt.Color(51, 255, 255));
+        pnlNavigation.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnNav4.setText("4");
+        btnNav4.setToolTipText("");
+        pnlNavigation.add(btnNav4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 210, 30));
+
+        btnNavDash.setText("Dashboard");
+        btnNavDash.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNavDashActionPerformed(evt);
+            }
+        });
+        pnlNavigation.add(btnNavDash, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 210, 30));
+
+        btnNav2.setText("2");
+        pnlNavigation.add(btnNav2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 210, 30));
+
+        btnNav3.setText("3");
+        pnlNavigation.add(btnNav3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 210, 30));
+
+        btnLogout.setText("Log out");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+        pnlNavigation.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 543, 100, 40));
+
+        jPanel1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 600));
 
         pnlStock.setPreferredSize(new java.awt.Dimension(185, 75));
         pnlStock.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -203,7 +258,7 @@ public class FRMInventory extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavActionPerformed
-        // TO DO: Menú de navegación izquierdo
+        pnlNavigation.setVisible(!pnlNavigation.isVisible());
     }//GEN-LAST:event_btnNavActionPerformed
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
@@ -225,6 +280,22 @@ public class FRMInventory extends javax.swing.JFrame {
     private void txtCategoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoriesActionPerformed
         // TO DO: Display de cantidad de categrías (confirmar si hace falta o si puede ser reemplazado / borrado)
     }//GEN-LAST:event_txtCategoriesActionPerformed
+
+    private void btnNavDashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavDashActionPerformed
+        FRMAdminDashboard Dashboard = new FRMAdminDashboard();
+        Dashboard.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnNavDashActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        FRMLogin Login = new FRMLogin();
+        Login.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnCerrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,7 +324,13 @@ public class FRMInventory extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JToggleButton btnLogout;
     private javax.swing.JButton btnNav;
+    private javax.swing.JButton btnNav2;
+    private javax.swing.JButton btnNav3;
+    private javax.swing.JButton btnNav4;
+    private javax.swing.JButton btnNavDash;
     private javax.swing.JComboBox<String> filterCategories;
     private javax.swing.JComboBox<String> filterStatus;
     private javax.swing.JLabel jLabel1;
@@ -267,6 +344,7 @@ public class FRMInventory extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlCategories;
     private javax.swing.JPanel pnlCritical;
+    private javax.swing.JPanel pnlNavigation;
     private javax.swing.JPanel pnlSearch;
     private javax.swing.JPanel pnlStock;
     private javax.swing.JPanel pnlTotalItems1;
