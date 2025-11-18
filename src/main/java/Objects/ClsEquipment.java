@@ -1,6 +1,6 @@
 package Objects;
 
-public class ClsTools {
+public class ClsEquipment {
 
     private String IDTool;
     private String NameTool;
@@ -11,7 +11,7 @@ public class ClsTools {
     private String DescriptionCategory;
     private boolean IsAviable;
 
-    public ClsTools() {
+    public ClsEquipment() {
         this.IDTool = "";
         this.NameTool = "";
         this.Description = "";
@@ -22,7 +22,7 @@ public class ClsTools {
         this.IsAviable = IsAviable;
     }
 
-    public ClsTools(String IDTool, String NameTool, String Description, int StockTools, String IDTypeT, String NameCategory, String DescriptionCategory, boolean IsAviable) {
+    public ClsEquipment(String IDTool, String NameTool, String Description, int StockTools, String IDTypeT, String NameCategory, String DescriptionCategory, boolean IsAviable) {
         this.IDTool = IDTool;
         this.NameTool = NameTool;
         this.Description = Description;
