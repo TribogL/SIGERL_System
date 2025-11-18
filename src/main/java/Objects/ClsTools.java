@@ -1,11 +1,14 @@
 package Objects;
 
-public class ClsTools extends ClsTypeTools{
-    
+public class ClsTools {
+
     private String IDTool;
     private String NameTool;
     private String Description;
     private int StockTools;
+    private String IDTypeT;
+    private String NameCategory;
+    private String DescriptionCategory;
     private boolean IsAviable;
 
     public ClsTools() {
@@ -13,15 +16,20 @@ public class ClsTools extends ClsTypeTools{
         this.NameTool = "";
         this.Description = "";
         this.StockTools = 0;
+        this.IDTypeT = "";
+        this.NameCategory = "";
+        this.DescriptionCategory = "";
         this.IsAviable = IsAviable;
     }
 
-    public ClsTools(String IDTypeT, String NameCategory, String DescriptionCategory, String IDTool, String NameTool, String Description, int StockTools, boolean IsAviable) {
-        super(IDTypeT, NameCategory, DescriptionCategory);
+    public ClsTools(String IDTool, String NameTool, String Description, int StockTools, String IDTypeT, String NameCategory, String DescriptionCategory, boolean IsAviable) {
         this.IDTool = IDTool;
         this.NameTool = NameTool;
         this.Description = Description;
         this.StockTools = StockTools;
+        this.IDTypeT = IDTypeT;
+        this.NameCategory = NameCategory;
+        this.DescriptionCategory = DescriptionCategory;
         this.IsAviable = IsAviable;
     }
 
@@ -57,6 +65,30 @@ public class ClsTools extends ClsTypeTools{
         this.StockTools = StockTools;
     }
 
+    public String getIDTypeT() {
+        return IDTypeT;
+    }
+
+    public void setIDTypeT(String IDTypeT) {
+        this.IDTypeT = IDTypeT;
+    }
+
+    public String getNameCategory() {
+        return NameCategory;
+    }
+
+    public void setNameCategory(String NameCategory) {
+        this.NameCategory = NameCategory;
+    }
+
+    public String getDescriptionCategory() {
+        return DescriptionCategory;
+    }
+
+    public void setDescriptionCategory(String DescriptionCategory) {
+        this.DescriptionCategory = DescriptionCategory;
+    }
+
     public boolean isIsAviable() {
         return IsAviable;
     }
@@ -64,7 +96,4 @@ public class ClsTools extends ClsTypeTools{
     public void setIsAviable(boolean IsAviable) {
         this.IsAviable = IsAviable;
     }
-    
-    
-
 }
