@@ -4,12 +4,12 @@ import java.awt.Toolkit;
 import java.awt.Image;
 
 
-public class DlgRole extends javax.swing.JDialog {
+public class DlgRol extends javax.swing.JDialog {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgRole.class.getName());
-    private String selectedRole; // <- valor elegido
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgRol.class.getName());
+    private String selectedRol; // <- valor elegido
 
-    public DlgRole(java.awt.Frame parent, boolean modal) {
+    public DlgRol(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         jPanel2.setBackground(new java.awt.Color(0, 0, 0, 90));
@@ -18,7 +18,7 @@ public class DlgRole extends javax.swing.JDialog {
         jPanel3.setOpaque(true);
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(127, 222, 255, 51), 1));
         setLocationRelativeTo(parent);
-        setTitle("Select Role");
+        setTitle("Select Rol");
 
         JcomboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(
                 new String[]{
@@ -77,8 +77,8 @@ public class DlgRole extends javax.swing.JDialog {
         });
     }
 
-    public String getSelectedRole() {
-        return selectedRole;
+    public String getSelectedRol() {
+        return selectedRol;
     }
 
     /**
@@ -176,7 +176,7 @@ public class DlgRole extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ConfirmDlgRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmDlgRolActionPerformed
-        selectedRole = JcomboBoxRol.getSelectedItem().toString();
+        selectedRol = JcomboBoxRol.getSelectedItem().toString();
         this.dispose();
     }//GEN-LAST:event_ConfirmDlgRolActionPerformed
 
@@ -185,7 +185,7 @@ public class DlgRole extends javax.swing.JDialog {
     }//GEN-LAST:event_JcomboBoxRolActionPerformed
 
     private void CancelDlgRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelDlgRolActionPerformed
-        selectedRole = null; // significa "cancelado"
+        selectedRol = null; // significa "cancelado"
         this.dispose();
     }//GEN-LAST:event_CancelDlgRolActionPerformed
 
@@ -214,7 +214,7 @@ public class DlgRole extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                DlgRole dialog = new DlgRole(new javax.swing.JFrame(), true);
+                DlgRol dialog = new DlgRol(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
