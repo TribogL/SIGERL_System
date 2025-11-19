@@ -138,7 +138,7 @@ public class FRMLogin extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 540));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\MSI TIN\\Documents\\NetBeansProjects\\SIGERL_System\\src\\main\\Resources\\Images\\BackGround.jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BackGround.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 540));
 
         pack();
