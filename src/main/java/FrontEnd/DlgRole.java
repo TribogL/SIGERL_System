@@ -4,12 +4,12 @@ import java.awt.Toolkit;
 import java.awt.Image;
 
 
-public class DlgRol extends javax.swing.JDialog {
+public class DlgRole extends javax.swing.JDialog {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgRol.class.getName());
-    private String selectedRol; // <- valor elegido
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DlgRole.class.getName());
+    private String selectedRole; // <- valor elegido
 
-    public DlgRol(java.awt.Frame parent, boolean modal) {
+    public DlgRole(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         jPanel2.setBackground(new java.awt.Color(0, 0, 0, 90));
@@ -18,16 +18,16 @@ public class DlgRol extends javax.swing.JDialog {
         jPanel3.setOpaque(true);
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(127, 222, 255, 51), 1));
         setLocationRelativeTo(parent);
-        setTitle("Select Rol");
+        setTitle("Select Role");
 
-        JcomboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(
+        JcomboBoxRole.setModel(new javax.swing.DefaultComboBoxModel<>(
                 new String[]{
-                    "--- Select a rol depending of your area ---",
+                    "--- Select a Role depending of your area ---",
                     "--- Research & Development ---",
                     "Research Assistant", "Research Scientist", "Laboratory Technician",
                     "Biochemist", "Microbiologist", "Molecular Biologist", "Geneticist",
-                    "--- Quality & Control ---",
-                    "Quality Control Analyst", "Quality Assurance Officer", "Validation Specialist", "QA/QC Technician",
+                    "--- Quality & ContRole ---",
+                    "Quality ContRole Analyst", "Quality Assurance Officer", "Validation Specialist", "QA/QC Technician",
                     "--- Technical & Support ---",
                     "Senior Lab Technician", "Maintenance Technician", "Safety Coordinator", "Instrumentation Technician",
                     "--- Management & Administration ---",
@@ -42,7 +42,7 @@ public class DlgRol extends javax.swing.JDialog {
                      "DB"
                 }));
         // Renderer personalizado
-        JcomboBoxRol.setRenderer(new javax.swing.plaf.basic.BasicComboBoxRenderer() {
+        JcomboBoxRole.setRenderer(new javax.swing.plaf.basic.BasicComboBoxRenderer() {
             @Override
             public java.awt.Component getListCellRendererComponent(
                     javax.swing.JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -68,17 +68,17 @@ public class DlgRol extends javax.swing.JDialog {
         });
 
 // Bloquear selección de encabezados
-        JcomboBoxRol.addActionListener(e -> {
-            String selected = (String) JcomboBoxRol.getSelectedItem();
+        JcomboBoxRole.addActionListener(e -> {
+            String selected = (String) JcomboBoxRole.getSelectedItem();
             if (selected != null && selected.startsWith("---")) {
                 // Evita mantener seleccionado el encabezado
-                JcomboBoxRol.setSelectedIndex(-1);
+                JcomboBoxRole.setSelectedIndex(-1);
             }
         });
     }
 
-    public String getSelectedRol() {
-        return selectedRol;
+    public String getSelectedRole() {
+        return selectedRole;
     }
 
     /**
@@ -96,9 +96,9 @@ public class DlgRol extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        JcomboBoxRol = new javax.swing.JComboBox<>();
-        ConfirmDlgRol = new javax.swing.JButton();
-        CancelDlgRol = new javax.swing.JButton();
+        JcomboBoxRole = new javax.swing.JComboBox<>();
+        ConfirmDlgRole = new javax.swing.JButton();
+        CancelDlgRole = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -129,36 +129,36 @@ public class DlgRol extends javax.swing.JDialog {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Select your designated laboratory role:");
+        jLabel4.setText("Select your designated laboratory Rolee:");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 470, 30));
 
-        JcomboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        JcomboBoxRol.addActionListener(new java.awt.event.ActionListener() {
+        JcomboBoxRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        JcomboBoxRole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JcomboBoxRolActionPerformed(evt);
+                JcomboBoxRoleActionPerformed(evt);
             }
         });
-        jPanel3.add(JcomboBoxRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 480, -1));
+        jPanel3.add(JcomboBoxRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 480, -1));
 
-        ConfirmDlgRol.setBackground(new java.awt.Color(0, 0, 153));
-        ConfirmDlgRol.setForeground(new java.awt.Color(255, 255, 255));
-        ConfirmDlgRol.setText("Confirm");
-        ConfirmDlgRol.addActionListener(new java.awt.event.ActionListener() {
+        ConfirmDlgRole.setBackground(new java.awt.Color(0, 0, 153));
+        ConfirmDlgRole.setForeground(new java.awt.Color(255, 255, 255));
+        ConfirmDlgRole.setText("Confirm");
+        ConfirmDlgRole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConfirmDlgRolActionPerformed(evt);
+                ConfirmDlgRoleActionPerformed(evt);
             }
         });
-        jPanel3.add(ConfirmDlgRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 220, 30));
+        jPanel3.add(ConfirmDlgRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 220, 30));
 
-        CancelDlgRol.setBackground(new java.awt.Color(0, 0, 51));
-        CancelDlgRol.setForeground(new java.awt.Color(255, 255, 255));
-        CancelDlgRol.setText("Cancel");
-        CancelDlgRol.addActionListener(new java.awt.event.ActionListener() {
+        CancelDlgRole.setBackground(new java.awt.Color(0, 0, 51));
+        CancelDlgRole.setForeground(new java.awt.Color(255, 255, 255));
+        CancelDlgRole.setText("Cancel");
+        CancelDlgRole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CancelDlgRolActionPerformed(evt);
+                CancelDlgRoleActionPerformed(evt);
             }
         });
-        jPanel3.add(CancelDlgRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 250, -1));
+        jPanel3.add(CancelDlgRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 250, -1));
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("© 2025 SIGERL System. All rights reserved.  Developed by Julian Felipe, Sara Álvarez & Carlos Vásquez");
@@ -175,19 +175,19 @@ public class DlgRol extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ConfirmDlgRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmDlgRolActionPerformed
-        selectedRol = JcomboBoxRol.getSelectedItem().toString();
+    private void ConfirmDlgRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmDlgRoleActionPerformed
+        selectedRole = JcomboBoxRole.getSelectedItem().toString();
         this.dispose();
-    }//GEN-LAST:event_ConfirmDlgRolActionPerformed
+    }//GEN-LAST:event_ConfirmDlgRoleActionPerformed
 
-    private void JcomboBoxRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JcomboBoxRolActionPerformed
+    private void JcomboBoxRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JcomboBoxRoleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_JcomboBoxRolActionPerformed
+    }//GEN-LAST:event_JcomboBoxRoleActionPerformed
 
-    private void CancelDlgRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelDlgRolActionPerformed
-        selectedRol = null; // significa "cancelado"
+    private void CancelDlgRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelDlgRoleActionPerformed
+        selectedRole = null; // significa "cancelado"
         this.dispose();
-    }//GEN-LAST:event_CancelDlgRolActionPerformed
+    }//GEN-LAST:event_CancelDlgRoleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,7 +214,7 @@ public class DlgRol extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                DlgRol dialog = new DlgRol(new javax.swing.JFrame(), true);
+                DlgRole dialog = new DlgRole(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -227,9 +227,9 @@ public class DlgRol extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton CancelDlgRol;
-    private javax.swing.JButton ConfirmDlgRol;
-    private javax.swing.JComboBox<String> JcomboBoxRol;
+    private javax.swing.JButton CancelDlgRole;
+    private javax.swing.JButton ConfirmDlgRole;
+    private javax.swing.JComboBox<String> JcomboBoxRole;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
