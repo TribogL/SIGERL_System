@@ -52,7 +52,7 @@ public class ClsMetUser {
             ps.setBoolean(7, user.getPermissions());
             ps.setInt(8, user.getCantRequest());
             ps.setString(9, user.getArea());
-            ps.setString(10, user.getRol());
+            ps.setString(10, user.getRole());
 
             return ps.executeUpdate() > 0;
 

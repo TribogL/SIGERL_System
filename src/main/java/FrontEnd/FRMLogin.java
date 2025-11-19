@@ -14,7 +14,7 @@ public class FRMLogin extends javax.swing.JFrame {
      * Creates new form FRMLogin
      */
     public FRMLogin() {
-        initComponents();
+         initComponents();
         setLocationRelativeTo(null);
         jPanel2.setBackground(new java.awt.Color(0, 0, 0, 90));
         jPanel2.setOpaque(true);
