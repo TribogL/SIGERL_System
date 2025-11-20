@@ -59,6 +59,7 @@ public class FRMInventory extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1000, 666));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setMaximumSize(new java.awt.Dimension(1440, 900));

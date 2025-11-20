@@ -73,7 +73,7 @@ public class FRMReservations extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(810, 540));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(810, 540));
+        setPreferredSize(new java.awt.Dimension(1000, 666));
         setResizable(false);
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

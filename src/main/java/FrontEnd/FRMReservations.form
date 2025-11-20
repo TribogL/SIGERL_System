@@ -8,7 +8,7 @@
     </Property>
     <Property name="undecorated" type="boolean" value="true"/>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[810, 540]"/>
+      <Dimension value="[1000, 666]"/>
     </Property>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
