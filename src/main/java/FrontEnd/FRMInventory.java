@@ -31,13 +31,13 @@ public class FRMInventory extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
-        btnCerrar = new javax.swing.JButton();
         pnlNavigation = new javax.swing.JPanel();
         btnNav4 = new javax.swing.JButton();
         btnNavDash = new javax.swing.JButton();
-        btnNav2 = new javax.swing.JButton();
-        btnNav3 = new javax.swing.JButton();
+        btnNavReservations = new javax.swing.JButton();
         btnLogout = new javax.swing.JToggleButton();
+        btnCerrar = new javax.swing.JButton();
+        btnNavInventory = new javax.swing.JButton();
         pnlStock = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         txtLowItems = new java.awt.TextField();
@@ -59,15 +59,16 @@ public class FRMInventory extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1000, 666));
+        setPreferredSize(new java.awt.Dimension(1000, 700));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setMaximumSize(new java.awt.Dimension(1440, 900));
         jPanel1.setMinimumSize(new java.awt.Dimension(800, 600));
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 600));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 700));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(51, 255, 255));
+        jPanel2.setPreferredSize(new java.awt.Dimension(1000, 50));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnNav.setText("nav");
@@ -90,7 +91,41 @@ public class FRMInventory extends javax.swing.JFrame {
 
         btnAdd.setText("Add item");
         btnAdd.setPreferredSize(new java.awt.Dimension(100, 25));
-        jPanel2.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, -1, -1));
+        jPanel2.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 20, -1, -1));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 60));
+
+        pnlNavigation.setBackground(new java.awt.Color(51, 255, 255));
+        pnlNavigation.setPreferredSize(new java.awt.Dimension(250, 700));
+        pnlNavigation.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnNav4.setText("4");
+        btnNav4.setToolTipText("");
+        pnlNavigation.add(btnNav4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 210, 30));
+
+        btnNavDash.setText("Dashboard");
+        btnNavDash.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNavDashActionPerformed(evt);
+            }
+        });
+        pnlNavigation.add(btnNavDash, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 210, 30));
+
+        btnNavReservations.setText("Reservations");
+        btnNavReservations.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNavReservationsActionPerformed(evt);
+            }
+        });
+        pnlNavigation.add(btnNavReservations, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 210, 30));
+
+        btnLogout.setText("Log out");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+        pnlNavigation.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 543, 100, 40));
 
         btnCerrar.setBackground(new java.awt.Color(255, 51, 51));
         btnCerrar.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
@@ -104,40 +139,17 @@ public class FRMInventory extends javax.swing.JFrame {
                 btnCerrarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 10, 40, 40));
+        pnlNavigation.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 540, 40, 40));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 60));
-
-        pnlNavigation.setBackground(new java.awt.Color(51, 255, 255));
-        pnlNavigation.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnNav4.setText("4");
-        btnNav4.setToolTipText("");
-        pnlNavigation.add(btnNav4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 210, 30));
-
-        btnNavDash.setText("Dashboard");
-        btnNavDash.addActionListener(new java.awt.event.ActionListener() {
+        btnNavInventory.setText("Inventory");
+        btnNavInventory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNavDashActionPerformed(evt);
+                btnNavInventoryActionPerformed(evt);
             }
         });
-        pnlNavigation.add(btnNavDash, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 210, 30));
+        pnlNavigation.add(btnNavInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 210, 30));
 
-        btnNav2.setText("2");
-        pnlNavigation.add(btnNav2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 210, 30));
-
-        btnNav3.setText("3");
-        pnlNavigation.add(btnNav3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 210, 30));
-
-        btnLogout.setText("Log out");
-        btnLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogoutActionPerformed(evt);
-            }
-        });
-        pnlNavigation.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 543, 100, 40));
-
-        jPanel1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 250, 600));
+        jPanel1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 640));
 
         pnlStock.setPreferredSize(new java.awt.Dimension(185, 75));
         pnlStock.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -154,7 +166,7 @@ public class FRMInventory extends javax.swing.JFrame {
         });
         pnlStock.add(txtLowItems, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
 
-        jPanel1.add(pnlStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 180, -1));
+        jPanel1.add(pnlStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 180, -1));
 
         pnlTotalItems1.setPreferredSize(new java.awt.Dimension(185, 75));
         pnlTotalItems1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -171,7 +183,7 @@ public class FRMInventory extends javax.swing.JFrame {
         });
         pnlTotalItems1.add(txtTotalItems1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
 
-        jPanel1.add(pnlTotalItems1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 180, -1));
+        jPanel1.add(pnlTotalItems1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 180, -1));
 
         pnlCritical.setPreferredSize(new java.awt.Dimension(185, 75));
         pnlCritical.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -188,7 +200,7 @@ public class FRMInventory extends javax.swing.JFrame {
         });
         pnlCritical.add(txtCritical, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
 
-        jPanel1.add(pnlCritical, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 180, -1));
+        jPanel1.add(pnlCritical, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 70, 180, -1));
 
         pnlCategories.setPreferredSize(new java.awt.Dimension(185, 75));
         pnlCategories.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -205,7 +217,7 @@ public class FRMInventory extends javax.swing.JFrame {
         });
         pnlCategories.add(txtCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
 
-        jPanel1.add(pnlCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, 180, -1));
+        jPanel1.add(pnlCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 70, 180, -1));
 
         pnlSearch.setPreferredSize(new java.awt.Dimension(750, 50));
         pnlSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -227,7 +239,7 @@ public class FRMInventory extends javax.swing.JFrame {
         filterStatus.setPreferredSize(new java.awt.Dimension(105, 22));
         pnlSearch.add(filterStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 10, -1, 30));
 
-        jPanel1.add(pnlSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 750, -1));
+        jPanel1.add(pnlSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 750, -1));
 
         tblItems.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -242,7 +254,7 @@ public class FRMInventory extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblItems);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 750, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 750, 350));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -298,6 +310,18 @@ public class FRMInventory extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnCerrarActionPerformed
 
+    private void btnNavInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavInventoryActionPerformed
+        FRMInventory Inventory = new FRMInventory();
+        Inventory.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnNavInventoryActionPerformed
+
+    private void btnNavReservationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavReservationsActionPerformed
+        FRMReservations Reservations = new FRMReservations();
+        Reservations.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnNavReservationsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -328,10 +352,10 @@ public class FRMInventory extends javax.swing.JFrame {
     private javax.swing.JButton btnCerrar;
     private javax.swing.JToggleButton btnLogout;
     private javax.swing.JButton btnNav;
-    private javax.swing.JButton btnNav2;
-    private javax.swing.JButton btnNav3;
     private javax.swing.JButton btnNav4;
     private javax.swing.JButton btnNavDash;
+    private javax.swing.JButton btnNavInventory;
+    private javax.swing.JButton btnNavReservations;
     private javax.swing.JComboBox<String> filterCategories;
     private javax.swing.JComboBox<String> filterStatus;
     private javax.swing.JLabel jLabel1;

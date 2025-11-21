@@ -229,7 +229,7 @@ public class FRMCreateAccount extends javax.swing.JFrame {
         Btn_CA_login.setBackground(new java.awt.Color(255, 255, 255));
         Btn_CA_login.setForeground(new java.awt.Color(0, 0, 102));
         Btn_CA_login.setText("Login");
-        Btn_CA_login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_CA_login.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Btn_CA_login.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         Btn_CA_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,7 +242,7 @@ public class FRMCreateAccount extends javax.swing.JFrame {
         Btn_CA_CA.setForeground(new java.awt.Color(0, 51, 102));
         Btn_CA_CA.setText("Create Account");
         Btn_CA_CA.setToolTipText("");
-        Btn_CA_CA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_CA_CA.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Btn_CA_CA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_CA_CAActionPerformed(evt);
@@ -304,7 +304,7 @@ public class FRMCreateAccount extends javax.swing.JFrame {
         Btn_CA_CreateA.setBackground(new java.awt.Color(0, 153, 255));
         Btn_CA_CreateA.setForeground(new java.awt.Color(255, 255, 255));
         Btn_CA_CreateA.setText("Create Account");
-        Btn_CA_CreateA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_CA_CreateA.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Btn_CA_CreateA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_CA_CreateAActionPerformed(evt);

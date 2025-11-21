@@ -66,8 +66,25 @@ public class FRMReservations extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jLayeredPane2 = new javax.swing.JLayeredPane();
         jPanel1 = new javax.swing.JPanel();
+        tabQuickReserve = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
+        pnlReserve = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        lblResDate = new javax.swing.JLabel();
+        filterResEq = new javax.swing.JComboBox<>();
+        lblResPurpose = new javax.swing.JLabel();
+        lblResEq = new javax.swing.JLabel();
+        lblResTime = new javax.swing.JLabel();
+        txtPurpose = new javax.swing.JTextField();
+        btnNewRes = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        pnlReservations = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        filterCurrentRes = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         btnNav = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -82,30 +99,16 @@ public class FRMReservations extends javax.swing.JFrame {
         pnlNavigation = new javax.swing.JPanel();
         btnNav4 = new javax.swing.JButton();
         btnNavDash = new javax.swing.JButton();
-        btnNav2 = new javax.swing.JButton();
-        btnNav3 = new javax.swing.JButton();
+        btnNavInventory = new javax.swing.JButton();
         btnLogout = new javax.swing.JToggleButton();
         btnCerrar = new javax.swing.JButton();
+        btnNavReservations = new javax.swing.JButton();
         pnlTotalItems1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtTotalEquipment = new java.awt.TextField();
         pnlCategories = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtReservations = new java.awt.TextField();
-        pnlReserve = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        lblResDate = new javax.swing.JLabel();
-        filterResEq = new javax.swing.JComboBox<>();
-        lblResPurpose = new javax.swing.JLabel();
-        lblResEq = new javax.swing.JLabel();
-        lblResTime = new javax.swing.JLabel();
-        txtPurpose = new javax.swing.JTextField();
-        btnNewRes = new javax.swing.JButton();
-        pnlReservations = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        filterCurrentRes = new javax.swing.JComboBox<>();
         pnlStatus = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txtSearchStatus = new javax.swing.JTextField();
@@ -114,19 +117,92 @@ public class FRMReservations extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(810, 540));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1000, 666));
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(786, 666));
+        jLayeredPane2.setPreferredSize(new java.awt.Dimension(1000, 700));
+        jLayeredPane2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setMaximumSize(new java.awt.Dimension(1440, 900));
         jPanel1.setMinimumSize(new java.awt.Dimension(780, 600));
-        jPanel1.setPreferredSize(new java.awt.Dimension(780, 910));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 700));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnlReserve.setMaximumSize(new java.awt.Dimension(470, 205));
+        pnlReserve.setPreferredSize(new java.awt.Dimension(470, 200));
+        pnlReserve.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel8.setText("Quick reserve");
+        pnlReserve.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
+
+        lblResDate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblResDate.setText("Date");
+        pnlReserve.add(lblResDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, -1, -1));
+
+        filterResEq.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select equipment", "Item 2", "Item 3", "Item 4" }));
+        pnlReserve.add(filterResEq, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+
+        lblResPurpose.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblResPurpose.setText("Purpose");
+        pnlReserve.add(lblResPurpose, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, -1, -1));
+
+        lblResEq.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblResEq.setText("Equipment");
+        pnlReserve.add(lblResEq, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
+
+        lblResTime.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblResTime.setText("Time slot");
+        pnlReserve.add(lblResTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+        pnlReserve.add(txtPurpose, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 180, 50));
+
+        btnNewRes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnNewRes.setText("Reserve equipment");
+        pnlReserve.add(btnNewRes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 590, -1));
+
+        jPanel3.add(pnlReserve, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 465));
+
+        tabQuickReserve.addTab("Quick reserve", jPanel3);
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnlReservations.setMaximumSize(new java.awt.Dimension(470, 205));
+        pnlReservations.setPreferredSize(new java.awt.Dimension(470, 200));
+        pnlReservations.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setText("Current reservations");
+        pnlReservations.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        pnlReservations.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 650, 410));
+
+        filterCurrentRes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All status", "Active", "Confirmed", "Pending" }));
+        pnlReservations.add(filterCurrentRes, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 100, -1));
+
+        jPanel4.add(pnlReservations, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 445));
+
+        tabQuickReserve.addTab("Current reservations", jPanel4);
+
+        jPanel1.add(tabQuickReserve, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 670, 500));
+
         jPanel2.setBackground(new java.awt.Color(51, 255, 255));
+        jPanel2.setPreferredSize(new java.awt.Dimension(1000, 50));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnNav.setText("nav");
@@ -151,14 +227,9 @@ public class FRMReservations extends javax.swing.JFrame {
         btnNewReservation.setForeground(new java.awt.Color(255, 255, 255));
         btnNewReservation.setText("+ New Reservation");
         btnNewReservation.setPreferredSize(new java.awt.Dimension(100, 25));
-        btnNewReservation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNewReservationActionPerformed(evt);
-            }
-        });
         jPanel2.add(btnNewReservation, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 10, 140, 20));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 50));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 50));
 
         pnlStock.setBackground(new java.awt.Color(51, 255, 255));
         pnlStock.setForeground(new java.awt.Color(255, 255, 255));
@@ -170,14 +241,9 @@ public class FRMReservations extends javax.swing.JFrame {
 
         txtAvailable.setBackground(new java.awt.Color(60, 63, 65));
         txtAvailable.setEditable(false);
-        txtAvailable.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAvailableActionPerformed(evt);
-            }
-        });
         pnlStock.add(txtAvailable, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
 
-        jPanel1.add(pnlStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 180, -1));
+        jPanel1.add(pnlStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 180, -1));
 
         pnlCritical.setBackground(new java.awt.Color(51, 255, 255));
         pnlCritical.setForeground(new java.awt.Color(255, 255, 255));
@@ -189,14 +255,9 @@ public class FRMReservations extends javax.swing.JFrame {
 
         txtUsed.setBackground(new java.awt.Color(60, 63, 65));
         txtUsed.setEditable(false);
-        txtUsed.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsedActionPerformed(evt);
-            }
-        });
         pnlCritical.add(txtUsed, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
 
-        jPanel1.add(pnlCritical, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 180, -1));
+        jPanel1.add(pnlCritical, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 60, 180, -1));
 
         pnlNavigation.setBackground(new java.awt.Color(51, 255, 255));
         pnlNavigation.setPreferredSize(new java.awt.Dimension(250, 910));
@@ -214,19 +275,16 @@ public class FRMReservations extends javax.swing.JFrame {
         });
         pnlNavigation.add(btnNavDash, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 210, 30));
 
-        btnNav2.setText("2");
-        pnlNavigation.add(btnNav2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 210, 30));
-
-        btnNav3.setText("3");
-        pnlNavigation.add(btnNav3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 210, 30));
-
-        btnLogout.setText("Log out");
-        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+        btnNavInventory.setText("Inventory");
+        btnNavInventory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogoutActionPerformed(evt);
+                btnNavInventoryActionPerformed(evt);
             }
         });
-        pnlNavigation.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 100, 40));
+        pnlNavigation.add(btnNavInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 210, 30));
+
+        btnLogout.setText("Log out");
+        pnlNavigation.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, 100, 40));
 
         btnCerrar.setBackground(new java.awt.Color(255, 51, 51));
         btnCerrar.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
@@ -240,7 +298,15 @@ public class FRMReservations extends javax.swing.JFrame {
                 btnCerrarActionPerformed(evt);
             }
         });
-        pnlNavigation.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, 40, 40));
+        pnlNavigation.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 600, 40, 40));
+
+        btnNavReservations.setText("Reservations");
+        btnNavReservations.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNavReservationsActionPerformed(evt);
+            }
+        });
+        pnlNavigation.add(btnNavReservations, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 210, 30));
 
         jPanel1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 660));
 
@@ -254,11 +320,6 @@ public class FRMReservations extends javax.swing.JFrame {
 
         txtTotalEquipment.setBackground(new java.awt.Color(60, 63, 65));
         txtTotalEquipment.setEditable(false);
-        txtTotalEquipment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTotalEquipmentActionPerformed(evt);
-            }
-        });
         pnlTotalItems1.add(txtTotalEquipment, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
 
         jPanel1.add(pnlTotalItems1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 180, -1));
@@ -273,81 +334,9 @@ public class FRMReservations extends javax.swing.JFrame {
 
         txtReservations.setBackground(new java.awt.Color(60, 63, 65));
         txtReservations.setEditable(false);
-        txtReservations.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtReservationsActionPerformed(evt);
-            }
-        });
         pnlCategories.add(txtReservations, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
 
-        jPanel1.add(pnlCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 60, 180, -1));
-
-        pnlReserve.setMaximumSize(new java.awt.Dimension(470, 205));
-        pnlReserve.setPreferredSize(new java.awt.Dimension(470, 200));
-        pnlReserve.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel8.setText("Quick reserve");
-        pnlReserve.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
-
-        lblResDate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblResDate.setText("Date");
-        pnlReserve.add(lblResDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, -1, -1));
-
-        filterResEq.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select equipment", "Item 2", "Item 3", "Item 4" }));
-        filterResEq.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filterResEqActionPerformed(evt);
-            }
-        });
-        pnlReserve.add(filterResEq, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
-
-        lblResPurpose.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblResPurpose.setText("Purpose");
-        pnlReserve.add(lblResPurpose, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, -1, -1));
-
-        lblResEq.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblResEq.setText("Equipment");
-        pnlReserve.add(lblResEq, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
-
-        lblResTime.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblResTime.setText("Time slot");
-        pnlReserve.add(lblResTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
-        pnlReserve.add(txtPurpose, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 180, 50));
-
-        btnNewRes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnNewRes.setText("Reserve equipment");
-        pnlReserve.add(btnNewRes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 590, -1));
-
-        jPanel1.add(pnlReserve, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, 620, -1));
-
-        pnlReservations.setMaximumSize(new java.awt.Dimension(470, 205));
-        pnlReservations.setPreferredSize(new java.awt.Dimension(470, 200));
-        pnlReservations.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setText("Current reservations");
-        pnlReservations.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
-
-        pnlReservations.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 600, 260));
-
-        filterCurrentRes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All status", "Active", "Confirmed", "Pending" }));
-        pnlReservations.add(filterCurrentRes, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 100, -1));
-
-        jPanel1.add(pnlReservations, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 350, 620, 310));
+        jPanel1.add(pnlCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 60, 180, -1));
 
         pnlStatus.setForeground(new java.awt.Color(255, 255, 255));
         pnlStatus.setPreferredSize(new java.awt.Dimension(270, 520));
@@ -360,11 +349,6 @@ public class FRMReservations extends javax.swing.JFrame {
         txtSearchStatus.setBackground(new java.awt.Color(255, 255, 255));
         txtSearchStatus.setForeground(new java.awt.Color(153, 153, 153));
         txtSearchStatus.setText("Search equipment...");
-        txtSearchStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchStatusActionPerformed(evt);
-            }
-        });
         pnlStatus.add(txtSearchStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 250, -1));
 
         jPanel1.add(pnlStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, -1));
@@ -372,56 +356,16 @@ public class FRMReservations extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Background2.jpg"))); // NOI18N
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 660));
 
-        jScrollPane1.setViewportView(jPanel1);
+        jLayeredPane2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(jLayeredPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 670));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtReservationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReservationsActionPerformed
-        // TO DO: Display de cantidad de categrías (confirmar si hace falta o si puede ser reemplazado / borrado)
-    }//GEN-LAST:event_txtReservationsActionPerformed
-
-    private void txtUsedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsedActionPerformed
-        // TO DO: Display de equipos en stock crítico
-    }//GEN-LAST:event_txtUsedActionPerformed
-
-    private void txtTotalEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalEquipmentActionPerformed
-        // TO DO: Display de la variable del total de equipos
-    }//GEN-LAST:event_txtTotalEquipmentActionPerformed
-
-    private void txtAvailableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAvailableActionPerformed
-        // TO DO: Display de la variable de equipos en low stock
-    }//GEN-LAST:event_txtAvailableActionPerformed
-
     private void btnNavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavActionPerformed
         pnlNavigation.setVisible(!pnlNavigation.isVisible());
     }//GEN-LAST:event_btnNavActionPerformed
-
-    private void txtSearchStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchStatusActionPerformed
-        // TO DO: Barra de búsqueda, a filtrar equipos para mostrar status
-    }//GEN-LAST:event_txtSearchStatusActionPerformed
-
-    private void filterResEqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterResEqActionPerformed
-        // TO DO: Dropdown de lista de equipos. "Select equipment" podría equivaler a null para una validación de reserva
-    }//GEN-LAST:event_filterResEqActionPerformed
-
-    private void btnNewReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewReservationActionPerformed
-        FRMNewReservation frm = new FRMNewReservation();         // Crea la nueva ventana
-        frm.setLocationRelativeTo(this);       // La centra respecto a la actual
-        frm.setVisible(true);                  // La muestra
-        this.dispose();
-    }//GEN-LAST:event_btnNewReservationActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         System.exit(0);
@@ -433,11 +377,17 @@ public class FRMReservations extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnNavDashActionPerformed
 
-    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        FRMLogin Login = new FRMLogin();
-        Login.setVisible(true);
+    private void btnNavInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavInventoryActionPerformed
+        FRMInventory Inventory = new FRMInventory();
+        Inventory.setVisible(true);
         dispose();
-    }//GEN-LAST:event_btnLogoutActionPerformed
+    }//GEN-LAST:event_btnNavInventoryActionPerformed
+
+    private void btnNavReservationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavReservationsActionPerformed
+        FRMReservations Reservations = new FRMReservations();
+        Reservations.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnNavReservationsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -468,10 +418,10 @@ public class FRMReservations extends javax.swing.JFrame {
     private javax.swing.JButton btnCerrar;
     private javax.swing.JToggleButton btnLogout;
     private javax.swing.JButton btnNav;
-    private javax.swing.JButton btnNav2;
-    private javax.swing.JButton btnNav3;
     private javax.swing.JButton btnNav4;
     private javax.swing.JButton btnNavDash;
+    private javax.swing.JButton btnNavInventory;
+    private javax.swing.JButton btnNavReservations;
     private javax.swing.JButton btnNewRes;
     private javax.swing.JButton btnNewReservation;
     private javax.swing.JComboBox<String> filterCurrentRes;
@@ -486,9 +436,11 @@ public class FRMReservations extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblResDate;
@@ -503,6 +455,7 @@ public class FRMReservations extends javax.swing.JFrame {
     private javax.swing.JPanel pnlStatus;
     private javax.swing.JPanel pnlStock;
     private javax.swing.JPanel pnlTotalItems1;
+    private javax.swing.JTabbedPane tabQuickReserve;
     private java.awt.TextField txtAvailable;
     private javax.swing.JTextField txtPurpose;
     private java.awt.TextField txtReservations;
