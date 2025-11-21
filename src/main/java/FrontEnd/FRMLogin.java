@@ -14,7 +14,7 @@ public class FRMLogin extends javax.swing.JFrame {
      * Creates new form FRMLogin
      */
     public FRMLogin() {
-         initComponents();
+        initComponents();
         setLocationRelativeTo(null);
         jPanel2.setBackground(new java.awt.Color(0, 0, 0, 90));
         jPanel2.setOpaque(true);
@@ -49,6 +49,7 @@ public class FRMLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 666));
+        setPreferredSize(new java.awt.Dimension(1000, 666));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -58,13 +59,13 @@ public class FRMLogin extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("SIGERL SYSTEM ");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, 50));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, -1, 50));
 
         jLabel3.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Laboratory Information Management");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 360, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, 360, -1));
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -130,17 +131,18 @@ public class FRMLogin extends javax.swing.JFrame {
         jLabel5.setText("Password:");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 230, -1));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 390, 220));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, 390, 220));
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("© 2025 SIGERL System. All rights reserved.  Developed by Julian Felipe, Sara Álvarez & Carlos Vásquez");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, -1, 20));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 570, -1, 20));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 540));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 670));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BackGround.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 540));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Background2.jpg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 670));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

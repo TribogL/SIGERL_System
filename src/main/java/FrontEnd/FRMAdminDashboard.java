@@ -18,7 +18,7 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
      */
     public FRMAdminDashboard() {
         initComponents();
-
+        setLocationRelativeTo(null);
         // === Fondo general semitransparente ===
         jPanel2.setBackground(new Color(0, 0, 0, 90));
         jPanel2.setOpaque(true);
@@ -93,6 +93,7 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jPanelNavbar = new javax.swing.JPanel();
+        btnNav = new javax.swing.JButton();
         jPanelQuickActions = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButtonRegisterNewSample = new javax.swing.JButton();
@@ -118,6 +119,17 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelNavbar.setBackground(new java.awt.Color(102, 255, 255));
+        jPanelNavbar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnNav.setText("nav");
+        btnNav.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnNav.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNavActionPerformed(evt);
+            }
+        });
+        jPanelNavbar.add(btnNav, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+
         jPanel2.add(jPanelNavbar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 80));
 
         jPanelQuickActions.setBackground(new java.awt.Color(0, 153, 153));
@@ -231,6 +243,10 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonRegisterNewSampleActionPerformed
 
+    private void btnNavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavActionPerformed
+        //pnlNavigation.setVisible(!pnlNavigation.isVisible());
+    }//GEN-LAST:event_btnNavActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -257,6 +273,7 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnNav;
     private javax.swing.JButton jButtonInventoryManagement;
     private javax.swing.JButton jButtonRegisterNewSample;
     private javax.swing.JButton jButtonReservationSystem;
