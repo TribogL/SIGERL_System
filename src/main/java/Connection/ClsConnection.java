@@ -23,7 +23,7 @@ public class ClsConnection {
             CN = DriverManager.getConnection(URL, User, Password);
 
             if (CN != null) {
-                System.out.println("Connection Successfully!"); 
+                System.out.println("Connection Successful!"); 
             }
 
         } catch (Exception e) {

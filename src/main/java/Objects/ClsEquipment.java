@@ -2,98 +2,105 @@ package Objects;
 
 public class ClsEquipment {
 
-    private String IDTool;
-    private String NameTool;
-    private String Description;
-    private int StockTools;
-    private String IDTypeT;
-    private String NameCategory;
-    private String DescriptionCategory;
-    private boolean IsAviable;
-
+    private String EquipmentID;
+    private String EquipmentName;
+    private String EquipmentCategory;
+    private int EquipmentStock;
+    private String EquipmentLocation;
+    private String EquipmentStatus;
+    private String EquipmentSupplier;
+    private boolean IsAvailable;
+    // private String EquipmentDescription;    
+    // private String NameCategory;
+    // private String DescriptionCategory;
+    
     public ClsEquipment() {
-        this.IDTool = "";
-        this.NameTool = "";
-        this.Description = "";
-        this.StockTools = 0;
-        this.IDTypeT = "";
-        this.NameCategory = "";
-        this.DescriptionCategory = "";
-        this.IsAviable = IsAviable;
+        this.EquipmentID = "";
+        this.EquipmentName = "";
+        this.EquipmentCategory = "";
+        this.EquipmentStock = 0;        
+        this.EquipmentLocation = "";
+        this.EquipmentStatus = "";
+        this.EquipmentSupplier = "";
+        this.IsAvailable = IsAvailable;
+        // this.Description = "";
+        // this.IDTypeT = "";
+        // this.NameCategory = "";
+        // this.DescriptionCategory = "";
+        
     }
 
-    public ClsEquipment(String IDTool, String NameTool, String Description, int StockTools, String IDTypeT, String NameCategory, String DescriptionCategory, boolean IsAviable) {
-        this.IDTool = IDTool;
-        this.NameTool = NameTool;
-        this.Description = Description;
-        this.StockTools = StockTools;
-        this.IDTypeT = IDTypeT;
-        this.NameCategory = NameCategory;
-        this.DescriptionCategory = DescriptionCategory;
-        this.IsAviable = IsAviable;
+    public ClsEquipment(String EquipmentID, String EquipmentName, String EquipmentCategory, int EquipmentStock, String EquipmentLocation, String EquipmentStatus, String EquipmentSupplier, boolean IsAvailable) {
+        this.EquipmentID = EquipmentID;
+        this.EquipmentName = EquipmentName;
+        this.EquipmentCategory = EquipmentCategory;
+        this.EquipmentStock = EquipmentStock;
+        this.EquipmentLocation = EquipmentLocation;
+        this.EquipmentSupplier = EquipmentSupplier;
+        this.IsAvailable = IsAvailable;
     }
 
-    public String getIDTool() {
-        return IDTool;
+    public String getEquipmentID() {
+        return EquipmentID;
     }
 
-    public void setIDTool(String IDTool) {
-        this.IDTool = IDTool;
+    public void setEquipmentID(String EquipmentID) {
+        this.EquipmentID = EquipmentID;
     }
 
-    public String getNameTool() {
-        return NameTool;
+    public String getEquipmentName() {
+        return EquipmentName;
     }
 
-    public void setNameTool(String NameTool) {
-        this.NameTool = NameTool;
+    public void setEquipmentName(String EquipmentName) {
+        this.EquipmentName = EquipmentName;
     }
 
-    public String getDescription() {
-        return Description;
+    public String getEquipmentCategory() {
+        return EquipmentCategory;
     }
 
-    public void setDescription(String Description) {
-        this.Description = Description;
+    public void setEquipmentCategory(String EquipmentCategory) {
+        this.EquipmentCategory = EquipmentCategory;
     }
 
-    public int getStockTools() {
-        return StockTools;
+    public int getEquipmentStock() { 
+        return EquipmentStock;
     }
 
-    public void setStockTools(int StockTools) {
-        this.StockTools = StockTools;
+    public void setEquipmentStock(int EquipmentStock) {
+        this.EquipmentStock = EquipmentStock;
     }
 
-    public String getIDTypeT() {
-        return IDTypeT;
+    public String getEquipmentLocation() {
+        return EquipmentLocation;
     }
 
-    public void setIDTypeT(String IDTypeT) {
-        this.IDTypeT = IDTypeT;
+    public void setEquipmentLocation(String EquipmentLocation) {
+        this.EquipmentLocation = EquipmentLocation;
     }
 
-    public String getNameCategory() {
-        return NameCategory;
+    public String getEquipmentStatus(){
+        return EquipmentStatus;
+    }
+    
+    public void setEquipmentStatus(){
+        this.EquipmentStatus = EquipmentStatus;
+    }
+    
+    public String getEquipmentSupplier() {
+        return EquipmentSupplier;
     }
 
-    public void setNameCategory(String NameCategory) {
-        this.NameCategory = NameCategory;
+    public void setEquipmentSupplier(String EquipmentSupplier) {
+        this.EquipmentSupplier = EquipmentSupplier;
     }
 
-    public String getDescriptionCategory() {
-        return DescriptionCategory;
+    public boolean isIsAvailable() { // Para indicar si esta reservado o no
+        return IsAvailable;
     }
 
-    public void setDescriptionCategory(String DescriptionCategory) {
-        this.DescriptionCategory = DescriptionCategory;
-    }
-
-    public boolean isIsAviable() {
-        return IsAviable;
-    }
-
-    public void setIsAviable(boolean IsAviable) {
-        this.IsAviable = IsAviable;
+    public void setIsAvailable(boolean IsAvailable) {
+        this.IsAvailable = IsAvailable;
     }
 }

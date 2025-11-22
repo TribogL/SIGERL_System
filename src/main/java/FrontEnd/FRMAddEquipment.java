@@ -1,13 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package FrontEnd;
 
-/**
- *
- * @author MSI TIN
- */
+import BackEnd.ClsMetEquipment;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+
 public class FRMAddEquipment extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FRMAddEquipment.class.getName());
@@ -28,23 +24,254 @@ public class FRMAddEquipment extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 666));
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        pnlNavigation = new javax.swing.JPanel();
+        btnNav4 = new javax.swing.JButton();
+        btnNavDash = new javax.swing.JButton();
+        btnNavReservations = new javax.swing.JButton();
+        btnLogout = new javax.swing.JToggleButton();
+        btnCerrar = new javax.swing.JButton();
+        btnNavInventory = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        btnNav = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lblTitle = new javax.swing.JLabel();
+        lblEquipmentName = new javax.swing.JLabel();
+        txtEquipmentName = new javax.swing.JTextField();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 666, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1000, 700));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLayeredPane1.setBackground(new java.awt.Color(51, 51, 51));
+        jLayeredPane1.setPreferredSize(new java.awt.Dimension(1000, 666));
+        jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnlNavigation.setBackground(new java.awt.Color(51, 255, 255));
+        pnlNavigation.setPreferredSize(new java.awt.Dimension(250, 700));
+        pnlNavigation.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnNav4.setText("4");
+        btnNav4.setToolTipText("");
+        pnlNavigation.add(btnNav4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 210, 30));
+
+        btnNavDash.setText("Dashboard");
+        btnNavDash.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNavDashActionPerformed(evt);
+            }
+        });
+        pnlNavigation.add(btnNavDash, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 210, 30));
+
+        btnNavReservations.setText("Reservations");
+        btnNavReservations.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNavReservationsActionPerformed(evt);
+            }
+        });
+        pnlNavigation.add(btnNavReservations, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 210, 30));
+
+        btnLogout.setText("Log out");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+        pnlNavigation.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 543, 100, 40));
+
+        btnCerrar.setBackground(new java.awt.Color(255, 51, 51));
+        btnCerrar.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
+        btnCerrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrar.setText("X");
+        btnCerrar.setMaximumSize(new java.awt.Dimension(30, 30));
+        btnCerrar.setMinimumSize(new java.awt.Dimension(30, 30));
+        btnCerrar.setPreferredSize(new java.awt.Dimension(50, 50));
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
+        pnlNavigation.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 540, 40, 40));
+
+        btnNavInventory.setText("Inventory");
+        btnNavInventory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNavInventoryActionPerformed(evt);
+            }
+        });
+        pnlNavigation.add(btnNavInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 210, 30));
+
+        jLayeredPane1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(51, 255, 255));
+        jPanel2.setPreferredSize(new java.awt.Dimension(1000, 50));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnNav.setText("nav");
+        btnNav.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnNav.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNavActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnNav, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Add New Item");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
+
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Add a new item to inventory");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
+
+        jLayeredPane1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 60));
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTitle.setText("Item Information");
+        jPanel1.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, -1, -1));
+
+        lblEquipmentName.setText("Name of equipment");
+        jPanel1.add(lblEquipmentName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+        jPanel1.add(txtEquipmentName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 350, -1));
+
+        jLayeredPane1.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 920, 530));
+
+        getContentPane().add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnNavDashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavDashActionPerformed
+        FRMAdminDashboard Dashboard = new FRMAdminDashboard();
+        Dashboard.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnNavDashActionPerformed
+
+    private void btnNavReservationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavReservationsActionPerformed
+        FRMReservations Reservations = new FRMReservations();
+        Reservations.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnNavReservationsActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        FRMLogin Login = new FRMLogin();
+        Login.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnNavInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavInventoryActionPerformed
+        FRMInventory Inventory = new FRMInventory();
+        Inventory.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnNavInventoryActionPerformed
+
+    private void btnNavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavActionPerformed
+        pnlNavigation.setVisible(!pnlNavigation.isVisible());
+    }//GEN-LAST:event_btnNavActionPerformed
+
+        /*private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        String Nombre, Apellidos, Email, Movil, User, PassAdmin, RePassAdmin;
+        boolean Activo, Existe = false;
+
+        Nombre = txtNombreAdmin.getText(); // getText es para capturar lo que haya ingresado el usuario en un textbox        
+        Apellidos = txtApellidosAdmin.getText();
+        Email = txtEmailAdmin.getText().trim();
+        Movil = txtMovilAdmin.getText();
+        User = txtUserAdmin.getText();
+        PassAdmin = txtPassAdmin.getText();
+        RePassAdmin = txtRePassAdmin.getText();
+        //Activo = ckActivo.getFocusListeners;
+
+        //validacion que campos de texto esten vacios, secuencial / en cadena
+        if (!Nombre.isEmpty()) {
+            if (!Apellidos.isEmpty()) {
+                if (!Email.isEmpty()) {
+                    // validacion de dirección de correo
+                    if (!Email.contains("@")) {
+                        //lblErrorEmail.setVisible(true);
+                        JOptionPane.showMessageDialog(this,
+                                "El correo electrónico debe contener '@'",
+                                "Error de Validación",
+                                JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    if (!Movil.isEmpty()) {
+                        if (!User.isEmpty()) {
+
+                            String ValUser = "SELECT * FROM tbladmin WHERE UserAdmin = '" + User + "'"; // Validacion de si el usuario ya existe
+
+                            try {
+                                Connection Iniciar = CN.Conectar();
+                                PS = Iniciar.prepareStatement(ValUser);
+                                RS = PS.executeQuery(); // Similar al commit, es lo que ejecuta en la base de datos
+
+                                if (RS.next()) {
+                                    // Si el usuario existe
+                                    Existe = true;
+                                }
+
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(rootPane, "Error al consultar en la base de datos." + e.getMessage());
+                            }
+
+                            if (Existe) {
+                                JOptionPane.showMessageDialog(rootPane, "El usuario ingresado ya se encuentra registrado en el sistema.");
+                            } else {
+                                if (PassAdmin.equals(RePassAdmin)) {
+                                    ClsAdmin objAdmin = new ClsAdmin(Nombre, Apellidos, Email, Movil, User, PassAdmin);
+
+                                    ClsMetAdmin ADMIN = new ClsMetAdmin(); // Este es el que se encarga de administrar
+                                    String Cadena = ADMIN.AgregarAdmin(objAdmin);
+                                    JOptionPane.showMessageDialog(rootPane, Cadena);
+                                    Limpiar();
+                                    Errores();
+                                } else {
+                                    lblErrorPass.setVisible(true);
+                                    lblErrorRePass.setVisible(true);
+                                    JOptionPane.showMessageDialog(rootPane, "Las contraseñas no coinciden.");
+                                }
+                            }
+
+                            if (!PassAdmin.isEmpty()) {
+                                if (!RePassAdmin.isEmpty()) {
+
+                                } else {
+                                    lblErrorRePass.setVisible(true);
+                                }
+
+                            } else {
+                                lblErrorPass.setVisible(true);
+                            }
+
+                        } else {
+                            lblErrorUser.setVisible(true);
+                        }
+
+                    } else {
+                        lblErrorMovil.setVisible(true);
+                    }
+
+                } else {
+                    lblErrorEmail.setVisible(true);
+                }
+
+            } else {
+                lblErrorApellidos.setVisible(true);
+            }
+        } else {
+            lblErrorNombres.setVisible(true);
+        }*/
+    
     /**
      * @param args the command line arguments
      */
@@ -71,5 +298,21 @@ public class FRMAddEquipment extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JToggleButton btnLogout;
+    private javax.swing.JButton btnNav;
+    private javax.swing.JButton btnNav4;
+    private javax.swing.JButton btnNavDash;
+    private javax.swing.JButton btnNavInventory;
+    private javax.swing.JButton btnNavReservations;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblEquipmentName;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JPanel pnlNavigation;
+    private javax.swing.JTextField txtEquipmentName;
     // End of variables declaration//GEN-END:variables
 }

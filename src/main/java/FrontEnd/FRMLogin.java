@@ -32,7 +32,6 @@ public class FRMLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -51,9 +50,6 @@ public class FRMLogin extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1000, 666));
         setPreferredSize(new java.awt.Dimension(1000, 666));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 0, -1, -1));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 48)); // NOI18N
@@ -80,7 +76,7 @@ public class FRMLogin extends javax.swing.JFrame {
         Btn_login_login.setBackground(new java.awt.Color(255, 255, 255));
         Btn_login_login.setForeground(new java.awt.Color(0, 0, 102));
         Btn_login_login.setText("Login");
-        Btn_login_login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_login_login.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Btn_login_login.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         Btn_login_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,7 +89,7 @@ public class FRMLogin extends javax.swing.JFrame {
         Btn_login_CA.setForeground(new java.awt.Color(0, 51, 102));
         Btn_login_CA.setText("Create Account");
         Btn_login_CA.setToolTipText("");
-        Btn_login_CA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_login_CA.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Btn_login_CA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_login_CAActionPerformed(evt);
@@ -104,7 +100,7 @@ public class FRMLogin extends javax.swing.JFrame {
         Btn_login_sIn.setBackground(new java.awt.Color(0, 153, 255));
         Btn_login_sIn.setForeground(new java.awt.Color(255, 255, 255));
         Btn_login_sIn.setText("Sign In");
-        Btn_login_sIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_login_sIn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Btn_login_sIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Btn_login_sInActionPerformed(evt);
@@ -239,7 +235,6 @@ public class FRMLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables

@@ -1,18 +1,30 @@
 package FrontEnd;
 
+import BackEnd.ClsMetEquipment;
+import Connection.ClsConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import Objects.ClsAdmin;
+
 import java.awt.Toolkit;
 import java.awt.Image;
 
 public class FRMInventory extends javax.swing.JFrame {
 
+    ClsConnection CN;
+    PreparedStatement PS;
+    ResultSet RS;
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FRMInventory.class.getName());
 
-    /**
-     * Creates new form FRMInventory
-     */
     public FRMInventory() {
         initComponents();
         setLocationRelativeTo(this);
+        // Errors(); TO DO
+        CN = new ClsConnection();
+        // FillTable(); TO DO
         pnlNavigation.setVisible(false);
     }
 
@@ -59,7 +71,6 @@ public class FRMInventory extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1000, 700));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setMaximumSize(new java.awt.Dimension(1440, 900));
@@ -91,6 +102,11 @@ public class FRMInventory extends javax.swing.JFrame {
 
         btnAdd.setText("Add item");
         btnAdd.setPreferredSize(new java.awt.Dimension(100, 25));
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 20, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 60));
@@ -149,7 +165,7 @@ public class FRMInventory extends javax.swing.JFrame {
         });
         pnlNavigation.add(btnNavInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 210, 30));
 
-        jPanel1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 640));
+        jPanel1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, -1));
 
         pnlStock.setPreferredSize(new java.awt.Dimension(185, 75));
         pnlStock.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -270,6 +286,19 @@ public class FRMInventory extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*public void Errors() {
+
+    }*/
+    
+    /*public void Clean (){
+        
+    }*/
+
+    public void FillTable(){
+        ClsMetEquipment Equipment = new ClsMetEquipment();
+        tblItems.setModel(Equipment.ListEquipment());
+    }
+    
     private void btnNavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavActionPerformed
         pnlNavigation.setVisible(!pnlNavigation.isVisible());
     }//GEN-LAST:event_btnNavActionPerformed
@@ -321,6 +350,10 @@ public class FRMInventory extends javax.swing.JFrame {
         Reservations.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnNavReservationsActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddActionPerformed
 
     /**
      * @param args the command line arguments

@@ -260,7 +260,7 @@ public class FRMReservations extends javax.swing.JFrame {
         jPanel1.add(pnlCritical, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 60, 180, -1));
 
         pnlNavigation.setBackground(new java.awt.Color(51, 255, 255));
-        pnlNavigation.setPreferredSize(new java.awt.Dimension(250, 910));
+        pnlNavigation.setPreferredSize(new java.awt.Dimension(250, 700));
         pnlNavigation.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnNav4.setText("4");
@@ -308,7 +308,7 @@ public class FRMReservations extends javax.swing.JFrame {
         });
         pnlNavigation.add(btnNavReservations, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 210, 30));
 
-        jPanel1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 660));
+        jPanel1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pnlTotalItems1.setBackground(new java.awt.Color(51, 255, 255));
         pnlTotalItems1.setForeground(new java.awt.Color(255, 255, 255));
