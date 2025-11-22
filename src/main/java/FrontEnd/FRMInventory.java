@@ -352,7 +352,9 @@ public class FRMInventory extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNavReservationsActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        FRMAddEquipment AddEq = new FRMAddEquipment();
+        AddEq.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnAddActionPerformed
 
     /**
