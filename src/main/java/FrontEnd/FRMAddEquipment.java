@@ -1,10 +1,23 @@
 package FrontEnd;
 
 import BackEnd.ClsMetEquipment;
+import Connection.ClsConnection;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import Objects.ClsEquipment;
+
+
+/*void setVisible(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }*/
 
 public class FRMAddEquipment extends javax.swing.JFrame {
+
+    ClsConnection CN;
+    PreparedStatement PS;
+    ResultSet RS;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FRMAddEquipment.class.getName());
 
@@ -15,6 +28,15 @@ public class FRMAddEquipment extends javax.swing.JFrame {
         initComponents();
     }
 
+        public void Errors() {
+        lblErrorName.setVisible(false);
+        lblErrorCategory.setVisible(false);
+        lblErrorSupplier.setVisible(false);
+        lblErrorLocation.setVisible(false);
+        lblErrorStatus.setVisible(false);
+        lblErrorQuantity.setVisible(false);
+        lblErrorMinStock.setVisible(false);
+            
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,15 +60,43 @@ public class FRMAddEquipment extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
-        lblEquipmentName = new javax.swing.JLabel();
+        lblEquipmentDescription = new javax.swing.JLabel();
         txtEquipmentName = new javax.swing.JTextField();
+        lblEquipmentID = new javax.swing.JLabel();
+        txtEquipmentID = new javax.swing.JTextField();
+        lblEquipmentCategory = new javax.swing.JLabel();
+        txtEquipmentSupplier = new javax.swing.JTextField();
+        lblEquipmentSupplier = new javax.swing.JLabel();
+        lblEquipmentQuantity = new javax.swing.JLabel();
+        cboxEquipmentCategory = new javax.swing.JComboBox<>();
+        numEquipmentQuantity = new javax.swing.JSpinner();
+        lblEquipmentMinStock = new javax.swing.JLabel();
+        numEquipmentMinStock = new javax.swing.JSpinner();
+        lblEquipmentName = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDescription = new javax.swing.JTextArea();
+        btnCancel = new javax.swing.JButton();
+        btnAddToInventory = new javax.swing.JButton();
+        txtEquipmentLocation = new javax.swing.JTextField();
+        lblEquipmentLocation = new javax.swing.JLabel();
+        txtEquipmentStatus = new javax.swing.JTextField();
+        lblEquipmentStatus = new javax.swing.JLabel();
+        lblErrorSupplier = new javax.swing.JLabel();
+        lblErrorName = new javax.swing.JLabel();
+        lblErrorCategory = new javax.swing.JLabel();
+        lblErrorLocation = new javax.swing.JLabel();
+        lblErrorStatus = new javax.swing.JLabel();
+        lblErrorQuantity = new javax.swing.JLabel();
+        lblErrorMinStock = new javax.swing.JLabel();
+        btnSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 700));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLayeredPane1.setBackground(new java.awt.Color(51, 51, 51));
+        jLayeredPane1.setBackground(new java.awt.Color(0, 0, 0));
+        jLayeredPane1.setForeground(new java.awt.Color(0, 0, 0));
         jLayeredPane1.setPreferredSize(new java.awt.Dimension(1000, 666));
         jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -136,9 +186,111 @@ public class FRMAddEquipment extends javax.swing.JFrame {
         lblTitle.setText("Item Information");
         jPanel1.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, -1, -1));
 
+        lblEquipmentDescription.setText("Description");
+        jPanel1.add(lblEquipmentDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
+        jPanel1.add(txtEquipmentName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 350, -1));
+
+        lblEquipmentID.setText("Equipment ID");
+        jPanel1.add(lblEquipmentID, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, -1, -1));
+        jPanel1.add(txtEquipmentID, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 300, -1));
+
+        lblEquipmentCategory.setText("Equipment category");
+        jPanel1.add(lblEquipmentCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+        jPanel1.add(txtEquipmentSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 350, -1));
+
+        lblEquipmentSupplier.setText("Supplier");
+        jPanel1.add(lblEquipmentSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, -1, -1));
+
+        lblEquipmentQuantity.setText("Quantity");
+        jPanel1.add(lblEquipmentQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
+
+        cboxEquipmentCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select category", "Item 2", "Item 3", "Item 4" }));
+        cboxEquipmentCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxEquipmentCategoryActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cboxEquipmentCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 350, -1));
+        jPanel1.add(numEquipmentQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 350, -1));
+
+        lblEquipmentMinStock.setText("Minimum stock level");
+        jPanel1.add(lblEquipmentMinStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 290, -1, -1));
+        jPanel1.add(numEquipmentMinStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 310, 350, -1));
+
         lblEquipmentName.setText("Name of equipment");
         jPanel1.add(lblEquipmentName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
-        jPanel1.add(txtEquipmentName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 350, -1));
+
+        txtDescription.setColumns(20);
+        txtDescription.setRows(5);
+        jScrollPane1.setViewportView(txtDescription);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 860, 100));
+
+        btnCancel.setText("Cancel");
+        btnCancel.setPreferredSize(new java.awt.Dimension(150, 35));
+        jPanel1.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 490, -1, -1));
+
+        btnAddToInventory.setText("Add to iventory");
+        btnAddToInventory.setPreferredSize(new java.awt.Dimension(150, 35));
+        btnAddToInventory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddToInventoryActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAddToInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 490, -1, -1));
+        jPanel1.add(txtEquipmentLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 350, -1));
+
+        lblEquipmentLocation.setText("Location");
+        jPanel1.add(lblEquipmentLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
+        jPanel1.add(txtEquipmentStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 240, 350, -1));
+
+        lblEquipmentStatus.setText("Status");
+        jPanel1.add(lblEquipmentStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 220, -1, -1));
+
+        lblErrorSupplier.setBackground(new java.awt.Color(255, 255, 255));
+        lblErrorSupplier.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        lblErrorSupplier.setForeground(new java.awt.Color(255, 0, 0));
+        lblErrorSupplier.setText("*");
+        jPanel1.add(lblErrorSupplier, new org.netbeans.lib.awtextra.AbsoluteConstraints(585, 145, 10, -1));
+
+        lblErrorName.setBackground(new java.awt.Color(255, 255, 255));
+        lblErrorName.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        lblErrorName.setForeground(new java.awt.Color(255, 0, 0));
+        lblErrorName.setText("*");
+        jPanel1.add(lblErrorName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 75, 10, -1));
+
+        lblErrorCategory.setBackground(new java.awt.Color(255, 255, 255));
+        lblErrorCategory.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        lblErrorCategory.setForeground(new java.awt.Color(255, 0, 0));
+        lblErrorCategory.setText("*");
+        jPanel1.add(lblErrorCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 145, 10, -1));
+
+        lblErrorLocation.setBackground(new java.awt.Color(255, 255, 255));
+        lblErrorLocation.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        lblErrorLocation.setForeground(new java.awt.Color(255, 0, 0));
+        lblErrorLocation.setText("*");
+        jPanel1.add(lblErrorLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(573, 215, 10, -1));
+
+        lblErrorStatus.setBackground(new java.awt.Color(255, 255, 255));
+        lblErrorStatus.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        lblErrorStatus.setForeground(new java.awt.Color(255, 0, 0));
+        lblErrorStatus.setText("*");
+        jPanel1.add(lblErrorStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(78, 215, 10, -1));
+
+        lblErrorQuantity.setBackground(new java.awt.Color(255, 255, 255));
+        lblErrorQuantity.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        lblErrorQuantity.setForeground(new java.awt.Color(255, 0, 0));
+        lblErrorQuantity.setText("*");
+        jPanel1.add(lblErrorQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(78, 285, 10, -1));
+
+        lblErrorMinStock.setBackground(new java.awt.Color(255, 255, 255));
+        lblErrorMinStock.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        lblErrorMinStock.setForeground(new java.awt.Color(255, 0, 0));
+        lblErrorMinStock.setText("*");
+        jPanel1.add(lblErrorMinStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(652, 285, 10, -1));
+
+        btnSearch.setText("jButton1");
+        jPanel1.add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 100, 40, -1));
 
         jLayeredPane1.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 920, 530));
 
@@ -179,99 +331,59 @@ public class FRMAddEquipment extends javax.swing.JFrame {
         pnlNavigation.setVisible(!pnlNavigation.isVisible());
     }//GEN-LAST:event_btnNavActionPerformed
 
-        /*private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        String Nombre, Apellidos, Email, Movil, User, PassAdmin, RePassAdmin;
-        boolean Activo, Existe = false;
+    private void btnAddToInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToInventoryActionPerformed
 
-        Nombre = txtNombreAdmin.getText(); // getText es para capturar lo que haya ingresado el usuario en un textbox        
-        Apellidos = txtApellidosAdmin.getText();
-        Email = txtEmailAdmin.getText().trim();
-        Movil = txtMovilAdmin.getText();
-        User = txtUserAdmin.getText();
-        PassAdmin = txtPassAdmin.getText();
-        RePassAdmin = txtRePassAdmin.getText();
-        //Activo = ckActivo.getFocusListeners;
+        String Name, Category, Supplier, Location, Status;
+        int AddQuantity, MinStock;
+        // boolean Availability;
 
-        //validacion que campos de texto esten vacios, secuencial / en cadena
-        if (!Nombre.isEmpty()) {
-            if (!Apellidos.isEmpty()) {
-                if (!Email.isEmpty()) {
-                    // validacion de dirección de correo
-                    if (!Email.contains("@")) {
-                        //lblErrorEmail.setVisible(true);
-                        JOptionPane.showMessageDialog(this,
-                                "El correo electrónico debe contener '@'",
-                                "Error de Validación",
-                                JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                    if (!Movil.isEmpty()) {
-                        if (!User.isEmpty()) {
+        Name = txtEquipmentName.getText();
+        Category = (String) cboxEquipmentCategory.getSelectedItem();
+        Supplier = txtEquipmentSupplier.getText();
+        Location = txtEquipmentLocation.getText();
+        Status = txtEquipmentStatus.getText();
+        AddQuantity = (int) numEquipmentQuantity.getValue();
+        MinStock = (int) numEquipmentMinStock.getValue();
 
-                            String ValUser = "SELECT * FROM tbladmin WHERE UserAdmin = '" + User + "'"; // Validacion de si el usuario ya existe
-
-                            try {
-                                Connection Iniciar = CN.Conectar();
-                                PS = Iniciar.prepareStatement(ValUser);
-                                RS = PS.executeQuery(); // Similar al commit, es lo que ejecuta en la base de datos
-
-                                if (RS.next()) {
-                                    // Si el usuario existe
-                                    Existe = true;
-                                }
-
-                            } catch (Exception e) {
-                                JOptionPane.showMessageDialog(rootPane, "Error al consultar en la base de datos." + e.getMessage());
-                            }
-
-                            if (Existe) {
-                                JOptionPane.showMessageDialog(rootPane, "El usuario ingresado ya se encuentra registrado en el sistema.");
-                            } else {
-                                if (PassAdmin.equals(RePassAdmin)) {
-                                    ClsAdmin objAdmin = new ClsAdmin(Nombre, Apellidos, Email, Movil, User, PassAdmin);
-
-                                    ClsMetAdmin ADMIN = new ClsMetAdmin(); // Este es el que se encarga de administrar
-                                    String Cadena = ADMIN.AgregarAdmin(objAdmin);
-                                    JOptionPane.showMessageDialog(rootPane, Cadena);
-                                    Limpiar();
-                                    Errores();
-                                } else {
-                                    lblErrorPass.setVisible(true);
-                                    lblErrorRePass.setVisible(true);
-                                    JOptionPane.showMessageDialog(rootPane, "Las contraseñas no coinciden.");
-                                }
-                            }
-
-                            if (!PassAdmin.isEmpty()) {
-                                if (!RePassAdmin.isEmpty()) {
+        if (!Name.isEmpty()) {
+            if (!Category.isEmpty()) {
+                if (!Supplier.isEmpty()) {
+                    if (!Location.isEmpty()) {
+                        if (!Status.isEmpty()) {
+                            if (AddQuantity <= 0) {
+                                if (MinStock <= 0) {
 
                                 } else {
-                                    lblErrorRePass.setVisible(true);
+                                    lblErrorMinStock.setVisible(true);
                                 }
-
                             } else {
-                                lblErrorPass.setVisible(true);
+                                lblErrorQuantity.setVisible(true);
                             }
-
                         } else {
-                            lblErrorUser.setVisible(true);
+                            lblErrorStatus.setVisible(true);
                         }
-
                     } else {
-                        lblErrorMovil.setVisible(true);
+                        lblErrorLocation.setVisible(true);
                     }
 
                 } else {
-                    lblErrorEmail.setVisible(true);
+                    lblErrorSupplier.setVisible(true);
                 }
 
             } else {
-                lblErrorApellidos.setVisible(true);
+                lblErrorCategory.setVisible(true);
             }
         } else {
-            lblErrorNombres.setVisible(true);
-        }*/
-    
+            lblErrorName.setVisible(true);
+        }
+
+
+    }//GEN-LAST:event_btnAddToInventoryActionPerformed
+    }
+    private void cboxEquipmentCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxEquipmentCategoryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxEquipmentCategoryActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -298,6 +410,8 @@ public class FRMAddEquipment extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddToInventory;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JToggleButton btnLogout;
     private javax.swing.JButton btnNav;
@@ -305,14 +419,39 @@ public class FRMAddEquipment extends javax.swing.JFrame {
     private javax.swing.JButton btnNavDash;
     private javax.swing.JButton btnNavInventory;
     private javax.swing.JButton btnNavReservations;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JComboBox<String> cboxEquipmentCategory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblEquipmentCategory;
+    private javax.swing.JLabel lblEquipmentDescription;
+    private javax.swing.JLabel lblEquipmentID;
+    private javax.swing.JLabel lblEquipmentLocation;
+    private javax.swing.JLabel lblEquipmentMinStock;
     private javax.swing.JLabel lblEquipmentName;
+    private javax.swing.JLabel lblEquipmentQuantity;
+    private javax.swing.JLabel lblEquipmentStatus;
+    private javax.swing.JLabel lblEquipmentSupplier;
+    private javax.swing.JLabel lblErrorCategory;
+    private javax.swing.JLabel lblErrorLocation;
+    private javax.swing.JLabel lblErrorMinStock;
+    private javax.swing.JLabel lblErrorName;
+    private javax.swing.JLabel lblErrorQuantity;
+    private javax.swing.JLabel lblErrorStatus;
+    private javax.swing.JLabel lblErrorSupplier;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JSpinner numEquipmentMinStock;
+    private javax.swing.JSpinner numEquipmentQuantity;
     private javax.swing.JPanel pnlNavigation;
+    private javax.swing.JTextArea txtDescription;
+    private javax.swing.JTextField txtEquipmentID;
+    private javax.swing.JTextField txtEquipmentLocation;
     private javax.swing.JTextField txtEquipmentName;
+    private javax.swing.JTextField txtEquipmentStatus;
+    private javax.swing.JTextField txtEquipmentSupplier;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,4 +1,3 @@
-
 package BackEnd;
 
 import Objects.ClsEquipment;
@@ -26,7 +25,7 @@ public class ClsMetEquipment {
     
     public String AddEquipment(ClsEquipment objEquipmentT){
         this.objEquipment = objEquipmentT;
-        String ConAddEquipment = "INSERT INTO tblitems(Item ID, Name, Category, Stock, Location, Status, Supplier, Availability) VALUES (?,?,?,?,?,?,?)";
+        String ConAddEquipment = "INSERT INTO tblitems(EquipmentID, Name, Category, Supplier, Location, Status, Quantity, MinStock, Availability) VALUES (?,?,?,?,?,?,?,?,?)";
         
         Connection Start = CN.Connect();
         
@@ -34,11 +33,12 @@ public class ClsMetEquipment {
             PS = Start.prepareStatement(ConAddEquipment);
             PS.setString(1, objEquipment.getEquipmentName());
             PS.setString(2, objEquipment.getEquipmentCategory());
-            PS.setInt(3, objEquipment.getEquipmentStock());
+            PS.setString(3, objEquipment.getEquipmentSupplier());
             PS.setString(4, objEquipment.getEquipmentLocation());
             PS.setString(5, objEquipment.getEquipmentStatus());
-            PS.setString(6, objEquipment.getEquipmentSupplier());
-            PS.setBoolean(7, false);
+            PS.setInt(6, objEquipment.getEquipmentQuantity());
+            PS.setInt(7, objEquipment.getEquipmentMinStock());
+            PS.setBoolean(8, true);
 
             int res = 0;
             res = PS.executeUpdate();
@@ -75,10 +75,50 @@ public class ClsMetEquipment {
     return AdmMssg;
     }
     
+    //Listado de datos en la tabla
     public DefaultTableModel ListEquipment(){
+        // Declaracion de la variable para llenado de datos
         DefaultTableModel Model = new DefaultTableModel();
         
+        Model.addColumn("EquipmentID");
+        Model.addColumn("Name");
+        Model.addColumn("Category");
+        Model.addColumn("Supplier");
+        Model.addColumn("Location");
+        Model.addColumn("Status");
+        Model.addColumn("Quantity");
+        Model.addColumn("MinimumStock");
+        Model.addColumn("Availability");
         
+        // Carga de datos a la base de datos al modelo
+        try {
+            String ADmMssg = "";
+            int res = 0;
+            
+            Connection Start = CN.Connect();
+            String ListEquipment = "SELECT * FROM tblitems";
+            
+            PS = Start.prepareStatement(ListEquipment);
+            RS = PS.executeQuery();
+            
+            ClsEquipment objEquipment = new ClsEquipment();
+            while(RS.next()){
+                Object[] list ={
+                    RS.getInt(1), //ID
+                    RS.getString(2), //Name
+                    RS.getString(3), //Category
+                    RS.getString(4), //Supplier
+                    RS.getString(5), //Location
+                    RS.getString(6), //Status
+                    RS.getInt(7), //Quantity
+                    RS.getInt(8), //Minimum Stock
+                    RS.getBoolean(9) // Availability
+                };
+                // Carga de datos
+                Model.addRow(list);
+            }
+        } catch (Exception e) {
+        }
         
     return Model;
     }
