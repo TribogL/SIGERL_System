@@ -22,9 +22,8 @@ public class FRMInventory extends javax.swing.JFrame {
     public FRMInventory() {
         initComponents();
         setLocationRelativeTo(this);
-        // Errors(); TO DO
         CN = new ClsConnection();
-        // FillTable(); TO DO
+        FillTable();
         pnlNavigation.setVisible(false);
     }
 
@@ -289,16 +288,14 @@ public class FRMInventory extends javax.swing.JFrame {
     /*public void Errors() {
 
     }*/
-    
-    /*public void Clean (){
+ /*public void Clean (){
         
     }*/
-
-    public void FillTable(){
+    public void FillTable() {
         ClsMetEquipment Equipment = new ClsMetEquipment();
         tblItems.setModel(Equipment.ListEquipment());
     }
-    
+
     private void btnNavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavActionPerformed
         pnlNavigation.setVisible(!pnlNavigation.isVisible());
     }//GEN-LAST:event_btnNavActionPerformed
@@ -352,8 +349,8 @@ public class FRMInventory extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNavReservationsActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        FRMAddEquipment AddEq = new FRMAddEquipment();
-        AddEq.setVisible(true);
+        FRMAddEquipment AddEq = new FRMAddEquipment(this); // Llamado de tabla tlbItems aqui a FRMAddEquipment
+        AddEq.setVisible(true); // Llamado de tabla tlbItems aqui a FRMAddEquipment
         dispose();
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -408,7 +405,7 @@ public class FRMInventory extends javax.swing.JFrame {
     private javax.swing.JPanel pnlSearch;
     private javax.swing.JPanel pnlStock;
     private javax.swing.JPanel pnlTotalItems1;
-    private javax.swing.JTable tblItems;
+    public javax.swing.JTable tblItems;
     private java.awt.TextField txtCategories;
     private java.awt.TextField txtCritical;
     private java.awt.TextField txtLowItems;

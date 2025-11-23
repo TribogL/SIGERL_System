@@ -23,6 +23,7 @@ public class ClsMetEquipment {
         CN = new ClsConnection();
     }
     
+    // Create (Crud)
     public String AddEquipment(ClsEquipment objEquipmentT){
         this.objEquipment = objEquipmentT;
         String ConAddEquipment = "INSERT INTO tblitems(EquipmentID, Name, Category, Supplier, Location, Status, Quantity, MinStock, Availability) VALUES (?,?,?,?,?,?,?,?,?)";
@@ -54,6 +55,7 @@ public class ClsMetEquipment {
         return AdmMssg;
     }
     
+    // Read (cRud)
     public String SearchEquipment(ClsEquipment objEquipmentT){
         
         
@@ -61,6 +63,7 @@ public class ClsMetEquipment {
     return AdmMssg;
     }
     
+    // Delete (cruD)
     public String DeleteEquipment(ClsEquipment objEquipmentT){
         
         
@@ -68,6 +71,7 @@ public class ClsMetEquipment {
     return AdmMssg;
     }
     
+    // Update (crUd)
     public String UpdateEquipment(ClsEquipment objEquipmentT){
         
         
@@ -118,6 +122,7 @@ public class ClsMetEquipment {
                 Model.addRow(list);
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "DB Error", JOptionPane.ERROR_MESSAGE);
         }
         
     return Model;

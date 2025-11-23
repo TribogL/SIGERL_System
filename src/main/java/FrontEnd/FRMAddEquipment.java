@@ -8,27 +8,70 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import Objects.ClsEquipment;
 
-
-/*void setVisible(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }*/
-
 public class FRMAddEquipment extends javax.swing.JFrame {
 
-    ClsConnection CN;
-    PreparedStatement PS;
-    ResultSet RS;
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FRMAddEquipment.class.getName());
+    // Metodo constructor haciendo referencia a la tabla tblItems en frame FRMInventory para llenarla desde este frame
+    private FRMInventory inventoryForm;
 
-    /**
-     * Creates new form FRMAddEquipment
-     */
-    public FRMAddEquipment() {
+    public FRMAddEquipment(FRMInventory inventoryForm) {
         initComponents();
+        this.inventoryForm = inventoryForm;
+
+        ClsConnection CN;
+        PreparedStatement PS;
+        ResultSet RS;     
+        setLocationRelativeTo(this);
+        Errors();
+        pnlNavigation.setVisible(false);
+        CN = new ClsConnection();
+
+        FillTable();
+
+        // Cambio al JTextArea de la descripcion para que el texto baje solo
+        txtDescription.setLineWrap(true);
+        txtDescription.setWrapStyleWord(true);
+
+        // Contador de caracteres maximos para la description: 
+        final int MAX_CHAR = 200;
+
+        lblCount.setText("Characters remaining: " + MAX_CHAR);
+
+        // Metodo para obtener cuantos caracteres lleva escrito el usuario:
+        txtDescription.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+
+            private void updateCount() {
+                int length = txtDescription.getText().length();
+                int remaining = MAX_CHAR - length;
+
+                lblCount.setText("Characters remaining: " + remaining);
+
+                // Color warning when exceeding max
+                if (remaining < 0) {
+                    lblCount.setForeground(java.awt.Color.RED);
+                } else {
+                    lblCount.setForeground(java.awt.Color.BLACK);
+                }
+            }
+
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                updateCount();
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                updateCount();
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                updateCount();
+            }
+        });
+
     }
 
-        public void Errors() {
+    public void Errors() {
         lblErrorName.setVisible(false);
         lblErrorCategory.setVisible(false);
         lblErrorSupplier.setVisible(false);
@@ -36,7 +79,26 @@ public class FRMAddEquipment extends javax.swing.JFrame {
         lblErrorStatus.setVisible(false);
         lblErrorQuantity.setVisible(false);
         lblErrorMinStock.setVisible(false);
-            
+    }
+
+    public void Clear() {
+        txtEquipmentName.setText("");
+        txtEquipmentID.setText("");
+        cboxEquipmentCategory.setSelectedIndex(0);
+        txtEquipmentSupplier.setText("");
+        txtEquipmentLocation.setText("");
+        txtEquipmentStatus.setText("");
+        numEquipmentQuantity.setValue(0);
+        numEquipmentMinStock.setValue(0);
+        txtDescription.setText("");
+        Errors();
+    }
+
+    public void FillTable() {
+        ClsMetEquipment Equipment = new ClsMetEquipment();
+        inventoryForm.tblItems.setModel(Equipment.ListEquipment());
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,6 +151,8 @@ public class FRMAddEquipment extends javax.swing.JFrame {
         lblErrorQuantity = new javax.swing.JLabel();
         lblErrorMinStock = new javax.swing.JLabel();
         btnSearch = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
+        lblCount = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 700));
@@ -154,7 +218,7 @@ public class FRMAddEquipment extends javax.swing.JFrame {
         });
         pnlNavigation.add(btnNavInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 210, 30));
 
-        jLayeredPane1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1, -1));
+        jLayeredPane1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 10, 610));
 
         jPanel2.setBackground(new java.awt.Color(51, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(1000, 50));
@@ -228,7 +292,7 @@ public class FRMAddEquipment extends javax.swing.JFrame {
 
         btnCancel.setText("Cancel");
         btnCancel.setPreferredSize(new java.awt.Dimension(150, 35));
-        jPanel1.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 490, -1, -1));
+        jPanel1.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 490, -1, -1));
 
         btnAddToInventory.setText("Add to iventory");
         btnAddToInventory.setPreferredSize(new java.awt.Dimension(150, 35));
@@ -237,7 +301,7 @@ public class FRMAddEquipment extends javax.swing.JFrame {
                 btnAddToInventoryActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAddToInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 490, -1, -1));
+        jPanel1.add(btnAddToInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 490, -1, -1));
         jPanel1.add(txtEquipmentLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 350, -1));
 
         lblEquipmentLocation.setText("Location");
@@ -291,6 +355,18 @@ public class FRMAddEquipment extends javax.swing.JFrame {
 
         btnSearch.setText("jButton1");
         jPanel1.add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 100, 40, -1));
+
+        btnClear.setText("Clear");
+        btnClear.setPreferredSize(new java.awt.Dimension(150, 35));
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 490, -1, -1));
+
+        lblCount.setText("Characters remaining: 200");
+        jPanel1.add(lblCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, -1, -1));
 
         jLayeredPane1.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 920, 530));
 
@@ -379,10 +455,16 @@ public class FRMAddEquipment extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnAddToInventoryActionPerformed
-    }
+
     private void cboxEquipmentCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxEquipmentCategoryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboxEquipmentCategoryActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        Clear();
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FRMAddEquipment.class.getName());
 
     /**
      * @param args the command line arguments
@@ -405,14 +487,13 @@ public class FRMAddEquipment extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FRMAddEquipment().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddToInventory;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnClear;
     private javax.swing.JToggleButton btnLogout;
     private javax.swing.JButton btnNav;
     private javax.swing.JButton btnNav4;
@@ -427,6 +508,7 @@ public class FRMAddEquipment extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCount;
     private javax.swing.JLabel lblEquipmentCategory;
     private javax.swing.JLabel lblEquipmentDescription;
     private javax.swing.JLabel lblEquipmentID;
