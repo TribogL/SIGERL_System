@@ -10,7 +10,8 @@ public class ClsEquipment {
     private String EquipmentStatus;
     private int EquipmentQuantity;
     private int EquipmentMinStock;
-    private boolean IsAvailable;
+    private boolean Availability;
+    private String Description;
 
     public ClsEquipment() {
         this.EquipmentName = "";
@@ -20,21 +21,25 @@ public class ClsEquipment {
         this.EquipmentStatus = "";
         this.EquipmentQuantity = 0;
         this.EquipmentMinStock = 0;
-        this.IsAvailable = IsAvailable;
+        this.Availability = false;
+        this.Description = "";
     }
 
-    public ClsEquipment(int EquipmentID, String EquipmentName, String EquipmentCategory, int EquipmentStock, String EquipmentLocation, String EquipmentStatus, String EquipmentSupplier, boolean IsAvailable) {
-        this.EquipmentID = EquipmentID;
-        this.EquipmentName = EquipmentName;
-        this.EquipmentCategory = EquipmentCategory;
-        this.EquipmentSupplier = EquipmentSupplier;
-        this.EquipmentMinStock = EquipmentMinStock;
-        this.EquipmentLocation = EquipmentLocation;
-        this.EquipmentStatus = EquipmentStatus;
-        this.EquipmentQuantity = EquipmentQuantity;
-        this.EquipmentMinStock = EquipmentMinStock;
-        this.IsAvailable = IsAvailable;
-    }
+    public ClsEquipment(String EquipmentName, String EquipmentCategory, String EquipmentSupplier,
+                    String EquipmentLocation, String EquipmentStatus, int EquipmentQuantity,
+                    int EquipmentMinStock, String Description) {
+    this.EquipmentName = EquipmentName;
+    this.EquipmentCategory = EquipmentCategory;
+    this.EquipmentSupplier = EquipmentSupplier;
+    this.EquipmentLocation = EquipmentLocation;
+    this.EquipmentStatus = EquipmentStatus;
+    this.EquipmentQuantity = EquipmentQuantity;
+    this.EquipmentMinStock = EquipmentMinStock;
+    this.Description = Description;
+
+    // TO DO: Availability a ser calculada
+    this.Availability = false;
+}
 
     public int getEquipmentID() {
         return EquipmentID;
@@ -100,11 +105,20 @@ public class ClsEquipment {
         this.EquipmentMinStock = EquipmentMinStock;
     }
 
-    public boolean isIsAvailable() { // Para indicar si esta reservado o no
-        return IsAvailable;
+    public boolean Availability() { // Para indicar si esta reservado o no
+        return Availability;
     }
 
-    public void setIsAvailable(boolean IsAvailable) {
-        this.IsAvailable = IsAvailable;
+    public void setAvailability(boolean Availability) {
+        this.Availability = Availability;
     }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String Description) {
+        this.Description = Description;
+    }
+
 }

@@ -19,7 +19,7 @@ public class FRMAddEquipment extends javax.swing.JFrame {
 
         ClsConnection CN;
         PreparedStatement PS;
-        ResultSet RS;     
+        ResultSet RS;
         setLocationRelativeTo(this);
         Errors();
         pnlNavigation.setVisible(false);
@@ -218,7 +218,7 @@ public class FRMAddEquipment extends javax.swing.JFrame {
         });
         pnlNavigation.add(btnNavInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 210, 30));
 
-        jLayeredPane1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 10, 610));
+        jLayeredPane1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 610));
 
         jPanel2.setBackground(new java.awt.Color(51, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(1000, 50));
@@ -411,7 +411,6 @@ public class FRMAddEquipment extends javax.swing.JFrame {
 
         String Name, Category, Supplier, Location, Status;
         int AddQuantity, MinStock;
-        // boolean Availability;
 
         Name = txtEquipmentName.getText();
         Category = (String) cboxEquipmentCategory.getSelectedItem();
@@ -420,39 +419,62 @@ public class FRMAddEquipment extends javax.swing.JFrame {
         Status = txtEquipmentStatus.getText();
         AddQuantity = (int) numEquipmentQuantity.getValue();
         MinStock = (int) numEquipmentMinStock.getValue();
+        boolean Availability = AddQuantity > 0;
 
-        if (!Name.isEmpty()) {
-            if (!Category.isEmpty()) {
-                if (!Supplier.isEmpty()) {
-                    if (!Location.isEmpty()) {
-                        if (!Status.isEmpty()) {
-                            if (AddQuantity <= 0) {
-                                if (MinStock <= 0) {
+        // Reset errors
+        Errors();
 
-                                } else {
-                                    lblErrorMinStock.setVisible(true);
-                                }
-                            } else {
-                                lblErrorQuantity.setVisible(true);
-                            }
-                        } else {
-                            lblErrorStatus.setVisible(true);
-                        }
-                    } else {
-                        lblErrorLocation.setVisible(true);
-                    }
-
-                } else {
-                    lblErrorSupplier.setVisible(true);
-                }
-
-            } else {
-                lblErrorCategory.setVisible(true);
-            }
-        } else {
+        // VALIDATION CHAIN (same style as frmAdmin)
+        if (Name.isEmpty()) {
             lblErrorName.setVisible(true);
+            return;
         }
 
+        if (Category.equals("Select category")) {
+            lblErrorCategory.setVisible(true);
+            return;
+        }
+
+        if (Supplier.isEmpty()) {
+            lblErrorSupplier.setVisible(true);
+            return;
+        }
+
+        if (Location.isEmpty()) {
+            lblErrorLocation.setVisible(true);
+            return;
+        }
+
+        if (Status.isEmpty()) {
+            lblErrorStatus.setVisible(true);
+            return;
+        }
+
+        if (AddQuantity <= 0) {
+            lblErrorQuantity.setVisible(true);
+            return;
+        }
+
+        if (MinStock <= 0) {
+            lblErrorMinStock.setVisible(true);
+            return;
+        }
+
+        // -------------------------------
+        // IF ALL VALID → INSERT INTO DB
+        // -------------------------------
+        // int EquipmentID, String EquipmentName, String EquipmentCategory, int EquipmentStock, String EquipmentLocation, String EquipmentStatus, String EquipmentSupplier, boolean Availability
+        ClsEquipment obj = new ClsEquipment(Name,Category,Supplier,Location,Status,AddQuantity,MinStock,txtDescription.getText());
+
+        ClsMetEquipment EQUIP = new ClsMetEquipment();
+        String Result = EQUIP.AddEquipment(obj);
+
+        JOptionPane.showMessageDialog(this, Result);
+
+        // Refresh table in other form
+        FillTable();
+
+        Clear();
 
     }//GEN-LAST:event_btnAddToInventoryActionPerformed
 

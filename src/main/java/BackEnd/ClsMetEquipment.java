@@ -10,26 +10,27 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ClsMetEquipment {
+
     ClsEquipment objEquipment;
     String AdmMssg;
-    
+
     ClsConnection CN;
     PreparedStatement PS;
     ResultSet RS;
-    
-    public ClsMetEquipment(){
+
+    public ClsMetEquipment() {
         objEquipment = new ClsEquipment();
         AdmMssg = "";
         CN = new ClsConnection();
     }
-    
+
     // Create (Crud)
-    public String AddEquipment(ClsEquipment objEquipmentT){
+    public String AddEquipment(ClsEquipment objEquipmentT) {
         this.objEquipment = objEquipmentT;
-        String ConAddEquipment = "INSERT INTO tblitems(EquipmentID, Name, Category, Supplier, Location, Status, Quantity, MinStock, Availability) VALUES (?,?,?,?,?,?,?,?,?)";
-        
+        String ConAddEquipment = "INSERT INTO tblitems(Name, Category, Supplier, Location, Status, Quantity, MinStock, Description) VALUES (?,?,?,?,?,?,?,?)";
+
         Connection Start = CN.Connect();
-        
+
         try {
             PS = Start.prepareStatement(ConAddEquipment);
             PS.setString(1, objEquipment.getEquipmentName());
@@ -39,7 +40,7 @@ public class ClsMetEquipment {
             PS.setString(5, objEquipment.getEquipmentStatus());
             PS.setInt(6, objEquipment.getEquipmentQuantity());
             PS.setInt(7, objEquipment.getEquipmentMinStock());
-            PS.setBoolean(8, true);
+            PS.setString(8, objEquipment.getDescription());
 
             int res = 0;
             res = PS.executeUpdate();
@@ -51,39 +52,33 @@ public class ClsMetEquipment {
         } catch (Exception e) {
             AdmMssg = "Database error: " + e.getMessage();
         }
-    
+
         return AdmMssg;
     }
-    
+
     // Read (cRud)
-    public String SearchEquipment(ClsEquipment objEquipmentT){
-        
-        
-        
-    return AdmMssg;
+    public String SearchEquipment(ClsEquipment objEquipmentT) {
+
+        return AdmMssg;
     }
-    
+
     // Delete (cruD)
-    public String DeleteEquipment(ClsEquipment objEquipmentT){
-        
-        
-        
-    return AdmMssg;
+    public String DeleteEquipment(ClsEquipment objEquipmentT) {
+
+        return AdmMssg;
     }
-    
+
     // Update (crUd)
-    public String UpdateEquipment(ClsEquipment objEquipmentT){
-        
-        
-        
-    return AdmMssg;
+    public String UpdateEquipment(ClsEquipment objEquipmentT) {
+
+        return AdmMssg;
     }
-    
+
     //Listado de datos en la tabla
-    public DefaultTableModel ListEquipment(){
+    public DefaultTableModel ListEquipment() {
         // Declaracion de la variable para llenado de datos
         DefaultTableModel Model = new DefaultTableModel();
-        
+
         Model.addColumn("EquipmentID");
         Model.addColumn("Name");
         Model.addColumn("Category");
@@ -93,21 +88,21 @@ public class ClsMetEquipment {
         Model.addColumn("Quantity");
         Model.addColumn("MinimumStock");
         Model.addColumn("Availability");
-        
+
         // Carga de datos a la base de datos al modelo
         try {
             String ADmMssg = "";
             int res = 0;
-            
+
             Connection Start = CN.Connect();
             String ListEquipment = "SELECT * FROM tblitems";
-            
+
             PS = Start.prepareStatement(ListEquipment);
             RS = PS.executeQuery();
-            
+
             ClsEquipment objEquipment = new ClsEquipment();
-            while(RS.next()){
-                Object[] list ={
+            while (RS.next()) {
+                Object[] list = {
                     RS.getInt(1), //ID
                     RS.getString(2), //Name
                     RS.getString(3), //Category
@@ -124,8 +119,8 @@ public class ClsMetEquipment {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "DB Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-    return Model;
+
+        return Model;
     }
-    
+
 }

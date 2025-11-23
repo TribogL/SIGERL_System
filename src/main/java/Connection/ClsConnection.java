@@ -17,7 +17,7 @@ public class ClsConnection {
 
             URL = "jdbc:mysql://localhost:3306/db_sigerl_system";
             User = "root";
-            Password = "";
+            Password = "1234";
 
             Class.forName("com.mysql.cj.jdbc.Driver"); 
             CN = DriverManager.getConnection(URL, User, Password);
