@@ -10,6 +10,7 @@ import Objects.ClsAdmin;
 
 import java.awt.Toolkit;
 import java.awt.Image;
+import javax.swing.table.DefaultTableModel;
 
 public class FRMInventory extends javax.swing.JFrame {
 
@@ -25,6 +26,84 @@ public class FRMInventory extends javax.swing.JFrame {
         CN = new ClsConnection();
         FillTable();
         pnlNavigation.setVisible(false);
+        fixZIndexOrder(); // Z-Indez para evitar que paneles se solapen
+
+        // Ordenamiento de panel de navegacion con Z-index (layers)
+        jPanel1.setComponentZOrder(pnlNavigation, 0);  // Tope
+        jPanel1.setComponentZOrder(jPanel2, 1);        // Segunda capa
+        jPanel1.setComponentZOrder(pnlSearch, 2);      // Tercera capa
+
+        // Metodo para habilitar barra de busqueda si esta enfocada
+        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                if (txtSearch.getText().equals("Search by name , ID or supplier")) {
+                    txtSearch.setText("");
+                    txtSearch.setForeground(new java.awt.Color(0, 0, 0));
+                }
+            }
+
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (txtSearch.getText().isEmpty()) {
+                    txtSearch.setText("Search by name , ID or supplier");
+                    txtSearch.setForeground(new java.awt.Color(153, 153, 153));
+                }
+            }
+        });
+
+    }
+
+    // Organizacion de paneles por capas (de tope a fondo)
+    private void fixZIndexOrder() {
+        // Mover panel de navegacion al tope solo cuando este visible
+        pnlNavigation.setOpaque(true);
+
+        // Z-order: Valor mas alto = tope
+        jPanel1.setComponentZOrder(pnlNavigation, 0);  // Navigation on top
+        jPanel1.setComponentZOrder(jPanel2, 1);        // Header bar second
+        jPanel1.setComponentZOrder(pnlSearch, 2);      // Search panel
+        jPanel1.setComponentZOrder(jScrollPane1, 3);   // Table
+
+        // Logica para evitar solapacion
+        jPanel1.setComponentZOrder(pnlTotalItems1, 2);
+        jPanel1.setComponentZOrder(pnlStock, 2);
+        jPanel1.setComponentZOrder(pnlCritical, 2);
+        jPanel1.setComponentZOrder(pnlCategories, 2);
+    }
+
+    // Logica para cargar datos de inventario en tiempo real
+    private void loadInventoryStats() {
+        ClsMetEquipment metEquip = new ClsMetEquipment();
+
+        // Total items
+        int total = metEquip.getTotalEquipmentCount();
+        txtTotalItems1.setText(String.valueOf(total));
+
+        // Low stock items
+        int lowStock = metEquip.getLowStockCount();
+        txtLowItems.setText(String.valueOf(lowStock));
+
+        // Critical stock (quantity = 0)
+        int critical = metEquip.getCriticalStockCount();
+        txtCritical.setText(String.valueOf(critical));
+
+        // Categories
+        int categories = metEquip.getCategoriesCount();
+        txtCategories.setText(String.valueOf(categories));
+
+        // Color code warnings
+        if (lowStock > 0) {
+            txtLowItems.setForeground(new java.awt.Color(255, 153, 0)); // Orange
+        }
+
+        if (critical > 0) {
+            txtCritical.setForeground(new java.awt.Color(255, 51, 51)); // Red
+        }
+    }
+
+    public void FillTable() {
+        ClsMetEquipment Equipment = new ClsMetEquipment();
+        tblItems.setModel(Equipment.ListEquipment());
+        loadInventoryStats(); // Actualizacion de datos al llenar la tabla
     }
 
     /**
@@ -43,12 +122,12 @@ public class FRMInventory extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
         pnlNavigation = new javax.swing.JPanel();
-        btnNav4 = new javax.swing.JButton();
         btnNavDash = new javax.swing.JButton();
+        btnNavInventory = new javax.swing.JButton();
         btnNavReservations = new javax.swing.JButton();
+        btnNav4 = new javax.swing.JButton();
         btnLogout = new javax.swing.JToggleButton();
         btnCerrar = new javax.swing.JButton();
-        btnNavInventory = new javax.swing.JButton();
         pnlStock = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         txtLowItems = new java.awt.TextField();
@@ -73,8 +152,8 @@ public class FRMInventory extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setMaximumSize(new java.awt.Dimension(1440, 900));
-        jPanel1.setMinimumSize(new java.awt.Dimension(800, 600));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 700));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1000, 666));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 666));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(51, 255, 255));
@@ -111,12 +190,8 @@ public class FRMInventory extends javax.swing.JFrame {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 60));
 
         pnlNavigation.setBackground(new java.awt.Color(51, 255, 255));
-        pnlNavigation.setPreferredSize(new java.awt.Dimension(250, 700));
+        pnlNavigation.setPreferredSize(new java.awt.Dimension(250, 666));
         pnlNavigation.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnNav4.setText("4");
-        btnNav4.setToolTipText("");
-        pnlNavigation.add(btnNav4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 210, 30));
 
         btnNavDash.setText("Dashboard");
         btnNavDash.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +199,15 @@ public class FRMInventory extends javax.swing.JFrame {
                 btnNavDashActionPerformed(evt);
             }
         });
-        pnlNavigation.add(btnNavDash, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 210, 30));
+        pnlNavigation.add(btnNavDash, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 210, 30));
+
+        btnNavInventory.setText("Inventory");
+        btnNavInventory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNavInventoryActionPerformed(evt);
+            }
+        });
+        pnlNavigation.add(btnNavInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 210, 30));
 
         btnNavReservations.setText("Reservations");
         btnNavReservations.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +215,11 @@ public class FRMInventory extends javax.swing.JFrame {
                 btnNavReservationsActionPerformed(evt);
             }
         });
-        pnlNavigation.add(btnNavReservations, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 210, 30));
+        pnlNavigation.add(btnNavReservations, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 210, 30));
+
+        btnNav4.setText("4");
+        btnNav4.setToolTipText("");
+        pnlNavigation.add(btnNav4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 210, 30));
 
         btnLogout.setText("Log out");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -156,15 +243,7 @@ public class FRMInventory extends javax.swing.JFrame {
         });
         pnlNavigation.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 540, 40, 40));
 
-        btnNavInventory.setText("Inventory");
-        btnNavInventory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNavInventoryActionPerformed(evt);
-            }
-        });
-        pnlNavigation.add(btnNavInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 210, 30));
-
-        jPanel1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, -1));
+        jPanel1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 56, -1, 610));
 
         pnlStock.setPreferredSize(new java.awt.Dimension(185, 75));
         pnlStock.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -285,24 +364,81 @@ public class FRMInventory extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /*public void Errors() {
-
-    }*/
- /*public void Clean (){
-        
-    }*/
-    public void FillTable() {
-        ClsMetEquipment Equipment = new ClsMetEquipment();
-        tblItems.setModel(Equipment.ListEquipment());
-    }
-
+    // Panel de navegacion con arreglos para evitar que elementos detras de el solapen
     private void btnNavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavActionPerformed
-        pnlNavigation.setVisible(!pnlNavigation.isVisible());
+        boolean isVisible = !pnlNavigation.isVisible();
+        pnlNavigation.setVisible(isVisible);
+
+        if (isVisible) {
+            // Bring navigation to front
+            pnlNavigation.setOpaque(true);
+            jPanel1.setComponentZOrder(pnlNavigation, 0);
+            pnlNavigation.repaint();
+
+            // Disable other components to prevent interaction
+            disableComponentsBehindNav(true);
+        } else {
+            // Re-enable components
+            disableComponentsBehindNav(false);
+        }
     }//GEN-LAST:event_btnNavActionPerformed
 
+    // Metodo para desactivar elementos detras del panel de navegacion
+    private void disableComponentsBehindNav(boolean disable) {
+        jPanel2.setEnabled(!disable);
+        pnlSearch.setEnabled(!disable);
+        jScrollPane1.setEnabled(!disable);
+        tblItems.setEnabled(!disable);
+        btnAdd.setEnabled(!disable);
+
+        // Cambiar fondo cuando el panel de navegacion esta activo
+        if (disable) {
+            jPanel1.setBackground(new java.awt.Color(0, 0, 0, 150));
+        } else {
+            jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        }
+    }
+
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-        // TO DO: Barra de búsqueda, a definir qué equipos aparecen en la tabla
+        String searchText = txtSearch.getText().trim();
+
+        if (searchText.isEmpty() || searchText.equals("Search by name , ID or supplier")) {
+            FillTable();
+            return;
+        }
+
+        filterTable(searchText);
     }//GEN-LAST:event_txtSearchActionPerformed
+
+    // Metodo para filtrar tabla en base a busqueda
+    private void filterTable(String searchText) {
+        ClsMetEquipment metEquip = new ClsMetEquipment();
+        DefaultTableModel fullModel = metEquip.ListEquipment();
+        DefaultTableModel filteredModel = new DefaultTableModel();
+
+        // para copiar nombres de columna
+        for (int i = 0; i < fullModel.getColumnCount(); i++) {
+            filteredModel.addColumn(fullModel.getColumnName(i));
+        }
+
+        // Filtrado de filas
+        String lowerSearch = searchText.toLowerCase();
+        for (int i = 0; i < fullModel.getRowCount(); i++) {
+            String id = fullModel.getValueAt(i, 0).toString().toLowerCase();
+            String name = fullModel.getValueAt(i, 1).toString().toLowerCase();
+            String supplier = fullModel.getValueAt(i, 3).toString().toLowerCase();
+
+            if (id.contains(lowerSearch) || name.contains(lowerSearch) || supplier.contains(lowerSearch)) {
+                Object[] row = new Object[fullModel.getColumnCount()];
+                for (int j = 0; j < fullModel.getColumnCount(); j++) {
+                    row[j] = fullModel.getValueAt(i, j);
+                }
+                filteredModel.addRow(row);
+            }
+        }
+
+        tblItems.setModel(filteredModel);
+    }
 
     private void txtTotalItems1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalItems1ActionPerformed
         // TO DO: Display de la variable del total de equipos 
@@ -378,6 +514,7 @@ public class FRMInventory extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new FRMInventory().setVisible(true));
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
