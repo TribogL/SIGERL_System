@@ -157,7 +157,7 @@ public class ClsMetRequests {
                 + "CONCAT(i.Name, ' - ', StatusRequest) as Details "
                 + "FROM tblRequests r "
                 + "JOIN tblUser u ON r.UserID = u.IDUser "
-                + "JOIN tblItems i ON r.EquipmentID = i.ItemID"
+                + "JOIN tblItems i ON r.EquipmentID = i.EquipmentID"
                 + ") UNION ALL ("
                 + "SELECT DateAdded as ActivityDate, 'New Equipment' as ActionType, "
                 + "Name as Actor, Category as Details "
@@ -193,7 +193,7 @@ public class ClsMetRequests {
         model.addColumn("Location");
 
         // i. y r. son para identificar valores temporalmente
-        String ACTe = "SELECT i.Name, r.StartDate, r.EndDate, DATEDIFF(r.EndDate, CURDATE()) as DaysLeft, i.Location FROM tblRequests r JOIN tblItems i ON r.EquipmentID = i.ItemID WHERE r.UserID = ? AND r.StatusRequest = 'Approved' AND CURDATE() BETWEEN r.StartDate AND r.EndDate";
+        String ACTe = "SELECT i.Name, r.StartDate, r.EndDate, DATEDIFF(r.EndDate, CURDATE()) as DaysLeft, i.Location FROM tblRequests r JOIN tblItems i ON r.EquipmentID = i.EquipmentID WHERE r.UserID = ? AND r.StatusRequest = 'Approved' AND CURDATE() BETWEEN r.StartDate AND r.EndDate";
 
         try (Connection cn = conexion.Connect(); PreparedStatement ps = cn.prepareStatement(ACTe)) {
 
@@ -275,7 +275,7 @@ public class ClsMetRequests {
         model.addColumn("Status");
         model.addColumn("Purpose");
 
-        String sql = "SELECT r.RequestID, CONCAT(u.NameUser, ' ', u.LastNameUser) as UserName, i.Name as EquipmentName, r.StartDate, r.EndDate, r.StatusRequest, r.Purpose FROM tblRequests r JOIN tblUser u ON r.UserID = u.IDUser JOIN tblItems i ON r.EquipmentID = i.ItemID ORDER BY r.RequestDate DESC";
+        String sql = "SELECT r.RequestID, CONCAT(u.NameUser, ' ', u.LastNameUser) as UserName, i.Name as EquipmentName, r.StartDate, r.EndDate, r.StatusRequest, r.Purpose FROM tblRequests r JOIN tblUser u ON r.UserID = u.IDUser JOIN tblItems i ON r.EquipmentID = i.EquipmentID ORDER BY r.RequestDate DESC";
 
         try (Connection cn = conexion.Connect(); PreparedStatement ps = cn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 

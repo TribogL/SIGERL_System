@@ -556,6 +556,11 @@ public class FRMReservations extends javax.swing.JFrame {
         btnNewReservation.setForeground(new java.awt.Color(255, 255, 255));
         btnNewReservation.setText("+ New Reservation");
         btnNewReservation.setPreferredSize(new java.awt.Dimension(100, 25));
+        btnNewReservation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewReservationActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnNewReservation, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 10, 140, 20));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 50));
@@ -666,6 +671,14 @@ public class FRMReservations extends javax.swing.JFrame {
         Reservations.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnNavReservationsActionPerformed
+
+    private void btnNewReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewReservationActionPerformed
+        btnNewRes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewResActionPerformed(evt);
+            }
+        });
+    }//GEN-LAST:event_btnNewReservationActionPerformed
 
     /**
      * @param args the command line arguments
