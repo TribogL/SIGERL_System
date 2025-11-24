@@ -3,60 +3,307 @@ package FrontEnd;
 import java.awt.Toolkit;
 import java.awt.Image;
 
+import BackEnd.ClsMetEquipment;
+import BackEnd.ClsMetRequests;
+
+import java.awt.Color;
+
+import java.sql.Date;
+import java.time.LocalDate;
+import com.toedter.calendar.JDateChooser;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class FRMReservations extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FRMReservations.class.getName());
+    private ClsMetEquipment metEquipment;
+    private ClsMetRequests metRequests;
+    private int currentUserId; // Segun lo escrito en login
+    private boolean isAdmin; // Segun lo escrito en login
 
-    /**
-     * Creates new form FRMReservations
-     */
     public FRMReservations() {
-        initComponents();
-        setLocationRelativeTo(this);
-
-        jPanel2.setBackground(new java.awt.Color(102,204,255, 190)); // 102 = 0.4 * 255
-        jPanel2.setOpaque(true);
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(127, 222, 255, 51), 1));
-
-        pnlNavigation.setBackground(new java.awt.Color(51, 255, 255, 170)); // 102 = 0.4 * 255
-        pnlNavigation.setOpaque(true);
-        pnlNavigation.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(127, 222, 255, 51), 1));
-        pnlNavigation.setVisible(false);
-
-        pnlTotalItems1.setBackground(new java.awt.Color(102,204,255, 190)); // 102 = 0.4 * 255
-        pnlTotalItems1.setOpaque(true);
-        pnlTotalItems1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(127, 222, 255, 51), 1));
-
-        pnlStock.setBackground(new java.awt.Color(102,204,255, 190)); // 102 = 0.4 * 255
-        pnlStock.setOpaque(true);
-        pnlStock.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(127, 222, 255, 51), 1));
-        
-        pnlStatus.setBackground(new java.awt.Color(102,204,255, 190)); // 102 = 0.4 * 255
-        pnlStatus.setOpaque(true);
-        pnlStatus.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(127, 222, 255, 51), 1));
-
-        pnlCritical.setBackground(new java.awt.Color(102,204,255, 190)); // 102 = 0.4 * 255
-        pnlCritical.setOpaque(true);
-        pnlCritical.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(127, 222, 255, 51), 1));
-
-        pnlCategories.setBackground(new java.awt.Color(102,204,255, 190)); // 102 = 0.4 * 255
-        pnlCategories.setOpaque(true);
-        pnlCategories.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(127, 222, 255, 51), 1));
-
-        pnlReserve.setBackground(new java.awt.Color(102,204,255, 190)); // 102 = 0.4 * 255
-        pnlReserve.setOpaque(true);
-        pnlReserve.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(127, 222, 255, 51), 1));
-
-        pnlReservations.setBackground(new java.awt.Color(102,204,255, 190)); // 102 = 0.4 * 255
-        pnlReservations.setOpaque(true);
-        pnlReservations.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(127, 222, 255, 51), 1));
-
-        pnlNavigation.setBackground(new java.awt.Color(102,204,255, 190)); // 102 = 0.4 * 255
-        pnlNavigation.setOpaque(true);
-        pnlNavigation.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(127, 222, 255, 51), 1));
-        
+        this(1, true); // Default para testear (comentar antes de presentacion)
     }
 
+    // Metodo constructor
+    public FRMReservations(int userId, boolean isAdmin) {
+        this.currentUserId = userId;
+        this.isAdmin = isAdmin;
+        
+        initComponents();
+        setLocationRelativeTo(this);
+        
+        metEquipment = new ClsMetEquipment();
+        metRequests = new ClsMetRequests();
+        
+        applyPanelStyling();
+        loadEquipmentComboBox();
+        loadReservationStats();
+        loadCurrentReservations();
+        setupDateChoosers();
+    }
+
+    private void applyPanelStyling() {
+        jPanel2.setBackground(new java.awt.Color(102, 204, 255, 190));
+        jPanel2.setOpaque(true);
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(
+            new java.awt.Color(127, 222, 255, 51), 1));
+
+        pnlNavigation.setBackground(new java.awt.Color(51, 255, 255, 170));
+        pnlNavigation.setOpaque(true);
+        pnlNavigation.setBorder(javax.swing.BorderFactory.createLineBorder(
+            new java.awt.Color(127, 222, 255, 51), 1));
+        pnlNavigation.setVisible(false);
+
+        pnlTotalItems1.setBackground(new java.awt.Color(102, 204, 255, 190));
+        pnlTotalItems1.setOpaque(true);
+        pnlTotalItems1.setBorder(javax.swing.BorderFactory.createLineBorder(
+            new java.awt.Color(127, 222, 255, 51), 1));
+
+        pnlStock.setBackground(new java.awt.Color(102, 204, 255, 190));
+        pnlStock.setOpaque(true);
+        pnlStock.setBorder(javax.swing.BorderFactory.createLineBorder(
+            new java.awt.Color(127, 222, 255, 51), 1));
+        
+        pnlStatus.setBackground(new java.awt.Color(102, 204, 255, 190));
+        pnlStatus.setOpaque(true);
+        pnlStatus.setBorder(javax.swing.BorderFactory.createLineBorder(
+            new java.awt.Color(127, 222, 255, 51), 1));
+
+        pnlCritical.setBackground(new java.awt.Color(102, 204, 255, 190));
+        pnlCritical.setOpaque(true);
+        pnlCritical.setBorder(javax.swing.BorderFactory.createLineBorder(
+            new java.awt.Color(127, 222, 255, 51), 1));
+
+        pnlCategories.setBackground(new java.awt.Color(102, 204, 255, 190));
+        pnlCategories.setOpaque(true);
+        pnlCategories.setBorder(javax.swing.BorderFactory.createLineBorder(
+            new java.awt.Color(127, 222, 255, 51), 1));
+
+        pnlReserve.setBackground(new java.awt.Color(102, 204, 255, 190));
+        pnlReserve.setOpaque(true);
+        pnlReserve.setBorder(javax.swing.BorderFactory.createLineBorder(
+            new java.awt.Color(127, 222, 255, 51), 1));
+
+        pnlReservations.setBackground(new java.awt.Color(102, 204, 255, 190));
+        pnlReservations.setOpaque(true);
+        pnlReservations.setBorder(javax.swing.BorderFactory.createLineBorder(
+            new java.awt.Color(127, 222, 255, 51), 1));
+    }
+
+     // Setup de date choosers con validacion
+    private void setupDateChoosers() {
+        // Initialize JDateChoosers (add these to your form in Design view)
+        jDateChooserStart = new JDateChooser();
+        jDateChooserEnd = new JDateChooser();
+        
+        // Limitacion de fecha de inicio a hoy
+        jDateChooserStart.setMinSelectableDate(java.util.Date.from(
+            LocalDate.now().atStartOfDay(java.time.ZoneId.systemDefault()).toInstant()));
+        jDateChooserEnd.setMinSelectableDate(java.util.Date.from(
+            LocalDate.now().atStartOfDay(java.time.ZoneId.systemDefault()).toInstant()));
+        
+        // Add to panel (adjust coordinates as needed)
+        pnlReserve.add(jDateChooserStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, 180, 25));
+        pnlReserve.add(jDateChooserEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 350, 25));
+        
+        // Chequeo de rango de fecha inmediato (apenas es seleccionada)
+        jDateChooserEnd.addPropertyChangeListener("date", evt -> validateDateRange());
+    }
+    
+    // Validacion si fecha final sigue a la fecha inicial
+    private void validateDateRange() {
+        if (jDateChooserStart.getDate() != null && jDateChooserEnd.getDate() != null) {
+            if (jDateChooserEnd.getDate().before(jDateChooserStart.getDate())) {
+                JOptionPane.showMessageDialog(this,
+                    "End date must be after start date",
+                    "Invalid Date Range",
+                    JOptionPane.WARNING_MESSAGE);
+                jDateChooserEnd.setDate(null);
+            }
+        }
+    }
+    
+    // Carga de equipos al combobox con indicarod de dispinibilidad
+    private void loadEquipmentComboBox() {
+        DefaultTableModel equipmentModel = metEquipment.ListEquipment();
+        DefaultComboBoxModel<String> comboModel = new DefaultComboBoxModel<>();
+        comboModel.addElement("Select equipment");
+        
+        for (int i = 0; i < equipmentModel.getRowCount(); i++) {
+            int id = (int) equipmentModel.getValueAt(i, 0);
+            String name = (String) equipmentModel.getValueAt(i, 1);
+            int quantity = (int) equipmentModel.getValueAt(i, 6);
+            boolean available = (boolean) equipmentModel.getValueAt(i, 8);
+            
+            // Formato: "ID - Name (Cantidad disponible)"
+            String item = String.format("%d - %s (%d available)", id, name, quantity);
+            
+            // Guardar ID
+            comboModel.addElement(item);
+        }
+        
+        filterResEq.setModel(comboModel);
+        
+        // Metodo para mostrar equipos no disponibles en gris
+        filterResEq.setRenderer(new javax.swing.DefaultListCellRenderer() {
+            @Override
+            public java.awt.Component getListCellRendererComponent(
+                    javax.swing.JList<?> list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                
+                if (value != null && !value.toString().equals("Select equipment")) {
+                    String item = value.toString();
+                    // Validacion de si hay stock disponible
+                    if (item.contains("(0 available)")) {
+                        setForeground(Color.GRAY);
+                        setEnabled(false);
+                    } else if (!isSelected) {
+                        setForeground(Color.BLACK);
+                    }
+                }
+                
+                return this;
+            }
+        });
+    }
+
+    // Trae el ID del equipo seleccionado en el ComboBox
+    private int getSelectedEquipmentId() {
+        String selected = (String) filterResEq.getSelectedItem();
+        if (selected == null || selected.equals("Select equipment")) {
+            return -1;
+        }
+        
+        // Extract ID from "ID - Name (Quantity available)" format
+        try {
+            return Integer.parseInt(selected.split(" - ")[0]);
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    // Carga de estadiscticas de reserva
+    private void loadReservationStats() {
+        int totalEquip = metEquipment.getTotalEquipmentCount();
+        int available = metEquipment.getAvailableEquipmentCount();
+        int inUse = metEquipment.getActiveEquipmentToday();
+        int todaysBookings = metRequests.getActiveReservationsToday();
+
+        txtTotalEquipment.setText(String.valueOf(totalEquip));
+        txtAvailable.setText(String.valueOf(available));
+        txtUsed.setText(String.valueOf(inUse));
+        txtReservations.setText(String.valueOf(todaysBookings));
+    }
+
+    // Llenado de tabla de reservaciones
+    private void loadCurrentReservations() {
+        DefaultTableModel model = metRequests.listAllReservations();
+        jTable1.setModel(model);
+    }
+
+    // Para hacer nueva reservacion
+    private void btnNewResActionPerformed(java.awt.event.ActionEvent evt) {
+        // Validacion
+        int equipmentId = getSelectedEquipmentId();
+        if (equipmentId == -1) {
+            JOptionPane.showMessageDialog(this,
+                "Please select equipment",
+                "Validation Error",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (jDateChooserStart.getDate() == null || jDateChooserEnd.getDate() == null) {
+            JOptionPane.showMessageDialog(this,
+                "Please select start and end dates",
+                "Validation Error",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String purpose = txtPurpose.getText().trim();
+        if (purpose.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                "Please enter purpose of reservation",
+                "Validation Error",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Conversion de fechas
+        Date startDate = new Date(jDateChooserStart.getDate().getTime());
+        Date endDate = new Date(jDateChooserEnd.getDate().getTime());
+
+        // Chequeo de disponibilidad en rango de fechas
+        boolean available = metRequests.isEquipmentAvailable(equipmentId, startDate, endDate);
+        
+        if (!available) {
+            int choice = JOptionPane.showConfirmDialog(this,
+                "Equipment is already reserved for some or all of the selected dates.\n" +
+                "Do you want to check availability for different dates?",
+                "Equipment Unavailable",
+                JOptionPane.YES_NO_OPTION, // Tipo de panel con SI o NO
+                JOptionPane.WARNING_MESSAGE);
+            
+            if (choice == JOptionPane.YES_OPTION) {
+                // Borrado de fechas automatico (para elegir nuevas)
+                jDateChooserStart.setDate(null);
+                jDateChooserEnd.setDate(null);
+            }
+            return;
+        }
+
+        // Creacion de la reservacion una vez validada
+        boolean success = metRequests.createRequest(
+            currentUserId, equipmentId, startDate, endDate, purpose, isAdmin);
+
+        // Si es Admin, se acepta automaticamente
+        if (success) {
+            String message = isAdmin ? 
+                "Reservation created and approved successfully!" :
+                "Reservation request submitted for approval!";
+            
+            JOptionPane.showMessageDialog(this,
+                message,
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE);
+
+            // Limpieza para nueva reserva
+            clearReservationForm();
+            
+            // Refresh
+            loadReservationStats();
+            loadCurrentReservations();
+        } else {
+            JOptionPane.showMessageDialog(this,
+                "Error creating reservation. Please try again.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Limpieza para nueva reserva
+    private void clearReservationForm() {
+        filterResEq.setSelectedIndex(0);
+        jDateChooserStart.setDate(null);
+        jDateChooserEnd.setDate(null);
+        txtPurpose.setText("");
+    }
+
+    // Filtrado de reservaciones por estado
+    private void filterCurrentResActionPerformed(java.awt.event.ActionEvent evt) {
+        String selectedFilter = (String) filterCurrentRes.getSelectedItem();
+        
+        // Espacio para agregar logica de filtrado luego (modificar ClsMetRequests para que acepte filtro de status)
+        loadCurrentReservations();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,6 +315,13 @@ public class FRMReservations extends javax.swing.JFrame {
 
         jLayeredPane2 = new javax.swing.JLayeredPane();
         jPanel1 = new javax.swing.JPanel();
+        pnlNavigation = new javax.swing.JPanel();
+        btnNav4 = new javax.swing.JButton();
+        btnNavDash = new javax.swing.JButton();
+        btnNavInventory = new javax.swing.JButton();
+        btnLogout = new javax.swing.JToggleButton();
+        btnCerrar = new javax.swing.JButton();
+        btnNavReservations = new javax.swing.JButton();
         tabQuickReserve = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         pnlReserve = new javax.swing.JPanel();
@@ -79,6 +333,10 @@ public class FRMReservations extends javax.swing.JFrame {
         lblResTime = new javax.swing.JLabel();
         txtPurpose = new javax.swing.JTextField();
         btnNewRes = new javax.swing.JButton();
+        jDateChooserStart = new com.toedter.calendar.JDateChooser();
+        jDateChooserEnd = new com.toedter.calendar.JDateChooser();
+        txtDateEnd = new javax.swing.JLabel();
+        txtDateStart = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         pnlReservations = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -96,13 +354,6 @@ public class FRMReservations extends javax.swing.JFrame {
         pnlCritical = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtUsed = new java.awt.TextField();
-        pnlNavigation = new javax.swing.JPanel();
-        btnNav4 = new javax.swing.JButton();
-        btnNavDash = new javax.swing.JButton();
-        btnNavInventory = new javax.swing.JButton();
-        btnLogout = new javax.swing.JToggleButton();
-        btnCerrar = new javax.swing.JButton();
-        btnNavReservations = new javax.swing.JButton();
         pnlTotalItems1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtTotalEquipment = new java.awt.TextField();
@@ -128,6 +379,57 @@ public class FRMReservations extends javax.swing.JFrame {
         jPanel1.setMinimumSize(new java.awt.Dimension(780, 600));
         jPanel1.setPreferredSize(new java.awt.Dimension(1000, 700));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnlNavigation.setBackground(new java.awt.Color(51, 255, 255));
+        pnlNavigation.setPreferredSize(new java.awt.Dimension(250, 620));
+        pnlNavigation.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnNav4.setText("4");
+        btnNav4.setToolTipText("");
+        pnlNavigation.add(btnNav4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 210, 30));
+
+        btnNavDash.setText("Dashboard");
+        btnNavDash.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNavDashActionPerformed(evt);
+            }
+        });
+        pnlNavigation.add(btnNavDash, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 210, 30));
+
+        btnNavInventory.setText("Inventory");
+        btnNavInventory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNavInventoryActionPerformed(evt);
+            }
+        });
+        pnlNavigation.add(btnNavInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 210, 30));
+
+        btnLogout.setText("Log out");
+        pnlNavigation.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, 100, 40));
+
+        btnCerrar.setBackground(new java.awt.Color(255, 51, 51));
+        btnCerrar.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
+        btnCerrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrar.setText("X");
+        btnCerrar.setMaximumSize(new java.awt.Dimension(30, 30));
+        btnCerrar.setMinimumSize(new java.awt.Dimension(30, 30));
+        btnCerrar.setPreferredSize(new java.awt.Dimension(50, 50));
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
+        pnlNavigation.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 560, 40, 40));
+
+        btnNavReservations.setText("Reservations");
+        btnNavReservations.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNavReservationsActionPerformed(evt);
+            }
+        });
+        pnlNavigation.add(btnNavReservations, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 210, 30));
+
+        jPanel1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, 620));
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -162,6 +464,14 @@ public class FRMReservations extends javax.swing.JFrame {
         btnNewRes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnNewRes.setText("Reserve equipment");
         pnlReserve.add(btnNewRes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 590, -1));
+        pnlReserve.add(jDateChooserStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 50, -1, -1));
+        pnlReserve.add(jDateChooserEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 50, -1, -1));
+
+        txtDateEnd.setText("End:");
+        pnlReserve.add(txtDateEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, -1, -1));
+
+        txtDateStart.setText("Start:");
+        pnlReserve.add(txtDateStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, -1, -1));
 
         jPanel3.add(pnlReserve, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 465));
 
@@ -258,57 +568,6 @@ public class FRMReservations extends javax.swing.JFrame {
         pnlCritical.add(txtUsed, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
 
         jPanel1.add(pnlCritical, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 60, 180, -1));
-
-        pnlNavigation.setBackground(new java.awt.Color(51, 255, 255));
-        pnlNavigation.setPreferredSize(new java.awt.Dimension(250, 700));
-        pnlNavigation.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnNav4.setText("4");
-        btnNav4.setToolTipText("");
-        pnlNavigation.add(btnNav4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 210, 30));
-
-        btnNavDash.setText("Dashboard");
-        btnNavDash.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNavDashActionPerformed(evt);
-            }
-        });
-        pnlNavigation.add(btnNavDash, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 210, 30));
-
-        btnNavInventory.setText("Inventory");
-        btnNavInventory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNavInventoryActionPerformed(evt);
-            }
-        });
-        pnlNavigation.add(btnNavInventory, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 210, 30));
-
-        btnLogout.setText("Log out");
-        pnlNavigation.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, 100, 40));
-
-        btnCerrar.setBackground(new java.awt.Color(255, 51, 51));
-        btnCerrar.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
-        btnCerrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnCerrar.setText("X");
-        btnCerrar.setMaximumSize(new java.awt.Dimension(30, 30));
-        btnCerrar.setMinimumSize(new java.awt.Dimension(30, 30));
-        btnCerrar.setPreferredSize(new java.awt.Dimension(50, 50));
-        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarActionPerformed(evt);
-            }
-        });
-        pnlNavigation.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 600, 40, 40));
-
-        btnNavReservations.setText("Reservations");
-        btnNavReservations.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNavReservationsActionPerformed(evt);
-            }
-        });
-        pnlNavigation.add(btnNavReservations, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 210, 30));
-
-        jPanel1.add(pnlNavigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pnlTotalItems1.setBackground(new java.awt.Color(51, 255, 255));
         pnlTotalItems1.setForeground(new java.awt.Color(255, 255, 255));
@@ -426,6 +685,8 @@ public class FRMReservations extends javax.swing.JFrame {
     private javax.swing.JButton btnNewReservation;
     private javax.swing.JComboBox<String> filterCurrentRes;
     private javax.swing.JComboBox<String> filterResEq;
+    private com.toedter.calendar.JDateChooser jDateChooserEnd;
+    private com.toedter.calendar.JDateChooser jDateChooserStart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -457,6 +718,8 @@ public class FRMReservations extends javax.swing.JFrame {
     private javax.swing.JPanel pnlTotalItems1;
     private javax.swing.JTabbedPane tabQuickReserve;
     private java.awt.TextField txtAvailable;
+    private javax.swing.JLabel txtDateEnd;
+    private javax.swing.JLabel txtDateStart;
     private javax.swing.JTextField txtPurpose;
     private java.awt.TextField txtReservations;
     private javax.swing.JTextField txtSearchStatus;
