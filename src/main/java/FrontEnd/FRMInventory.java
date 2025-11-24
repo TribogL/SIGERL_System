@@ -102,18 +102,14 @@ public class FRMInventory extends javax.swing.JFrame {
 private javax.swing.JPanel glassPane;
 
 private void setupNavigationGlassPane() {
-    // Panel transparente (bloquea todo atras)
     glassPane = new javax.swing.JPanel();
     glassPane.setOpaque(false);
-    glassPane.setBackground(new java.awt.Color(0, 0, 0, 100)); // Negro semitransparente
+    glassPane.setBackground(new java.awt.Color(0, 0, 0, 100));
     glassPane.setVisible(false);
-    glassPane.setBounds(250, 0, 750, 666); // Para cubrir todo menos nevagacion
     
-    // Bloquear acciones de mouse
     glassPane.addMouseListener(new java.awt.event.MouseAdapter() {
         @Override
         public void mouseClicked(java.awt.event.MouseEvent e) {
-            // A excepcion de cliquear afuera, para cerrar panel de navegacion
             btnNavActionPerformed(null);
         }
     });
@@ -121,15 +117,14 @@ private void setupNavigationGlassPane() {
     glassPane.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
         @Override
         public void mouseMoved(java.awt.event.MouseEvent e) {
-            // Consumir el movimiento del mouse signfica que no puede interactuar con nada detras del panel invisible
             e.consume();
         }
     });
     
-    // Orden de panel invisible alto en el Z-Index
-    jPanel1.add(glassPane);
-    jPanel1.setComponentZOrder(glassPane, 1); // Justo de bajo del panel de navegacion
-}    
+    // Use AbsoluteConstraints instead of setBounds
+    jPanel1.add(glassPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 750, 666));
+    jPanel1.setComponentZOrder(glassPane, 1);
+}  
 
 // Estetica del panel de navegacion con opacidad
 private void applyPanelStyling() {
@@ -315,7 +310,7 @@ private void applyPanelStyling() {
         });
         pnlStock.add(txtLowItems, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
 
-        jPanel1.add(pnlStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 180, -1));
+        jPanel1.add(pnlStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 180, -1));
 
         pnlTotalItems1.setPreferredSize(new java.awt.Dimension(185, 75));
         pnlTotalItems1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -332,7 +327,7 @@ private void applyPanelStyling() {
         });
         pnlTotalItems1.add(txtTotalItems1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
 
-        jPanel1.add(pnlTotalItems1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 180, -1));
+        jPanel1.add(pnlTotalItems1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 180, -1));
 
         pnlCritical.setPreferredSize(new java.awt.Dimension(185, 75));
         pnlCritical.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -349,7 +344,7 @@ private void applyPanelStyling() {
         });
         pnlCritical.add(txtCritical, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
 
-        jPanel1.add(pnlCritical, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 70, 180, -1));
+        jPanel1.add(pnlCritical, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, 180, -1));
 
         pnlCategories.setPreferredSize(new java.awt.Dimension(185, 75));
         pnlCategories.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -366,7 +361,7 @@ private void applyPanelStyling() {
         });
         pnlCategories.add(txtCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
 
-        jPanel1.add(pnlCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 70, 180, -1));
+        jPanel1.add(pnlCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 180, -1));
 
         pnlSearch.setPreferredSize(new java.awt.Dimension(750, 50));
         pnlSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -403,7 +398,7 @@ private void applyPanelStyling() {
         ));
         jScrollPane1.setViewportView(tblItems);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 750, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 980, 440));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
