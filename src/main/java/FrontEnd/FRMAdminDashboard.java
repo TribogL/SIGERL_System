@@ -110,6 +110,21 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        pnlActEqToday = new javax.swing.JPanel();
+        lblActiveEq = new javax.swing.JLabel();
+        txtActEqToday = new java.awt.TextField();
+        pnlEqAvail = new javax.swing.JPanel();
+        lblEqAvail = new javax.swing.JLabel();
+        txtEqAvail = new java.awt.TextField();
+        pnlActUsers = new javax.swing.JPanel();
+        lblActUsers = new javax.swing.JLabel();
+        txtActUsers = new java.awt.TextField();
+        pnlLowStock = new javax.swing.JPanel();
+        lblLowStock = new javax.swing.JLabel();
+        txtLowStock = new java.awt.TextField();
+        pnlCritStock = new javax.swing.JPanel();
+        lblCritStock = new javax.swing.JLabel();
+        txtCritStock = new java.awt.TextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -217,6 +232,96 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
 
         jPanel2.add(jPanelInventoryManagement, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 500, 230, 150));
 
+        pnlActEqToday.setBackground(new java.awt.Color(0, 153, 153));
+        pnlActEqToday.setPreferredSize(new java.awt.Dimension(185, 75));
+        pnlActEqToday.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblActiveEq.setText("Active Equipment Today");
+        pnlActEqToday.add(lblActiveEq, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        txtActEqToday.setBackground(new java.awt.Color(60, 63, 65));
+        txtActEqToday.setEditable(false);
+        txtActEqToday.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtActEqTodayActionPerformed(evt);
+            }
+        });
+        pnlActEqToday.add(txtActEqToday, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
+
+        jPanel2.add(pnlActEqToday, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 180, -1));
+
+        pnlEqAvail.setBackground(new java.awt.Color(0, 153, 153));
+        pnlEqAvail.setPreferredSize(new java.awt.Dimension(185, 75));
+        pnlEqAvail.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblEqAvail.setText("Equipment Available");
+        pnlEqAvail.add(lblEqAvail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        txtEqAvail.setBackground(new java.awt.Color(60, 63, 65));
+        txtEqAvail.setEditable(false);
+        txtEqAvail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEqAvailActionPerformed(evt);
+            }
+        });
+        pnlEqAvail.add(txtEqAvail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
+
+        jPanel2.add(pnlEqAvail, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 180, -1));
+
+        pnlActUsers.setBackground(new java.awt.Color(0, 153, 153));
+        pnlActUsers.setPreferredSize(new java.awt.Dimension(185, 75));
+        pnlActUsers.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblActUsers.setText("Active Users");
+        pnlActUsers.add(lblActUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        txtActUsers.setBackground(new java.awt.Color(60, 63, 65));
+        txtActUsers.setEditable(false);
+        txtActUsers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtActUsersActionPerformed(evt);
+            }
+        });
+        pnlActUsers.add(txtActUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
+
+        jPanel2.add(pnlActUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, 180, -1));
+
+        pnlLowStock.setBackground(new java.awt.Color(0, 153, 153));
+        pnlLowStock.setPreferredSize(new java.awt.Dimension(185, 75));
+        pnlLowStock.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblLowStock.setText("Low Stock Equipment");
+        pnlLowStock.add(lblLowStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        txtLowStock.setBackground(new java.awt.Color(60, 63, 65));
+        txtLowStock.setEditable(false);
+        txtLowStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLowStockActionPerformed(evt);
+            }
+        });
+        pnlLowStock.add(txtLowStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
+
+        jPanel2.add(pnlLowStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 90, 180, -1));
+
+        pnlCritStock.setBackground(new java.awt.Color(0, 153, 153));
+        pnlCritStock.setPreferredSize(new java.awt.Dimension(185, 75));
+        pnlCritStock.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblCritStock.setText("Critical Stock Equipment");
+        pnlCritStock.add(lblCritStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        txtCritStock.setBackground(new java.awt.Color(60, 63, 65));
+        txtCritStock.setEditable(false);
+        txtCritStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCritStockActionPerformed(evt);
+            }
+        });
+        pnlCritStock.add(txtCritStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
+
+        jPanel2.add(pnlCritStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 90, 180, -1));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 690));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Background2.jpg"))); // NOI18N
@@ -246,6 +351,26 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
     private void btnNavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavActionPerformed
         //pnlNavigation.setVisible(!pnlNavigation.isVisible());
     }//GEN-LAST:event_btnNavActionPerformed
+
+    private void txtActEqTodayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtActEqTodayActionPerformed
+        // TO DO: Display de la variable del total de equipos
+    }//GEN-LAST:event_txtActEqTodayActionPerformed
+
+    private void txtEqAvailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEqAvailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEqAvailActionPerformed
+
+    private void txtActUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtActUsersActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtActUsersActionPerformed
+
+    private void txtLowStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLowStockActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLowStockActionPerformed
+
+    private void txtCritStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCritStockActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCritStockActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,5 +418,20 @@ public class FRMAdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelNavbar;
     private javax.swing.JPanel jPanelQuickActions;
     private javax.swing.JPanel jPanelRecentActivity;
+    private javax.swing.JLabel lblActUsers;
+    private javax.swing.JLabel lblActiveEq;
+    private javax.swing.JLabel lblCritStock;
+    private javax.swing.JLabel lblEqAvail;
+    private javax.swing.JLabel lblLowStock;
+    private javax.swing.JPanel pnlActEqToday;
+    private javax.swing.JPanel pnlActUsers;
+    private javax.swing.JPanel pnlCritStock;
+    private javax.swing.JPanel pnlEqAvail;
+    private javax.swing.JPanel pnlLowStock;
+    private java.awt.TextField txtActEqToday;
+    private java.awt.TextField txtActUsers;
+    private java.awt.TextField txtCritStock;
+    private java.awt.TextField txtEqAvail;
+    private java.awt.TextField txtLowStock;
     // End of variables declaration//GEN-END:variables
 }
