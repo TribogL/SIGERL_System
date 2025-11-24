@@ -12,6 +12,7 @@ import java.awt.Toolkit;
 import java.awt.Image;
 import javax.swing.table.DefaultTableModel;
 
+
 public class FRMInventory extends javax.swing.JFrame {
 
     ClsConnection CN;
@@ -23,11 +24,22 @@ public class FRMInventory extends javax.swing.JFrame {
     public FRMInventory() {
         initComponents();
         setLocationRelativeTo(this);
+
+        // Arreglo a tamaño de ventana (Design en NetBeans no funciona?)
+        setSize(1000, 666);
+        setPreferredSize(new java.awt.Dimension(1000, 666));
+
         CN = new ClsConnection();
         FillTable();
+
         pnlNavigation.setVisible(false);
+
         fixZIndexOrder(); // Z-Indez para evitar que paneles se solapen
 
+        applyPanelStyling();
+        
+        loadInventoryStats();
+        
         // Ordenamiento de panel de navegacion con Z-index (layers)
         jPanel1.setComponentZOrder(pnlNavigation, 0);  // Tope
         jPanel1.setComponentZOrder(jPanel2, 1);        // Segunda capa
@@ -57,54 +69,97 @@ public class FRMInventory extends javax.swing.JFrame {
         // Mover panel de navegacion al tope solo cuando este visible
         pnlNavigation.setOpaque(true);
 
-        // Z-order: Valor mas alto = tope
-        jPanel1.setComponentZOrder(pnlNavigation, 0);  // Navigation on top
-        jPanel1.setComponentZOrder(jPanel2, 1);        // Header bar second
-        jPanel1.setComponentZOrder(pnlSearch, 2);      // Search panel
-        jPanel1.setComponentZOrder(jScrollPane1, 3);   // Table
+        // Z-order: Valor 0 = tope
+        jPanel1.setComponentZOrder(pnlNavigation, 0);
+        jPanel1.setComponentZOrder(jPanel2, 1);
+        jPanel1.setComponentZOrder(pnlSearch, 2);
+        jPanel1.setComponentZOrder(jScrollPane1, 3);
 
         // Logica para evitar solapacion
         jPanel1.setComponentZOrder(pnlTotalItems1, 2);
         jPanel1.setComponentZOrder(pnlStock, 2);
         jPanel1.setComponentZOrder(pnlCritical, 2);
         jPanel1.setComponentZOrder(pnlCategories, 2);
-    }
-
-    // Logica para cargar datos de inventario en tiempo real
-    private void loadInventoryStats() {
-        ClsMetEquipment metEquip = new ClsMetEquipment();
-
-        // Total items
-        int total = metEquip.getTotalEquipmentCount();
-        txtTotalItems1.setText(String.valueOf(total));
-
-        // Low stock items
-        int lowStock = metEquip.getLowStockCount();
-        txtLowItems.setText(String.valueOf(lowStock));
-
-        // Critical stock (quantity = 0)
-        int critical = metEquip.getCriticalStockCount();
-        txtCritical.setText(String.valueOf(critical));
-
-        // Categories
-        int categories = metEquip.getCategoriesCount();
-        txtCategories.setText(String.valueOf(categories));
-
-        // Color code warnings
-        if (lowStock > 0) {
-            txtLowItems.setForeground(new java.awt.Color(255, 153, 0)); // Orange
+        
+        // Make navigation panel block all mouse events when visible
+    pnlNavigation.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            // Consume event to prevent passthrough
         }
-
-        if (critical > 0) {
-            txtCritical.setForeground(new java.awt.Color(255, 51, 51)); // Red
+        
+        @Override
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            // Consume event
         }
-    }
+    });
+    
+    // Add glass pane effect when navigation is open
+    setupNavigationGlassPane();
+}
 
-    public void FillTable() {
-        ClsMetEquipment Equipment = new ClsMetEquipment();
-        tblItems.setModel(Equipment.ListEquipment());
-        loadInventoryStats(); // Actualizacion de datos al llenar la tabla
-    }
+// Bloqueo de interaccion con elementos detras de panel de navegacion
+private javax.swing.JPanel glassPane;
+
+private void setupNavigationGlassPane() {
+    // Panel transparente (bloquea todo atras)
+    glassPane = new javax.swing.JPanel();
+    glassPane.setOpaque(false);
+    glassPane.setBackground(new java.awt.Color(0, 0, 0, 100)); // Negro semitransparente
+    glassPane.setVisible(false);
+    glassPane.setBounds(250, 0, 750, 666); // Para cubrir todo menos nevagacion
+    
+    // Bloquear acciones de mouse
+    glassPane.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent e) {
+            // A excepcion de cliquear afuera, para cerrar panel de navegacion
+            btnNavActionPerformed(null);
+        }
+    });
+    
+    glassPane.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        @Override
+        public void mouseMoved(java.awt.event.MouseEvent e) {
+            // Consumir el movimiento del mouse signfica que no puede interactuar con nada detras del panel invisible
+            e.consume();
+        }
+    });
+    
+    // Orden de panel invisible alto en el Z-Index
+    jPanel1.add(glassPane);
+    jPanel1.setComponentZOrder(glassPane, 1); // Justo de bajo del panel de navegacion
+}    
+
+// Estetica del panel de navegacion con opacidad
+private void applyPanelStyling() {
+    // Panel de navegacion - Alta opacidad cuando esta visible (para que no sea transparente)
+    pnlNavigation.setBackground(new java.awt.Color(51, 255, 255, 240)); // Casi opaco
+    pnlNavigation.setOpaque(true);
+    pnlNavigation.setBorder(javax.swing.BorderFactory.createLineBorder(
+        new java.awt.Color(0, 0, 0, 255), 3)); // Borde
+    
+    // Estetita de paneles de estadisticas
+    java.awt.Color panelBg = new java.awt.Color(127, 222, 255, 180);
+    javax.swing.border.Border panelBorder = javax.swing.BorderFactory.createLineBorder(
+        new java.awt.Color(255, 255, 255, 100), 1);
+    
+    pnlTotalItems1.setBackground(panelBg);
+    pnlTotalItems1.setOpaque(true);
+    pnlTotalItems1.setBorder(panelBorder);
+    
+    pnlStock.setBackground(panelBg);
+    pnlStock.setOpaque(true);
+    pnlStock.setBorder(panelBorder);
+    
+    pnlCritical.setBackground(panelBg);
+    pnlCritical.setOpaque(true);
+    pnlCritical.setBorder(panelBorder);
+    
+    pnlCategories.setBackground(panelBg);
+    pnlCategories.setOpaque(true);
+    pnlCategories.setBorder(panelBorder);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -368,37 +423,80 @@ public class FRMInventory extends javax.swing.JFrame {
     private void btnNavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavActionPerformed
         boolean isVisible = !pnlNavigation.isVisible();
         pnlNavigation.setVisible(isVisible);
+        glassPane.setVisible(isVisible); // Show/hide glass pane with navigation
 
         if (isVisible) {
-            // Bring navigation to front
-            pnlNavigation.setOpaque(true);
+            // Bring navigation to absolute front
             jPanel1.setComponentZOrder(pnlNavigation, 0);
-            pnlNavigation.repaint();
+            jPanel1.setComponentZOrder(glassPane, 1);
 
-            // Disable other components to prevent interaction
-            disableComponentsBehindNav(true);
+            // Make glass pane slightly opaque to dim background
+            glassPane.setOpaque(true);
+            glassPane.setBackground(new java.awt.Color(0, 0, 0, 80)); // Dark overlay
+
+            // Repaint to ensure proper rendering
+            pnlNavigation.repaint();
+            glassPane.repaint();
+            jPanel1.revalidate();
         } else {
-            // Re-enable components
-            disableComponentsBehindNav(false);
+            // Make glass pane fully transparent
+            glassPane.setOpaque(false);
         }
     }//GEN-LAST:event_btnNavActionPerformed
 
     // Metodo para desactivar elementos detras del panel de navegacion
     private void disableComponentsBehindNav(boolean disable) {
-        jPanel2.setEnabled(!disable);
-        pnlSearch.setEnabled(!disable);
-        jScrollPane1.setEnabled(!disable);
-        tblItems.setEnabled(!disable);
-        btnAdd.setEnabled(!disable);
+    jPanel2.setEnabled(!disable);
+    pnlSearch.setEnabled(!disable);
+    jScrollPane1.setEnabled(!disable);
+    tblItems.setEnabled(!disable);
+    btnAdd.setEnabled(!disable);
 
-        // Cambiar fondo cuando el panel de navegacion esta activo
-        if (disable) {
-            jPanel1.setBackground(new java.awt.Color(0, 0, 0, 150));
-        } else {
-            jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-        }
+    // Cambiar fondo cuando el panel de navegacion esta activo
+    if (disable) {
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0, 150));
+    } else {
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+    }
+}
+
+        // Logica para cargar datos de inventario en tiempo real
+    private void loadInventoryStats() {
+    ClsMetEquipment metEquip = new ClsMetEquipment();
+
+    // Total items
+    int total = metEquip.getTotalEquipmentCount();
+    txtTotalItems1.setText(String.valueOf(total));
+
+    // Low stock items
+    int lowStock = metEquip.getLowStockCount();
+    txtLowItems.setText(String.valueOf(lowStock));
+
+    // Critical stock (quantity = 0)
+    int critical = metEquip.getCriticalStockCount();
+    txtCritical.setText(String.valueOf(critical));
+
+    // Categories
+    int categories = metEquip.getCategoriesCount();
+    txtCategories.setText(String.valueOf(categories));
+
+    // Color code warnings
+    if (lowStock > 0) {
+        txtLowItems.setForeground(new java.awt.Color(255, 153, 0)); // Orange
     }
 
+    if (critical > 0) {
+        txtCritical.setForeground(new java.awt.Color(255, 51, 51)); // Red
+    }
+}
+
+    public void FillTable() {
+    ClsMetEquipment Equipment = new ClsMetEquipment();
+    tblItems.setModel(Equipment.ListEquipment());
+    loadInventoryStats(); // Actualizacion de datos al llenar la tabla
+}
+
+    
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
         String searchText = txtSearch.getText().trim();
 
@@ -412,33 +510,33 @@ public class FRMInventory extends javax.swing.JFrame {
 
     // Metodo para filtrar tabla en base a busqueda
     private void filterTable(String searchText) {
-        ClsMetEquipment metEquip = new ClsMetEquipment();
-        DefaultTableModel fullModel = metEquip.ListEquipment();
-        DefaultTableModel filteredModel = new DefaultTableModel();
+    ClsMetEquipment metEquip = new ClsMetEquipment();
+    DefaultTableModel fullModel = metEquip.ListEquipment();
+    DefaultTableModel filteredModel = new DefaultTableModel();
 
-        // para copiar nombres de columna
-        for (int i = 0; i < fullModel.getColumnCount(); i++) {
-            filteredModel.addColumn(fullModel.getColumnName(i));
-        }
-
-        // Filtrado de filas
-        String lowerSearch = searchText.toLowerCase();
-        for (int i = 0; i < fullModel.getRowCount(); i++) {
-            String id = fullModel.getValueAt(i, 0).toString().toLowerCase();
-            String name = fullModel.getValueAt(i, 1).toString().toLowerCase();
-            String supplier = fullModel.getValueAt(i, 3).toString().toLowerCase();
-
-            if (id.contains(lowerSearch) || name.contains(lowerSearch) || supplier.contains(lowerSearch)) {
-                Object[] row = new Object[fullModel.getColumnCount()];
-                for (int j = 0; j < fullModel.getColumnCount(); j++) {
-                    row[j] = fullModel.getValueAt(i, j);
-                }
-                filteredModel.addRow(row);
-            }
-        }
-
-        tblItems.setModel(filteredModel);
+    // para copiar nombres de columna
+    for (int i = 0; i < fullModel.getColumnCount(); i++) {
+        filteredModel.addColumn(fullModel.getColumnName(i));
     }
+
+    // Filtrado de filas
+    String lowerSearch = searchText.toLowerCase();
+    for (int i = 0; i < fullModel.getRowCount(); i++) {
+        String id = fullModel.getValueAt(i, 0).toString().toLowerCase();
+        String name = fullModel.getValueAt(i, 1).toString().toLowerCase();
+        String supplier = fullModel.getValueAt(i, 3).toString().toLowerCase();
+
+        if (id.contains(lowerSearch) || name.contains(lowerSearch) || supplier.contains(lowerSearch)) {
+            Object[] row = new Object[fullModel.getColumnCount()];
+            for (int j = 0; j < fullModel.getColumnCount(); j++) {
+                row[j] = fullModel.getValueAt(i, j);
+            }
+            filteredModel.addRow(row);
+        }
+    }
+
+    tblItems.setModel(filteredModel);
+}
 
     private void txtTotalItems1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalItems1ActionPerformed
         // TO DO: Display de la variable del total de equipos 
@@ -494,26 +592,26 @@ public class FRMInventory extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    /* Set the Nimbus look and feel */
+    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+     */
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FRMInventory().setVisible(true));
+    } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+        logger.log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+
+    /* Create and display the form */
+    java.awt.EventQueue.invokeLater(() -> new FRMInventory().setVisible(true));
+}
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
