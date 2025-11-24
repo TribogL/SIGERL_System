@@ -32,131 +32,152 @@ public class FRMReservations extends javax.swing.JFrame {
     public FRMReservations(int userId, boolean isAdmin) {
         this.currentUserId = userId;
         this.isAdmin = isAdmin;
-        
+
         initComponents();
         setLocationRelativeTo(this);
-        
+
         metEquipment = new ClsMetEquipment();
         metRequests = new ClsMetRequests();
-        
+
         applyPanelStyling();
+
+        setupDateChoosers();
+
         loadEquipmentComboBox();
         loadReservationStats();
         loadCurrentReservations();
-        setupDateChoosers();
+    }
+
+    // Setup de date choosers con validacion
+    private void setupDateChoosers() {
+
+        // Formato de fecha
+        jDateChooserStart.setDateFormatString("yyyy-MM-dd");
+        jDateChooserEnd.setDateFormatString("yyyy-MM-dd");
+
+        // Limitacion de fecha de inicio a hoy
+        java.util.Date today = new java.util.Date();
+        jDateChooserStart.setMinSelectableDate(today);
+        jDateChooserEnd.setMinSelectableDate(today);
+
+        // Arreglo a unos textbox bloqueando los JDateChooser
+        jDateChooserStart.getJCalendar().setTodayButtonVisible(true);
+        jDateChooserEnd.getJCalendar().setTodayButtonVisible(true);
+
+        // Arreglo manual de Preferred Size (Design de NeatBeans no funciona?)
+        jDateChooserStart.setPreferredSize(new java.awt.Dimension(150, 25));
+        jDateChooserEnd.setPreferredSize(new java.awt.Dimension(150, 25));
+
+        // Estetica
+        jDateChooserStart.setFont(new java.awt.Font("Segoe UI", 0, 12));
+        jDateChooserEnd.setFont(new java.awt.Font("Segoe UI", 0, 12));
+
+        // Monitoreo / validacion
+        jDateChooserStart.addPropertyChangeListener("date", evt -> {
+            if (jDateChooserStart.getDate() != null && jDateChooserEnd.getDate() != null) {
+                validateDateRange();
+            }
+        });
+
+        // Chequeo de rango de fecha inmediato (apenas es seleccionada)
+        jDateChooserEnd.addPropertyChangeListener("date", evt -> {
+            if (jDateChooserStart.getDate() != null && jDateChooserEnd.getDate() != null) {
+                validateDateRange();
+            }
+        });
+    }
+
+    // Validacion si fecha final sigue a la fecha inicial
+    private void validateDateRange() {
+        if (jDateChooserStart.getDate() != null && jDateChooserEnd.getDate() != null) {
+            if (jDateChooserEnd.getDate().before(jDateChooserStart.getDate())) {
+                JOptionPane.showMessageDialog(this,
+                        "End date must be after start date",
+                        "Invalid Date Range",
+                        JOptionPane.WARNING_MESSAGE);
+                jDateChooserEnd.setDate(null);
+            }
+        }
     }
 
     private void applyPanelStyling() {
         jPanel2.setBackground(new java.awt.Color(102, 204, 255, 190));
         jPanel2.setOpaque(true);
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(
-            new java.awt.Color(127, 222, 255, 51), 1));
+                new java.awt.Color(127, 222, 255, 51), 1));
 
         pnlNavigation.setBackground(new java.awt.Color(51, 255, 255, 170));
         pnlNavigation.setOpaque(true);
         pnlNavigation.setBorder(javax.swing.BorderFactory.createLineBorder(
-            new java.awt.Color(127, 222, 255, 51), 1));
+                new java.awt.Color(127, 222, 255, 51), 1));
         pnlNavigation.setVisible(false);
 
         pnlTotalItems1.setBackground(new java.awt.Color(102, 204, 255, 190));
         pnlTotalItems1.setOpaque(true);
         pnlTotalItems1.setBorder(javax.swing.BorderFactory.createLineBorder(
-            new java.awt.Color(127, 222, 255, 51), 1));
+                new java.awt.Color(127, 222, 255, 51), 1));
 
         pnlStock.setBackground(new java.awt.Color(102, 204, 255, 190));
         pnlStock.setOpaque(true);
         pnlStock.setBorder(javax.swing.BorderFactory.createLineBorder(
-            new java.awt.Color(127, 222, 255, 51), 1));
-        
+                new java.awt.Color(127, 222, 255, 51), 1));
+
         pnlStatus.setBackground(new java.awt.Color(102, 204, 255, 190));
         pnlStatus.setOpaque(true);
         pnlStatus.setBorder(javax.swing.BorderFactory.createLineBorder(
-            new java.awt.Color(127, 222, 255, 51), 1));
+                new java.awt.Color(127, 222, 255, 51), 1));
 
         pnlCritical.setBackground(new java.awt.Color(102, 204, 255, 190));
         pnlCritical.setOpaque(true);
         pnlCritical.setBorder(javax.swing.BorderFactory.createLineBorder(
-            new java.awt.Color(127, 222, 255, 51), 1));
+                new java.awt.Color(127, 222, 255, 51), 1));
 
         pnlCategories.setBackground(new java.awt.Color(102, 204, 255, 190));
         pnlCategories.setOpaque(true);
         pnlCategories.setBorder(javax.swing.BorderFactory.createLineBorder(
-            new java.awt.Color(127, 222, 255, 51), 1));
+                new java.awt.Color(127, 222, 255, 51), 1));
 
         pnlReserve.setBackground(new java.awt.Color(102, 204, 255, 190));
         pnlReserve.setOpaque(true);
         pnlReserve.setBorder(javax.swing.BorderFactory.createLineBorder(
-            new java.awt.Color(127, 222, 255, 51), 1));
+                new java.awt.Color(127, 222, 255, 51), 1));
 
         pnlReservations.setBackground(new java.awt.Color(102, 204, 255, 190));
         pnlReservations.setOpaque(true);
         pnlReservations.setBorder(javax.swing.BorderFactory.createLineBorder(
-            new java.awt.Color(127, 222, 255, 51), 1));
+                new java.awt.Color(127, 222, 255, 51), 1));
     }
 
-     // Setup de date choosers con validacion
-    private void setupDateChoosers() {
-        // Initialize JDateChoosers (add these to your form in Design view)
-        jDateChooserStart = new JDateChooser();
-        jDateChooserEnd = new JDateChooser();
-        
-        // Limitacion de fecha de inicio a hoy
-        jDateChooserStart.setMinSelectableDate(java.util.Date.from(
-            LocalDate.now().atStartOfDay(java.time.ZoneId.systemDefault()).toInstant()));
-        jDateChooserEnd.setMinSelectableDate(java.util.Date.from(
-            LocalDate.now().atStartOfDay(java.time.ZoneId.systemDefault()).toInstant()));
-        
-        // Add to panel (adjust coordinates as needed)
-        pnlReserve.add(jDateChooserStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, 180, 25));
-        pnlReserve.add(jDateChooserEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 350, 25));
-        
-        // Chequeo de rango de fecha inmediato (apenas es seleccionada)
-        jDateChooserEnd.addPropertyChangeListener("date", evt -> validateDateRange());
-    }
-    
-    // Validacion si fecha final sigue a la fecha inicial
-    private void validateDateRange() {
-        if (jDateChooserStart.getDate() != null && jDateChooserEnd.getDate() != null) {
-            if (jDateChooserEnd.getDate().before(jDateChooserStart.getDate())) {
-                JOptionPane.showMessageDialog(this,
-                    "End date must be after start date",
-                    "Invalid Date Range",
-                    JOptionPane.WARNING_MESSAGE);
-                jDateChooserEnd.setDate(null);
-            }
-        }
-    }
-    
     // Carga de equipos al combobox con indicarod de dispinibilidad
     private void loadEquipmentComboBox() {
         DefaultTableModel equipmentModel = metEquipment.ListEquipment();
         DefaultComboBoxModel<String> comboModel = new DefaultComboBoxModel<>();
         comboModel.addElement("Select equipment");
-        
+
         for (int i = 0; i < equipmentModel.getRowCount(); i++) {
             int id = (int) equipmentModel.getValueAt(i, 0);
             String name = (String) equipmentModel.getValueAt(i, 1);
             int quantity = (int) equipmentModel.getValueAt(i, 6);
             boolean available = (boolean) equipmentModel.getValueAt(i, 8);
-            
+
             // Formato: "ID - Name (Cantidad disponible)"
             String item = String.format("%d - %s (%d available)", id, name, quantity);
-            
+
             // Guardar ID
             comboModel.addElement(item);
         }
-        
+
         filterResEq.setModel(comboModel);
-        
+
         // Metodo para mostrar equipos no disponibles en gris
         filterResEq.setRenderer(new javax.swing.DefaultListCellRenderer() {
             @Override
             public java.awt.Component getListCellRendererComponent(
                     javax.swing.JList<?> list, Object value, int index,
                     boolean isSelected, boolean cellHasFocus) {
-                
+
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                
+
                 if (value != null && !value.toString().equals("Select equipment")) {
                     String item = value.toString();
                     // Validacion de si hay stock disponible
@@ -167,25 +188,10 @@ public class FRMReservations extends javax.swing.JFrame {
                         setForeground(Color.BLACK);
                     }
                 }
-                
+
                 return this;
             }
         });
-    }
-
-    // Trae el ID del equipo seleccionado en el ComboBox
-    private int getSelectedEquipmentId() {
-        String selected = (String) filterResEq.getSelectedItem();
-        if (selected == null || selected.equals("Select equipment")) {
-            return -1;
-        }
-        
-        // Extract ID from "ID - Name (Quantity available)" format
-        try {
-            return Integer.parseInt(selected.split(" - ")[0]);
-        } catch (Exception e) {
-            return -1;
-        }
     }
 
     // Carga de estadiscticas de reserva
@@ -209,86 +215,84 @@ public class FRMReservations extends javax.swing.JFrame {
 
     // Para hacer nueva reservacion
     private void btnNewResActionPerformed(java.awt.event.ActionEvent evt) {
-        // Validacion
+        // Validacion de datos del usuario
         int equipmentId = getSelectedEquipmentId();
         if (equipmentId == -1) {
-            JOptionPane.showMessageDialog(this,
-                "Please select equipment",
-                "Validation Error",
-                JOptionPane.WARNING_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Please select equipment",
+                    "Validation Error",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         if (jDateChooserStart.getDate() == null || jDateChooserEnd.getDate() == null) {
-            JOptionPane.showMessageDialog(this,
-                "Please select start and end dates",
-                "Validation Error",
-                JOptionPane.WARNING_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Please select start and end dates",
+                    "Validation Error",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         String purpose = txtPurpose.getText().trim();
         if (purpose.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                "Please enter purpose of reservation",
-                "Validation Error",
-                JOptionPane.WARNING_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Please enter purpose of reservation",
+                    "Validation Error",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Conversion de fechas
-        Date startDate = new Date(jDateChooserStart.getDate().getTime());
-        Date endDate = new Date(jDateChooserEnd.getDate().getTime());
+        // Convercion de java.util.Date a java.sql.Date
+        java.sql.Date startDate = new java.sql.Date(jDateChooserStart.getDate().getTime());
+        java.sql.Date endDate = new java.sql.Date(jDateChooserEnd.getDate().getTime());
 
-        // Chequeo de disponibilidad en rango de fechas
+        // Validacion de disponibilidad
         boolean available = metRequests.isEquipmentAvailable(equipmentId, startDate, endDate);
-        
+
         if (!available) {
-            int choice = JOptionPane.showConfirmDialog(this,
-                "Equipment is already reserved for some or all of the selected dates.\n" +
-                "Do you want to check availability for different dates?",
-                "Equipment Unavailable",
-                JOptionPane.YES_NO_OPTION, // Tipo de panel con SI o NO
-                JOptionPane.WARNING_MESSAGE);
-            
-            if (choice == JOptionPane.YES_OPTION) {
-                // Borrado de fechas automatico (para elegir nuevas)
+            int choice = javax.swing.JOptionPane.showConfirmDialog(this,
+                    "Equipment is already reserved for some or all of the selected dates.\n"
+                    + "Do you want to select different dates?",
+                    "Equipment Unavailable",
+                    javax.swing.JOptionPane.YES_NO_OPTION,
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+
+            if (choice == javax.swing.JOptionPane.YES_OPTION) {
                 jDateChooserStart.setDate(null);
                 jDateChooserEnd.setDate(null);
             }
             return;
         }
 
-        // Creacion de la reservacion una vez validada
+        // Creacion de reservacion
         boolean success = metRequests.createRequest(
-            currentUserId, equipmentId, startDate, endDate, purpose, isAdmin);
+                currentUserId, equipmentId, startDate, endDate, purpose, isAdmin);
 
-        // Si es Admin, se acepta automaticamente
         if (success) {
-            String message = isAdmin ? 
-                "Reservation created and approved successfully!" :
-                "Reservation request submitted for approval!";
-            
-            JOptionPane.showMessageDialog(this,
-                message,
-                "Success",
-                JOptionPane.INFORMATION_MESSAGE);
+            String message = isAdmin
+                    ? "Reservation created and approved successfully!"
+                    : "Reservation request submitted for approval!";
 
-            // Limpieza para nueva reserva
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    message,
+                    "Success",
+                    javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+            // Limpieza
             clearReservationForm();
-            
+
             // Refresh
             loadReservationStats();
             loadCurrentReservations();
         } else {
-            JOptionPane.showMessageDialog(this,
-                "Error creating reservation. Please try again.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Error creating reservation. Please try again.",
+                    "Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    // Limpieza para nueva reserva
+    // Metodo de limpieza para nueva reserva
     private void clearReservationForm() {
         filterResEq.setSelectedIndex(0);
         jDateChooserStart.setDate(null);
@@ -296,14 +300,29 @@ public class FRMReservations extends javax.swing.JFrame {
         txtPurpose.setText("");
     }
 
+    // Trae el ID del equipo seleccionado en el ComboBox
+    private int getSelectedEquipmentId() {
+        String selected = (String) filterResEq.getSelectedItem();
+        if (selected == null || selected.equals("Select equipment")) {
+            return -1;
+        }
+
+        // Extract ID from "ID - Name (Quantity available)" format
+        try {
+            return Integer.parseInt(selected.split(" - ")[0]);
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
     // Filtrado de reservaciones por estado
     private void filterCurrentResActionPerformed(java.awt.event.ActionEvent evt) {
         String selectedFilter = (String) filterCurrentRes.getSelectedItem();
-        
+
         // Espacio para agregar logica de filtrado luego (modificar ClsMetRequests para que acepte filtro de status)
         loadCurrentReservations();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
