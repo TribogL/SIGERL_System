@@ -1,4 +1,4 @@
-package BackEnd;
+    package BackEnd;
 
 import Connection.ClsConnection;
 import Objects.ClsRequest;
@@ -182,7 +182,7 @@ public class ClsMetRequests {
 
         return model;
     }
-
+    
     // Conteo de equipos activos de un usuario al dia de hoy
     public DefaultTableModel getUserActiveEquipment(int userId) {
         DefaultTableModel model = new DefaultTableModel();
@@ -298,5 +298,6 @@ public class ClsMetRequests {
 
         return model;
     }
+    
 
 }

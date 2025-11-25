@@ -1,136 +1,147 @@
 package BackEnd;
 
 import Objects.ClsEquipment;
-
 import Connection.ClsConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import java.time.LocalDate; // Importacion de tiempo del sistema operativo del usuario
-import java.time.temporal.ChronoUnit; // Importacion de clase ChronoUnit (constantes para calcular con tiempo)
 
 public class ClsMetEquipment {
 
-    ClsEquipment objEquipment;
-    String AdmMssg;
-    ClsConnection CN;
-    PreparedStatement PS;
-    ResultSet RS;
+    private final ClsConnection conexion;
+    private PreparedStatement ps;
+    private ResultSet rs;
+    private String admMsg;
 
     public ClsMetEquipment() {
-        objEquipment = new ClsEquipment();
-        AdmMssg = "";
-        CN = new ClsConnection();
+        conexion = new ClsConnection();
+        admMsg = "";
     }
 
-    // Create (Crud)
-    public String AddEquipment(ClsEquipment objEquipmentT) {
-        this.objEquipment = objEquipmentT;
-        String ConAddEquipment = "INSERT INTO tblitems(Name, Category, Supplier, Location, Status, Quantity, MinStock, Description, DateAdded, Availability) VALUES (?,?,?,?,?,?,?,?,CURDATE(),?)";
+    // ---------------------------------------------------------
+    // CREATE
+    // ---------------------------------------------------------
+    public String AddEquipment(ClsEquipment obj) {
+        // OJO: usamos tblitems y EquipmentID, como está en tu tabla
+        String sql = "INSERT INTO tblitems "
+                + "(Name, Category, Supplier, Location, Status, Quantity, MinStock, "
+                + "Description, DateAdded, Availability) "
+                + "VALUES (?,?,?,?,?,?,?,?,CURDATE(),?)";
 
-        Connection Start = CN.Connect();
+        try (Connection cn = conexion.Connect();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
 
-        try {
-            PS = Start.prepareStatement(ConAddEquipment);
-            PS.setString(1, objEquipment.getEquipmentName());
-            PS.setString(2, objEquipment.getEquipmentCategory());
-            PS.setString(3, objEquipment.getEquipmentSupplier());
-            PS.setString(4, objEquipment.getEquipmentLocation());
-            PS.setString(5, objEquipment.getEquipmentStatus());
-            PS.setInt(6, objEquipment.getEquipmentQuantity());
-            PS.setInt(7, objEquipment.getEquipmentMinStock());
-            PS.setString(8, objEquipment.getDescription());
-            PS.setBoolean(9, objEquipment.getEquipmentQuantity() > 0);
-
-            int res = PS.executeUpdate();
-            if (res >= 1) {
-                AdmMssg = "Equipment added successfully.";
-            } else {
-                AdmMssg = "Equipment could not be added.";
-            }
-        } catch (Exception e) {
-            AdmMssg = "Database error: " + e.getMessage();
-        }
-
-        return AdmMssg;
-    }
-
-    // Update (crUd)
-    public String UpdateEquipment(ClsEquipment objEquipmentT) {
-        this.objEquipment = objEquipmentT;
-        String sql = "UPDATE tblitems SET Name=?, Category=?, Supplier=?, Location=?, Status=?, Quantity=?, MinStock=?, Description=?, Availability=? WHERE ItemID=?";
-
-        try (Connection Start = CN.Connect(); PreparedStatement ps = Start.prepareStatement(sql)) {
-
-            ps.setString(1, objEquipment.getEquipmentName());
-            ps.setString(2, objEquipment.getEquipmentCategory());
-            ps.setString(3, objEquipment.getEquipmentSupplier());
-            ps.setString(4, objEquipment.getEquipmentLocation());
-            ps.setString(5, objEquipment.getEquipmentStatus());
-            ps.setInt(6, objEquipment.getEquipmentQuantity());
-            ps.setInt(7, objEquipment.getEquipmentMinStock());
-            ps.setString(8, objEquipment.getDescription());
-            ps.setBoolean(9, objEquipment.getEquipmentQuantity() > 0);
-            ps.setInt(10, objEquipment.getEquipmentID());
+            ps.setString(1, obj.getEquipmentName());
+            ps.setString(2, obj.getEquipmentCategory());
+            ps.setString(3, obj.getEquipmentSupplier());
+            ps.setString(4, obj.getEquipmentLocation());
+            ps.setString(5, obj.getEquipmentStatus());
+            ps.setInt(6, obj.getEquipmentQuantity());
+            ps.setInt(7, obj.getEquipmentMinStock());
+            ps.setString(8, obj.getDescription());
+            ps.setBoolean(9, obj.getEquipmentQuantity() > 0); // Availability
 
             int res = ps.executeUpdate();
             if (res >= 1) {
-                AdmMssg = "Equipment updated successfully.";
+                admMsg = "Equipment added successfully.";
             } else {
-                AdmMssg = "Equipment could not be updated.";
+                admMsg = "Equipment could not be added.";
             }
         } catch (Exception e) {
-            AdmMssg = "Database error: " + e.getMessage();
+            admMsg = "Database error: " + e.getMessage();
         }
 
-        return AdmMssg;
+        return admMsg;
     }
 
-    // Delete (cruD)
+    // ---------------------------------------------------------
+    // UPDATE
+    // ---------------------------------------------------------
+    public String UpdateEquipment(ClsEquipment obj) {
+        String sql = "UPDATE tblitems SET "
+                + "Name=?, Category=?, Supplier=?, Location=?, Status=?, "
+                + "Quantity=?, MinStock=?, Description=?, Availability=? "
+                + "WHERE EquipmentID=?";
+
+        try (Connection cn = conexion.Connect();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
+
+            ps.setString(1, obj.getEquipmentName());
+            ps.setString(2, obj.getEquipmentCategory());
+            ps.setString(3, obj.getEquipmentSupplier());
+            ps.setString(4, obj.getEquipmentLocation());
+            ps.setString(5, obj.getEquipmentStatus());
+            ps.setInt(6, obj.getEquipmentQuantity());
+            ps.setInt(7, obj.getEquipmentMinStock());
+            ps.setString(8, obj.getDescription());
+            ps.setBoolean(9, obj.getEquipmentQuantity() > 0);
+            ps.setInt(10, obj.getEquipmentID()); // OJO: EquipmentID
+
+            int res = ps.executeUpdate();
+            if (res >= 1) {
+                admMsg = "Equipment updated successfully.";
+            } else {
+                admMsg = "Equipment could not be updated.";
+            }
+        } catch (Exception e) {
+            admMsg = "Database error: " + e.getMessage();
+        }
+
+        return admMsg;
+    }
+
+    // ---------------------------------------------------------
+    // DELETE
+    // ---------------------------------------------------------
     public String DeleteEquipment(int equipmentId) {
-        String DEL = "DELETE FROM tblitems WHERE ItemID=?";
+        String sql = "DELETE FROM tblitems WHERE EquipmentID=?";
 
-        try (Connection Start = CN.Connect(); PreparedStatement ps = Start.prepareStatement(DEL)) {
+        try (Connection cn = conexion.Connect();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
 
             ps.setInt(1, equipmentId);
 
             int res = ps.executeUpdate();
             if (res >= 1) {
-                AdmMssg = "Equipment deleted successfully.";
+                admMsg = "Equipment deleted successfully.";
             } else {
-                AdmMssg = "Equipment could not be deleted.";
+                admMsg = "Equipment could not be deleted.";
             }
         } catch (Exception e) {
-            AdmMssg = "Database error: " + e.getMessage();
+            admMsg = "Database error: " + e.getMessage();
         }
 
-        return AdmMssg;
+        return admMsg;
     }
 
-    // Read (cRud)
+    // ---------------------------------------------------------
+    // READ (uno)
+    // ---------------------------------------------------------
     public ClsEquipment SearchEquipment(int equipmentId) {
-        String SRC = "SELECT * FROM tblitems WHERE ItemID=?";
+        String sql = "SELECT * FROM tblitems WHERE EquipmentID=?";
 
-        try (Connection Start = CN.Connect(); PreparedStatement ps = Start.prepareStatement(SRC)) {
+        try (Connection cn = conexion.Connect();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
 
             ps.setInt(1, equipmentId);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                ClsEquipment equipment = new ClsEquipment(
-                        rs.getString("Name"),
-                        rs.getString("Category"),
-                        rs.getString("Supplier"),
-                        rs.getString("Location"),
-                        rs.getString("Status"),
-                        rs.getInt("Quantity"),
-                        rs.getInt("MinStock"),
-                        rs.getString("Description")
-                );
-                equipment.setEquipmentID(rs.getInt("ItemID"));
-                return equipment;
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    ClsEquipment equipment = new ClsEquipment(
+                            rs.getString("Name"),
+                            rs.getString("Category"),
+                            rs.getString("Supplier"),
+                            rs.getString("Location"),
+                            rs.getString("Status"),
+                            rs.getInt("Quantity"),
+                            rs.getInt("MinStock"),
+                            rs.getString("Description")
+                    );
+                    equipment.setEquipmentID(rs.getInt("EquipmentID"));
+                    return equipment;
+                }
             }
 
         } catch (Exception e) {
@@ -140,176 +151,224 @@ public class ClsMetEquipment {
         return null;
     }
 
-    //Listado de datos en la tabla
+    // ---------------------------------------------------------
+    // READ (listado para la tabla)
+    // ---------------------------------------------------------
     public DefaultTableModel ListEquipment() {
-        // Declaracion de la variable para llenado de datos
-        DefaultTableModel Model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel();
 
-        Model.addColumn("EquipmentID");
-        Model.addColumn("Name");
-        Model.addColumn("Category");
-        Model.addColumn("Supplier");
-        Model.addColumn("Location");
-        Model.addColumn("Status");
-        Model.addColumn("Quantity");
-        Model.addColumn("MinimumStock");
-        Model.addColumn("Availability");
+        model.addColumn("EquipmentID");
+        model.addColumn("Name");
+        model.addColumn("Category");
+        model.addColumn("Supplier");
+        model.addColumn("Location");
+        model.addColumn("Status");
+        model.addColumn("Quantity");
+        model.addColumn("MinimumStock");
+        model.addColumn("Availability");
 
-        // Carga de datos a la base de datos al modelo
-        try {
-            String ADmMssg = "";
-            int res = 0;
+        String sql = "SELECT EquipmentID, Name, Category, Supplier, Location, "
+                + "Status, Quantity, MinStock, Availability "
+                + "FROM tblitems";
 
-            Connection Start = CN.Connect();
-            String ListEquipment = "SELECT * FROM tblitems";
+        try (Connection cn = conexion.Connect();
+             PreparedStatement ps = cn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
-            PS = Start.prepareStatement(ListEquipment);
-            RS = PS.executeQuery();
-
-            ClsEquipment objEquipment = new ClsEquipment();
-            while (RS.next()) {
-                Object[] list = {
-                    RS.getInt(1), //ID
-                    RS.getString(2), //Name
-                    RS.getString(3), //Category
-                    RS.getString(4), //Supplier
-                    RS.getString(5), //Location
-                    RS.getString(6), //Status
-                    RS.getInt(7), //Quantity
-                    RS.getInt(8), //Minimum Stock
-                    RS.getBoolean(9) // Availability
+            while (rs.next()) {
+                Object[] row = {
+                        rs.getInt("EquipmentID"),
+                        rs.getString("Name"),
+                        rs.getString("Category"),
+                        rs.getString("Supplier"),
+                        rs.getString("Location"),
+                        rs.getString("Status"),
+                        rs.getInt("Quantity"),
+                        rs.getInt("MinStock"),
+                        rs.getBoolean("Availability")
                 };
-                // Carga de datos
-                Model.addRow(list);
+                model.addRow(row);
             }
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "DB Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Database error: " + e.getMessage(),
+                    "DB Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
 
-        return Model;
+        return model;
     }
 
-    // Conteo total de equipos
+    // ---------------------------------------------------------
+    // STATS para Inventory / Dashboard
+    // ---------------------------------------------------------
+
+    // Total de equipos
     public int getTotalEquipmentCount() {
-        String TOT = "SELECT COUNT(*) as total FROM tblitems";
+        String sql = "SELECT COUNT(*) AS total FROM tblitems";
 
-        try (Connection Start = CN.Connect(); PreparedStatement ps = Start.prepareStatement(TOT); ResultSet rs = ps.executeQuery()) {
+        try (Connection cn = conexion.Connect();
+             PreparedStatement ps = cn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
             if (rs.next()) {
                 return rs.getInt("total");
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error counting total equipment: " + e.getMessage(), "DB Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error counting total equipment: " + e.getMessage(),
+                    "DB Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
-
         return 0;
     }
 
-    // Logica para contar equipos en low stock
+    // Equipos en low stock (Quantity <= MinStock y > 0)
     public int getLowStockCount() {
-        String LOW = "SELECT COUNT(*) as total FROM tblitems WHERE Quantity <= MinStock AND Quantity > 0";
+        String sql = "SELECT COUNT(*) AS total "
+                + "FROM tblitems "
+                + "WHERE Quantity <= MinStock AND Quantity > 0";
 
-        try (Connection Start = CN.Connect(); PreparedStatement ps = Start.prepareStatement(LOW); ResultSet rs = ps.executeQuery()) {
+        try (Connection cn = conexion.Connect();
+             PreparedStatement ps = cn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
             if (rs.next()) {
                 return rs.getInt("total");
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error counting low stock: " + e.getMessage(), "DB Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error counting low stock: " + e.getMessage(),
+                    "DB Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
-
         return 0;
     }
 
-    // Logica para contar equipos stock critico
+    // Equipos en stock crítico (Quantity = 0)
     public int getCriticalStockCount() {
-        String CRT = "SELECT COUNT(*) as total FROM tblitems WHERE Quantity = 0";
+        String sql = "SELECT COUNT(*) AS total "
+                + "FROM tblitems "
+                + "WHERE Quantity = 0";
 
-        try (Connection Start = CN.Connect(); PreparedStatement ps = Start.prepareStatement(CRT); ResultSet rs = ps.executeQuery()) {
+        try (Connection cn = conexion.Connect();
+             PreparedStatement ps = cn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
             if (rs.next()) {
                 return rs.getInt("total");
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error counting critical stock: " + e.getMessage(), "DB Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error counting critical stock: " + e.getMessage(),
+                    "DB Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
-
         return 0;
     }
 
-    // Conteo de categorias
+    // Nº de categorías distintas
     public int getCategoriesCount() {
-        String CAT = "SELECT COUNT(DISTINCT Category) as total FROM tblitems";
+        String sql = "SELECT COUNT(DISTINCT Category) AS total FROM tblitems";
 
-        try (Connection Start = CN.Connect(); PreparedStatement ps = Start.prepareStatement(CAT); ResultSet rs = ps.executeQuery()) {
+        try (Connection cn = conexion.Connect();
+             PreparedStatement ps = cn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
             if (rs.next()) {
                 return rs.getInt("total");
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error counting categories: " + e.getMessage(), "DB Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error counting categories: " + e.getMessage(),
+                    "DB Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
-
         return 0;
     }
 
-    // Conteo de equipos en uso hoy
+    // Equipos en uso HOY (reservas aprobadas cuyo rango incluye hoy)
     public int getActiveEquipmentToday() {
-        // DISTINCT es para obtener un valor unico. Los valores se identifican on r.Variable
-        String ACT = "SELECT COUNT(DISTINCT r.EquipmentID) as total FROM tblRequests r WHERE r.StatusRequest = 'Approved' AND CURDATE() BETWEEN r.StartDate AND r.EndDate";
+        String sql = "SELECT COUNT(DISTINCT r.EquipmentID) AS total "
+                + "FROM tblrequests r "
+                + "WHERE r.StatusRequest = 'Approved' "
+                + "AND CURRENT_DATE BETWEEN r.StartDate AND r.EndDate";
 
-        try (Connection Start = CN.Connect(); PreparedStatement ps = Start.prepareStatement(ACT); ResultSet rs = ps.executeQuery()) {
+        try (Connection cn = conexion.Connect();
+             PreparedStatement ps = cn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
             if (rs.next()) {
                 return rs.getInt("total");
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error counting active equipment: " + e.getMessage(), "DB Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error counting active equipment: " + e.getMessage(),
+                    "DB Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
-
         return 0;
     }
 
-    // Conteo de equipos que no estan en uso hoy (disponibles)
+    // Equipos disponibles = total - en uso hoy
     public int getAvailableEquipmentCount() {
         int total = getTotalEquipmentCount();
         int active = getActiveEquipmentToday();
         return total - active;
     }
 
-    // Conteo de equipo nuevo (agregado en los ultimos 7 dias)
+    // ---------------------------------------------------------
+    // Equipos añadidos recientemente (últimos 7 días)
+    // ---------------------------------------------------------
     public DefaultTableModel getRecentlyAddedEquipment() {
-        DefaultTableModel Model = new DefaultTableModel();
-        Model.addColumn("Name");
-        Model.addColumn("Category");
-        Model.addColumn("Date Added");
-        Model.addColumn("Days Ago");
-        
-        //CURDATE es para saber la fecha actual de la base de datos (current date)
-        String NEW = "SELECT Name, Category, DateAdded, DATEDIFF(CURDATE(), DateAdded) as DaysAgo FROM tblitems WHERE DateAdded >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) ORDER BY DateAdded DESC";
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Name");
+        model.addColumn("Category");
+        model.addColumn("Date Added");
+        model.addColumn("Days Ago");
 
-        try (Connection Start = CN.Connect(); PreparedStatement ps = Start.prepareStatement(NEW); ResultSet rs = ps.executeQuery()) {
+        String sql = "SELECT Name, Category, DateAdded, "
+                + "DATEDIFF(CURDATE(), DateAdded) AS DaysAgo "
+                + "FROM tblitems "
+                + "WHERE DateAdded >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) "
+                + "ORDER BY DateAdded DESC";
+
+        try (Connection cn = conexion.Connect();
+             PreparedStatement ps = cn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Object[] row = {
-                    rs.getString("Name"),
-                    rs.getString("Category"),
-                    rs.getDate("DateAdded"),
-                    rs.getInt("DaysAgo") + " days ago"
+                        rs.getString("Name"),
+                        rs.getString("Category"),
+                        rs.getDate("DateAdded"),
+                        rs.getInt("DaysAgo") + " days ago"
                 };
-                Model.addRow(row);
+                model.addRow(row);
             }
 
         } catch (Exception e) {
             System.err.println("Error getting recently added equipment: " + e.getMessage());
         }
 
-        return Model;
+        return model;
     }
-
 }

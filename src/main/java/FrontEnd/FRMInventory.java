@@ -1,23 +1,28 @@
 package FrontEnd;
 
+
+
 import BackEnd.ClsMetEquipment;
 import Connection.ClsConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import javax.swing.JOptionPane;
-import Objects.ClsAdmin;
 
 import java.awt.Toolkit;
 import java.awt.Image;
+import java.util.logging.Level;
 import javax.swing.table.DefaultTableModel;
 
-
 public class FRMInventory extends javax.swing.JFrame {
+
+
 
     ClsConnection CN;
     PreparedStatement PS;
     ResultSet RS;
+
+    // Glass pane to block interaction when navigation is open
+    private javax.swing.JPanel glassPane;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FRMInventory.class.getName());
 
@@ -25,7 +30,7 @@ public class FRMInventory extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
 
-        // Arreglo a tamaño de ventana (Design en NetBeans no funciona?)
+        // Window size fix
         setSize(1000, 666);
         setPreferredSize(new java.awt.Dimension(1000, 666));
 
@@ -34,135 +39,113 @@ public class FRMInventory extends javax.swing.JFrame {
 
         pnlNavigation.setVisible(false);
 
-        fixZIndexOrder(); // Z-Indez para evitar que paneles se solapen
-
-        applyPanelStyling();
-        
-        loadInventoryStats();
-        
-        // Ordenamiento de panel de navegacion con Z-index (layers)
-        jPanel1.setComponentZOrder(pnlNavigation, 0);  // Tope
-        jPanel1.setComponentZOrder(jPanel2, 1);        // Segunda capa
-        jPanel1.setComponentZOrder(pnlSearch, 2);      // Tercera capa
-
-        // Metodo para habilitar barra de busqueda si esta enfocada
-        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                if (txtSearch.getText().equals("Search by name , ID or supplier")) {
-                    txtSearch.setText("");
-                    txtSearch.setForeground(new java.awt.Color(0, 0, 0));
-                }
-            }
-
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                if (txtSearch.getText().isEmpty()) {
-                    txtSearch.setText("Search by name , ID or supplier");
-                    txtSearch.setForeground(new java.awt.Color(153, 153, 153));
-                }
-            }
-        });
-
+        fixZIndexOrder();      // Z-Index to avoid panels overlapping
+        applyPanelStyling();   // Transparent / styled panels
+        loadInventoryStats();  // Load inventory stats at start
     }
 
-    // Organizacion de paneles por capas (de tope a fondo)
+    // -----------------------------
+    // Z-INDEX & GLASS PANE SETUP
+    // -----------------------------
     private void fixZIndexOrder() {
-        // Mover panel de navegacion al tope solo cuando este visible
+        // Navigation panel fully opaque when visible
         pnlNavigation.setOpaque(true);
 
-        // Z-order: Valor 0 = tope
+        // Z-order: 0 = front
         jPanel1.setComponentZOrder(pnlNavigation, 0);
         jPanel1.setComponentZOrder(jPanel2, 1);
         jPanel1.setComponentZOrder(pnlSearch, 2);
         jPanel1.setComponentZOrder(jScrollPane1, 3);
 
-        // Logica para evitar solapacion
         jPanel1.setComponentZOrder(pnlTotalItems1, 2);
         jPanel1.setComponentZOrder(pnlStock, 2);
         jPanel1.setComponentZOrder(pnlCritical, 2);
         jPanel1.setComponentZOrder(pnlCategories, 2);
-        
-        // Make navigation panel block all mouse events when visible
-    pnlNavigation.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseEntered(java.awt.event.MouseEvent evt) {
-            // Consume event to prevent passthrough
-        }
-        
-        @Override
-        public void mouseExited(java.awt.event.MouseEvent evt) {
-            // Consume event
-        }
-    });
-    
-    // Add glass pane effect when navigation is open
-    setupNavigationGlassPane();
-}
 
-// Bloqueo de interaccion con elementos detras de panel de navegacion
-private javax.swing.JPanel glassPane;
+        // Navigation panel mouse listener (avoid passthrough)
+        pnlNavigation.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                // Just consume, do nothing
+            }
 
-private void setupNavigationGlassPane() {
-    glassPane = new javax.swing.JPanel();
-    glassPane.setOpaque(false);
-    glassPane.setBackground(new java.awt.Color(0, 0, 0, 100));
-    glassPane.setVisible(false);
-    
-    glassPane.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent e) {
-            btnNavActionPerformed(null);
-        }
-    });
-    
-    glassPane.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-        @Override
-        public void mouseMoved(java.awt.event.MouseEvent e) {
-            e.consume();
-        }
-    });
-    
-    // Use AbsoluteConstraints instead of setBounds
-    jPanel1.add(glassPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 750, 666));
-    jPanel1.setComponentZOrder(glassPane, 1);
-}  
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                // Just consume, do nothing
+            }
+        });
 
-// Estetica del panel de navegacion con opacidad
-private void applyPanelStyling() {
-    // Panel de navegacion - Alta opacidad cuando esta visible (para que no sea transparente)
-    pnlNavigation.setBackground(new java.awt.Color(51, 255, 255, 240)); // Casi opaco
-    pnlNavigation.setOpaque(true);
-    pnlNavigation.setBorder(javax.swing.BorderFactory.createLineBorder(
-        new java.awt.Color(0, 0, 0, 255), 3)); // Borde
-    
-    // Estetita de paneles de estadisticas
-    java.awt.Color panelBg = new java.awt.Color(127, 222, 255, 180);
-    javax.swing.border.Border panelBorder = javax.swing.BorderFactory.createLineBorder(
-        new java.awt.Color(255, 255, 255, 100), 1);
-    
-    pnlTotalItems1.setBackground(panelBg);
-    pnlTotalItems1.setOpaque(true);
-    pnlTotalItems1.setBorder(panelBorder);
-    
-    pnlStock.setBackground(panelBg);
-    pnlStock.setOpaque(true);
-    pnlStock.setBorder(panelBorder);
-    
-    pnlCritical.setBackground(panelBg);
-    pnlCritical.setOpaque(true);
-    pnlCritical.setBorder(panelBorder);
-    
-    pnlCategories.setBackground(panelBg);
-    pnlCategories.setOpaque(true);
-    pnlCategories.setBorder(panelBorder);
-}
+        // Setup glass pane to dim and block behind
+        setupNavigationGlassPane();
+    }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+    private void setupNavigationGlassPane() {
+        glassPane = new javax.swing.JPanel();
+        glassPane.setOpaque(false);
+        glassPane.setBackground(new java.awt.Color(0, 0, 0, 100));
+        glassPane.setVisible(false);
+
+        glassPane.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                // Clicking on glassPane closes nav
+                btnNavActionPerformed(null);
+            }
+        });
+
+        glassPane.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(java.awt.event.MouseEvent e) {
+                e.consume();
+            }
+        });
+
+        // Add glassPane to the main panel, taking right side of the screen
+        jPanel1.add(glassPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 750, 666));
+        jPanel1.setComponentZOrder(glassPane, 1);
+    }
+
+    // -----------------------------
+    // STYLING
+    // -----------------------------
+    private void applyPanelStyling() {
+        // Navigation panel almost opaque
+        pnlNavigation.setBackground(new java.awt.Color(51, 255, 255, 240));
+        pnlNavigation.setOpaque(true);
+        pnlNavigation.setBorder(
+                javax.swing.BorderFactory.createLineBorder(
+                        new java.awt.Color(0, 0, 0, 255), 3
+                )
+        );
+
+        // Stats panels styling
+        java.awt.Color panelBg = new java.awt.Color(127, 222, 255, 180);
+        javax.swing.border.Border panelBorder = javax.swing.BorderFactory.createLineBorder(
+                new java.awt.Color(255, 255, 255, 100), 1
+        );
+
+        pnlTotalItems1.setBackground(panelBg);
+        pnlTotalItems1.setOpaque(true);
+        pnlTotalItems1.setBorder(panelBorder);
+
+        pnlStock.setBackground(panelBg);
+        pnlStock.setOpaque(true);
+        pnlStock.setBorder(panelBorder);
+
+        pnlCritical.setBackground(panelBg);
+        pnlCritical.setOpaque(true);
+        pnlCritical.setBorder(panelBorder);
+
+        pnlCategories.setBackground(panelBg);
+        pnlCategories.setOpaque(true);
+        pnlCategories.setBorder(panelBorder);
+    }
+
+    // -----------------------------
+    // AUTO-GENERATED INIT
+    // -----------------------------
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -376,25 +359,25 @@ private void applyPanelStyling() {
         });
         pnlSearch.add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 14, 480, -1));
 
-        filterCategories.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All categories", "Item 2", "Item 3", "Item 4" }));
+        filterCategories.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"All categories", "Item 2", "Item 3", "Item 4"}));
         pnlSearch.add(filterCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, 30));
 
-        filterStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All status", "In stock", "Low stock", "Critical" }));
+        filterStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"All status", "In stock", "Low stock", "Critical"}));
         filterStatus.setPreferredSize(new java.awt.Dimension(105, 22));
         pnlSearch.add(filterStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 10, -1, 30));
 
         jPanel1.add(pnlSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 750, -1));
 
         tblItems.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
+                new Object[][]{
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null}
+                },
+                new String[]{
+                    "Title 1", "Title 2", "Title 3", "Title 4"
+                }
         ));
         jScrollPane1.setViewportView(tblItems);
 
@@ -403,96 +386,93 @@ private void applyPanelStyling() {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    // Panel de navegacion con arreglos para evitar que elementos detras de el solapen
-    private void btnNavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavActionPerformed
+    // -----------------------------
+    // NAV BUTTON / GLASSPANE TOGGLE
+    // -----------------------------
+    private void btnNavActionPerformed(java.awt.event.ActionEvent evt) {
         boolean isVisible = !pnlNavigation.isVisible();
         pnlNavigation.setVisible(isVisible);
-        glassPane.setVisible(isVisible); // Show/hide glass pane with navigation
+        glassPane.setVisible(isVisible);
 
         if (isVisible) {
-            // Bring navigation to absolute front
             jPanel1.setComponentZOrder(pnlNavigation, 0);
             jPanel1.setComponentZOrder(glassPane, 1);
 
-            // Make glass pane slightly opaque to dim background
             glassPane.setOpaque(true);
-            glassPane.setBackground(new java.awt.Color(0, 0, 0, 80)); // Dark overlay
+            glassPane.setBackground(new java.awt.Color(0, 0, 0, 80));
 
-            // Repaint to ensure proper rendering
             pnlNavigation.repaint();
             glassPane.repaint();
             jPanel1.revalidate();
         } else {
-            // Make glass pane fully transparent
             glassPane.setOpaque(false);
+            jPanel1.repaint();
         }
-    }//GEN-LAST:event_btnNavActionPerformed
-
-    // Metodo para desactivar elementos detras del panel de navegacion
-    private void disableComponentsBehindNav(boolean disable) {
-    jPanel2.setEnabled(!disable);
-    pnlSearch.setEnabled(!disable);
-    jScrollPane1.setEnabled(!disable);
-    tblItems.setEnabled(!disable);
-    btnAdd.setEnabled(!disable);
-
-    // Cambiar fondo cuando el panel de navegacion esta activo
-    if (disable) {
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0, 150));
-    } else {
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-    }
-}
-
-        // Logica para cargar datos de inventario en tiempo real
-    private void loadInventoryStats() {
-    ClsMetEquipment metEquip = new ClsMetEquipment();
-
-    // Total items
-    int total = metEquip.getTotalEquipmentCount();
-    txtTotalItems1.setText(String.valueOf(total));
-
-    // Low stock items
-    int lowStock = metEquip.getLowStockCount();
-    txtLowItems.setText(String.valueOf(lowStock));
-
-    // Critical stock (quantity = 0)
-    int critical = metEquip.getCriticalStockCount();
-    txtCritical.setText(String.valueOf(critical));
-
-    // Categories
-    int categories = metEquip.getCategoriesCount();
-    txtCategories.setText(String.valueOf(categories));
-
-    // Color code warnings
-    if (lowStock > 0) {
-        txtLowItems.setForeground(new java.awt.Color(255, 153, 0)); // Orange
     }
 
-    if (critical > 0) {
-        txtCritical.setForeground(new java.awt.Color(255, 51, 51)); // Red
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
+        FRMAddEquipment frm = new FRMAddEquipment(this);
+        frm.setLocationRelativeTo(this);
+        frm.setVisible(true);
     }
-}
 
-    public void FillTable() {
-    ClsMetEquipment Equipment = new ClsMetEquipment();
-    tblItems.setModel(Equipment.ListEquipment());
-    loadInventoryStats(); // Actualizacion de datos al llenar la tabla
-}
+    private void btnNavDashActionPerformed(java.awt.event.ActionEvent evt) {
+        FRMAdminDashboard frm = new FRMAdminDashboard();
+        frm.setLocationRelativeTo(this);
+        frm.setVisible(true);
+        this.dispose();
+    }
 
-    
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+    private void btnNavInventoryActionPerformed(java.awt.event.ActionEvent evt) {
+        // Already here
+    }
+
+    private void btnNavReservationsActionPerformed(java.awt.event.ActionEvent evt) {
+        FRMReservations frm = new FRMReservations();
+        frm.setLocationRelativeTo(this);
+        frm.setVisible(true);
+        this.dispose();
+    }
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {
+        FRMLogin frm = new FRMLogin();
+        frm.setLocationRelativeTo(this);
+        frm.setVisible(true);
+        this.dispose();
+    }
+
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {
+        System.exit(0);
+    }
+
+    private void txtLowItemsActionPerformed(java.awt.event.ActionEvent evt) {
+        // No action needed
+    }
+
+    private void txtTotalItems1ActionPerformed(java.awt.event.ActionEvent evt) {
+        // No action needed
+    }
+
+    private void txtCriticalActionPerformed(java.awt.event.ActionEvent evt) {
+        // No action needed
+    }
+
+    private void txtCategoriesActionPerformed(java.awt.event.ActionEvent evt) {
+        // No action needed
+    }
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {
         String searchText = txtSearch.getText().trim();
 
         if (searchText.isEmpty() || searchText.equals("Search by name , ID or supplier")) {
@@ -501,115 +481,97 @@ private void applyPanelStyling() {
         }
 
         filterTable(searchText);
-    }//GEN-LAST:event_txtSearchActionPerformed
+    }
 
-    // Metodo para filtrar tabla en base a busqueda
+    // -----------------------------
+    // INVENTORY STATS
+    // -----------------------------
+    private void loadInventoryStats() {
+        ClsMetEquipment metEquip = new ClsMetEquipment();
+
+        int total = metEquip.getTotalEquipmentCount();
+        txtTotalItems1.setText(String.valueOf(total));
+
+        int lowStock = metEquip.getLowStockCount();
+        txtLowItems.setText(String.valueOf(lowStock));
+
+        int critical = metEquip.getCriticalStockCount();
+        txtCritical.setText(String.valueOf(critical));
+
+        int categories = metEquip.getCategoriesCount();
+        txtCategories.setText(String.valueOf(categories));
+
+        if (lowStock > 0) {
+            txtLowItems.setForeground(new java.awt.Color(255, 153, 0)); // Orange
+        }
+
+        if (critical > 0) {
+            txtCritical.setForeground(new java.awt.Color(255, 51, 51)); // Red
+        }
+    }
+
+    public void FillTable() {
+        ClsMetEquipment Equipment = new ClsMetEquipment();
+        tblItems.setModel(Equipment.ListEquipment());
+        loadInventoryStats();
+    }
+
+    public void refreshInventory() {
+        FillTable();
+        loadInventoryStats();
+    }
+
+    // -----------------------------
+    // FILTER TABLE
+    // -----------------------------
     private void filterTable(String searchText) {
-    ClsMetEquipment metEquip = new ClsMetEquipment();
-    DefaultTableModel fullModel = metEquip.ListEquipment();
-    DefaultTableModel filteredModel = new DefaultTableModel();
+        ClsMetEquipment metEquip = new ClsMetEquipment();
+        DefaultTableModel fullModel = metEquip.ListEquipment();
+        DefaultTableModel filteredModel = new DefaultTableModel();
 
-    // para copiar nombres de columna
-    for (int i = 0; i < fullModel.getColumnCount(); i++) {
-        filteredModel.addColumn(fullModel.getColumnName(i));
-    }
-
-    // Filtrado de filas
-    String lowerSearch = searchText.toLowerCase();
-    for (int i = 0; i < fullModel.getRowCount(); i++) {
-        String id = fullModel.getValueAt(i, 0).toString().toLowerCase();
-        String name = fullModel.getValueAt(i, 1).toString().toLowerCase();
-        String supplier = fullModel.getValueAt(i, 3).toString().toLowerCase();
-
-        if (id.contains(lowerSearch) || name.contains(lowerSearch) || supplier.contains(lowerSearch)) {
-            Object[] row = new Object[fullModel.getColumnCount()];
-            for (int j = 0; j < fullModel.getColumnCount(); j++) {
-                row[j] = fullModel.getValueAt(i, j);
-            }
-            filteredModel.addRow(row);
+        // Copy column names
+        for (int i = 0; i < fullModel.getColumnCount(); i++) {
+            filteredModel.addColumn(fullModel.getColumnName(i));
         }
+
+        String lowerSearch = searchText.toLowerCase();
+        for (int i = 0; i < fullModel.getRowCount(); i++) {
+            String id = fullModel.getValueAt(i, 0).toString().toLowerCase();
+            String name = fullModel.getValueAt(i, 1).toString().toLowerCase();
+            String supplier = fullModel.getValueAt(i, 3).toString().toLowerCase();
+
+            if (id.contains(lowerSearch) || name.contains(lowerSearch) || supplier.contains(lowerSearch)) {
+                Object[] row = new Object[fullModel.getColumnCount()];
+                for (int j = 0; j < fullModel.getColumnCount(); j++) {
+                    row[j] = fullModel.getValueAt(i, j);
+                }
+                filteredModel.addRow(row);
+            }
+        }
+
+        tblItems.setModel(filteredModel);
     }
 
-    tblItems.setModel(filteredModel);
-}
-
-    private void txtTotalItems1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalItems1ActionPerformed
-        // TO DO: Display de la variable del total de equipos 
-    }//GEN-LAST:event_txtTotalItems1ActionPerformed
-
-    private void txtLowItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLowItemsActionPerformed
-        // TO DO: Display de la variable de equipos en low stock
-    }//GEN-LAST:event_txtLowItemsActionPerformed
-
-    private void txtCriticalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCriticalActionPerformed
-        // TO DO: Display de equipos en stock crítico
-    }//GEN-LAST:event_txtCriticalActionPerformed
-
-    private void txtCategoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoriesActionPerformed
-        // TO DO: Display de cantidad de categrías (confirmar si hace falta o si puede ser reemplazado / borrado)
-    }//GEN-LAST:event_txtCategoriesActionPerformed
-
-    private void btnNavDashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavDashActionPerformed
-        FRMAdminDashboard Dashboard = new FRMAdminDashboard();
-        Dashboard.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnNavDashActionPerformed
-
-    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        FRMLogin Login = new FRMLogin();
-        Login.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnLogoutActionPerformed
-
-    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_btnCerrarActionPerformed
-
-    private void btnNavInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavInventoryActionPerformed
-        FRMInventory Inventory = new FRMInventory();
-        Inventory.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnNavInventoryActionPerformed
-
-    private void btnNavReservationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavReservationsActionPerformed
-        FRMReservations Reservations = new FRMReservations();
-        Reservations.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnNavReservationsActionPerformed
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        FRMAddEquipment AddEq = new FRMAddEquipment(this); // Llamado de tabla tlbItems aqui a FRMAddEquipment
-        AddEq.setVisible(true); // Llamado de tabla tlbItems aqui a FRMAddEquipment
-        dispose();
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
+    // -----------------------------
+    // MAIN
+    // -----------------------------
     public static void main(String args[]) {
-    /* Set the Nimbus look and feel */
-    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-     */
-    try {
-        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-            if ("Nimbus".equals(info.getName())) {
-                javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                break;
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(Level.SEVERE, null, ex);
         }
-    } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-        logger.log(java.util.logging.Level.SEVERE, null, ex);
+
+        java.awt.EventQueue.invokeLater(() -> new FRMInventory().setVisible(true));
     }
-    //</editor-fold>
-
-    /* Create and display the form */
-    java.awt.EventQueue.invokeLater(() -> new FRMInventory().setVisible(true));
-}
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JToggleButton btnLogout;
@@ -635,11 +597,11 @@ private void applyPanelStyling() {
     private javax.swing.JPanel pnlSearch;
     private javax.swing.JPanel pnlStock;
     private javax.swing.JPanel pnlTotalItems1;
-    public javax.swing.JTable tblItems;
+    private javax.swing.JTable tblItems;
     private java.awt.TextField txtCategories;
     private java.awt.TextField txtCritical;
     private java.awt.TextField txtLowItems;
     private javax.swing.JTextField txtSearch;
     private java.awt.TextField txtTotalItems1;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
